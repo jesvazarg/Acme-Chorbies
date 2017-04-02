@@ -1,13 +1,17 @@
 
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
@@ -80,6 +84,8 @@ public class Chorbi extends Actor {
 		this.genre = genre;
 	}
 
+	@NotNull
+	@Valid
 	public Coordinate getCoordinate() {
 		return this.coordinate;
 	}
@@ -87,6 +93,8 @@ public class Chorbi extends Actor {
 		this.coordinate = coordinate;
 	}
 
+	@NotNull
+	@Valid
 	public CreditCard getCreditCard() {
 		return this.creditCard;
 	}
@@ -102,6 +110,53 @@ public class Chorbi extends Actor {
 		this.ban = ban;
 	}
 
+
 	// Relationships ----------------------------------------------------------
+	private Collection<Like>	giveLikes;
+	private Collection<Like>	reciveLikes;
+	private Collection<Chirp>	sentChirps;
+	private Collection<Chirp>	reciveChirps;
+	private SearchTemplate		searchTemplate;
+
+
+	@OneToMany
+	public Collection<Like> getGiveLikes() {
+		return this.giveLikes;
+	}
+	public void setGiveLikes(final Collection<Like> giveLikes) {
+		this.giveLikes = giveLikes;
+	}
+
+	@OneToMany
+	public Collection<Like> getReciveLikes() {
+		return this.reciveLikes;
+	}
+	public void setReciveLikes(final Collection<Like> reciveLikes) {
+		this.reciveLikes = reciveLikes;
+	}
+
+	@OneToMany
+	public Collection<Chirp> getSentChirps() {
+		return this.sentChirps;
+	}
+	public void setSentChirps(final Collection<Chirp> sentChirps) {
+		this.sentChirps = sentChirps;
+	}
+
+	@OneToMany
+	public Collection<Chirp> getReciveChirps() {
+		return this.reciveChirps;
+	}
+	public void setReciveChirps(final Collection<Chirp> reciveChirps) {
+		this.reciveChirps = reciveChirps;
+	}
+
+	@OneToOne(optional = true)
+	public SearchTemplate getSearchTemplate() {
+		return this.searchTemplate;
+	}
+	public void setSearchTemplate(final SearchTemplate searchTemplate) {
+		this.searchTemplate = searchTemplate;
+	}
 
 }
