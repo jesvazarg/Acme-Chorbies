@@ -59,4 +59,46 @@
 	
 	<!-- Other domain beans come here -->	
 	
+	<bean id="searchTemplate1" class="domain.SearchTemplate">
+		<property name="relationship" value="love" />
+		<property name="age" value="26" />
+		<property name="genre" value="woman" />
+		<property name="coordinates" value="coordinate1" />
+		<property name="keyword" value="modelo" />
+		<property name="updateMoment" value="02/26/2017 12:00"/>
+		<property name="results">
+			<list>
+				<ref bean="chorbi3"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="searchTemplate2" class="domain.SearchTemplate">
+		<property name="relationship" value="activities" />
+		<property name="age" value="30" />
+		<property name="genre" value="man" />
+		<property name="coordinates" value="coordinate2" />
+		<property name="keyword" value="rubio" />
+		<property name="updateMoment" value="02/26/2017 14:00"/>
+		<property name="results">
+			<list>
+				<ref bean="chorbi1"/>
+				<ref bean="chorbi3"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="searchTemplate3" class="domain.SearchTemplate">
+		<property name="relationship" value="friendShip" />
+		<property name="age" value="24" />
+		<property name="genre" value="man" />
+		<property name="coordinates" value="coordinate3" />
+		<property name="keyword" value="dinero" />
+		<property name="updateMoment" value="02/26/2017 16:00"/>
+		<property name="results">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
 </beans>
