@@ -17,7 +17,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Chorbi extends DomainEntity {
+public class Chorbi extends Actor {
 
 	// Constructors -----------------------------------------------------------
 	public Chorbi() {
