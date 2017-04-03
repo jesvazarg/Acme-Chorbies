@@ -250,6 +250,16 @@
 		</property>
 	</bean>
 	
+	<!-- Administrator -->
+	
+	<bean id="administrator" class="domain.Administrator">
+		<property name="name" value="administrator" />
+		<property name="surname" value="-" />
+		<property name="email" value="admin@gmail.com" />
+		<property name="phone" value="0000" />
+		<property name="userAccount" ref="userAccount1" />
+	</bean>
+	
 	<!-- Chorbie -->
 	
 	<bean id="chorbi1" class="domain.Chorbi">
