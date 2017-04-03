@@ -119,6 +119,20 @@
 	
 	<!-- Other domain beans come here -->	
 	
+	<!-- Configuration -->
+	
+	<bean id="configuration1" class="domain.Configuration">
+		<property name="time" value="12:30:00" /> 
+		<property name="banners">
+			<list>
+				<value>http:www.acme-cng.com</value>
+				<value>http:www.acme-bnb.com</value>
+				<value>http:www.acme-pad-thai.com</value>
+			</list>
+		</property>
+	</bean>
+	
+	
 	<!-- Coordinate -->
 	
 	<bean id="coordinate1" class="domain.Coordinate">
@@ -288,10 +302,17 @@
 		</property>
 		<property name="sentChirps">
 			<list>
+				<ref bean="chirp1"/>
+				<ref bean="chirp3"/>
+				<ref bean="chirp5"/>
+				<ref bean="chirp7"/>
 			</list>
 		</property>
 		<property name="reciveChirps">
 			<list>
+				<ref bean="chirp2"/>
+				<ref bean="chirp4"/>
+				<ref bean="chirp6"/>
 			</list>
 		</property>
 	</bean>
@@ -322,10 +343,17 @@
 		</property>
 		<property name="sentChirps">
 			<list>
+				<ref bean="chirp2"/>
+				<ref bean="chirp3"/>
+				<ref bean="chirp4"/>
 			</list>
 		</property>
 		<property name="reciveChirps">
 			<list>
+				<ref bean="chirp1"/>
+				<ref bean="chirp3"/>
+				<ref bean="chirp5"/>
+				<ref bean="chirp7"/>
 			</list>
 		</property>
 	</bean>
@@ -460,6 +488,71 @@
 			<list>
 			</list>
 		</property>
+	</bean>
+	
+	<!-- Chirp -->
+	
+	<bean id="chirp1" class="domain.Chirp">
+		<property name="subject" value="Chirigota1" />
+		<property name="text" value="Me gustan los pitisues..." />
+		<property name="attachments" value="" />
+		<property name="moment" value="02/10/2017 00:00" />
+		<property name="sender" ref="chorbi1" />
+		<property name="recipient" ref="chorbi2" />
+	</bean>
+	
+	<bean id="chirp2" class="domain.Chirp">
+		<property name="subject" value="Chirigota1" />
+		<property name="text" value="Y las milhojas de crema..." />
+		<property name="attachments" value="" />
+		<property name="moment" value="02/11/2017 00:00" />
+		<property name="sender" ref="chorbi2" />
+		<property name="recipient" ref="chorbi1" />
+	</bean>
+	
+	<bean id="chirp3" class="domain.Chirp">
+		<property name="subject" value="Chirigota1" />
+		<property name="text" value="Los cuernos y las  canastillas..." />
+		<property name="attachments" value="" />
+		<property name="moment" value="02/12/2017 00:00" />
+		<property name="sender" ref="chorbi1" />
+		<property name="recipient" ref="chorbi2" />
+	</bean>
+	
+	<bean id="chirp4" class="domain.Chirp">
+		<property name="subject" value="Chirigota1" />
+		<property name="text" value="Y las palmeras de yema..." />
+		<property name="attachments" value="" />
+		<property name="moment" value="02/13/2017 00:00" />
+		<property name="sender" ref="chorbi2" />
+		<property name="recipient" ref="chorbi1" />
+	</bean>
+	
+	<bean id="chirp5" class="domain.Chirp">
+		<property name="subject" value="Chirigota1" />
+		<property name="text" value="Esos palitos de nata..." />
+		<property name="attachments" value="" />
+		<property name="moment" value="02/14/2017 00:00" />
+		<property name="sender" ref="chorbi1" />
+		<property name="recipient" ref="chorbi2" />
+	</bean>
+	
+	<bean id="chirp6" class="domain.Chirp">
+		<property name="subject" value="Chirigota1" />
+		<property name="text" value="Me como 10 y no me harto..." />
+		<property name="attachments" value="" />
+		<property name="moment" value="02/15/2017 00:00" />
+		<property name="sender" ref="chorbi2" />
+		<property name="recipient" ref="chorbi1" />
+	</bean>
+	
+	<bean id="chirp7" class="domain.Chirp">
+		<property name="subject" value="Chirigota1" />
+		<property name="text" value="Y esas merengas que tienen..." />
+		<property name="attachments" value="" />
+		<property name="moment" value="02/16/2017 00:00" />
+		<property name="sender" ref="chorbi1" />
+		<property name="recipient" ref="chorbi2" />
 	</bean>
 	
 </beans>
