@@ -15,10 +15,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Like extends DomainEntity {
+public class Sense extends DomainEntity {
 
 	// Constructors -----------------------------------------------------------
-	public Like() {
+	public Sense() {
 		super();
 	}
 

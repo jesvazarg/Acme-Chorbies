@@ -112,27 +112,27 @@ public class Chorbi extends Actor {
 
 
 	// Relationships ----------------------------------------------------------
-	private Collection<Like>	giveLikes;
-	private Collection<Like>	reciveLikes;
+	private Collection<Sense>	giveSenses;
+	private Collection<Sense>	reciveSenses;
 	private Collection<Chirp>	sentChirps;
 	private Collection<Chirp>	reciveChirps;
 	private SearchTemplate		searchTemplate;
 
 
 	@OneToMany
-	public Collection<Like> getGiveLikes() {
-		return this.giveLikes;
+	public Collection<Sense> getGiveSenses() {
+		return this.giveSenses;
 	}
-	public void setGiveLikes(final Collection<Like> giveLikes) {
-		this.giveLikes = giveLikes;
+	public void setGiveSenses(final Collection<Sense> giveSenses) {
+		this.giveSenses = giveSenses;
 	}
 
 	@OneToMany
-	public Collection<Like> getReciveLikes() {
-		return this.reciveLikes;
+	public Collection<Sense> getReciveSenses() {
+		return this.reciveSenses;
 	}
-	public void setReciveLikes(final Collection<Like> reciveLikes) {
-		this.reciveLikes = reciveLikes;
+	public void setReciveSenses(final Collection<Sense> reciveSenses) {
+		this.reciveSenses = reciveSenses;
 	}
 
 	@OneToMany
