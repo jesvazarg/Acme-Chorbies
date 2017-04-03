@@ -6,8 +6,10 @@ import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
@@ -46,6 +48,30 @@ public class Sense extends DomainEntity {
 		this.comment = comment;
 	}
 
+
 	// Relationships ----------------------------------------------------------
+	private Chorbi	sender;
+	private Chorbi	recipient;
+
+
+	@Valid
+	@NotNull
+	@ManyToOne(optional = false)
+	public Chorbi getSender() {
+		return this.sender;
+	}
+	public void setSender(final Chorbi sender) {
+		this.sender = sender;
+	}
+
+	@Valid
+	@NotNull
+	@ManyToOne(optional = false)
+	public Chorbi getRecipient() {
+		return this.recipient;
+	}
+	public void setRecipient(final Chorbi recipient) {
+		this.recipient = recipient;
+	}
 
 }

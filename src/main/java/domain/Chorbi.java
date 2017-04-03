@@ -93,7 +93,6 @@ public class Chorbi extends Actor {
 		this.coordinate = coordinate;
 	}
 
-	@NotNull
 	@Valid
 	public CreditCard getCreditCard() {
 		return this.creditCard;
@@ -119,7 +118,9 @@ public class Chorbi extends Actor {
 	private SearchTemplate		searchTemplate;
 
 
-	@OneToMany
+	@Valid
+	@NotNull
+	@OneToMany(mappedBy = "sender")
 	public Collection<Sense> getGiveSenses() {
 		return this.giveSenses;
 	}
@@ -127,7 +128,9 @@ public class Chorbi extends Actor {
 		this.giveSenses = giveSenses;
 	}
 
-	@OneToMany
+	@Valid
+	@NotNull
+	@OneToMany(mappedBy = "recipient")
 	public Collection<Sense> getReciveSenses() {
 		return this.reciveSenses;
 	}
@@ -135,7 +138,9 @@ public class Chorbi extends Actor {
 		this.reciveSenses = reciveSenses;
 	}
 
-	@OneToMany
+	@Valid
+	@NotNull
+	@OneToMany(mappedBy = "sender")
 	public Collection<Chirp> getSentChirps() {
 		return this.sentChirps;
 	}
@@ -143,7 +148,9 @@ public class Chorbi extends Actor {
 		this.sentChirps = sentChirps;
 	}
 
-	@OneToMany
+	@Valid
+	@NotNull
+	@OneToMany(mappedBy = "recipient")
 	public Collection<Chirp> getReciveChirps() {
 		return this.reciveChirps;
 	}
@@ -151,6 +158,7 @@ public class Chorbi extends Actor {
 		this.reciveChirps = reciveChirps;
 	}
 
+	@Valid
 	@OneToOne(optional = true)
 	public SearchTemplate getSearchTemplate() {
 		return this.searchTemplate;
