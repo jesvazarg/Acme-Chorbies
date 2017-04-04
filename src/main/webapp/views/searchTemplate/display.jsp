@@ -31,7 +31,7 @@
 				
 				<li>
 					<b><spring:message code="searchTemplate.coordinates" />:</b>
-					<jstl:out value="${searchTemplate.coordinates}" />
+					<jstl:out value="${searchTemplate.coordinate}" />
 				</li>
 				
 				<li>

@@ -38,6 +38,7 @@ public class SearchTemplateService {
 	// Simple CRUD methods ----------------------------------------------------
 	public SearchTemplate findOne(final int searchTemplateId) {
 		Assert.isTrue(searchTemplateId != 0);
+		Assert.isTrue(this.chorbiService.findByPrincipal().getSearchTemplate().getId() == searchTemplateId);
 		SearchTemplate result;
 
 		result = this.searchTemplateRepository.findOne(searchTemplateId);
@@ -80,10 +81,10 @@ public class SearchTemplateService {
 		SearchTemplate result;
 		result = this.searchTemplateRepository.save(searchTemplate);
 
-		//		if (chorbi.getSearchTemplate() == null) {
-		//			chorbi.setSearchTemplate(searchTemplate);
-		//			this.chorbiService.save(chorbi);
-		//		}
+		if (chorbi.getSearchTemplate() == null) {
+			chorbi.setSearchTemplate(searchTemplate);
+			this.chorbiService.save(chorbi);
+		}
 
 		return result;
 	}
@@ -91,8 +92,8 @@ public class SearchTemplateService {
 	public SearchTemplate saveWithoutClearResults(final SearchTemplate searchTemplate) {
 		Assert.notNull(searchTemplate, "search is null");
 		final Chorbi chorbi = this.chorbiService.findByPrincipal();
-		//		if (searchTemplate.getId() != 0)
-		//			Assert.isTrue(searchTemplate.getId() == chorbi.getSearchTemplate().getId(), "id no es igual");
+		if (searchTemplate.getId() != 0)
+			Assert.isTrue(chorbi.getSearchTemplate().equals(searchTemplate), "id no es igual");
 
 		SearchTemplate result;
 		result = this.searchTemplateRepository.save(searchTemplate);
@@ -144,8 +145,8 @@ public class SearchTemplateService {
 				if (searchTemplate.getGenre() != null)
 					aux = aux && (c.getGenre() == (searchTemplate.getGenre()));
 
-				if (searchTemplate.getCoordinates() != null)
-					aux = aux && (c.getCoordinate() == (searchTemplate.getCoordinates()));
+				if (searchTemplate.getCoordinate() != null)
+					aux = aux && (c.getCoordinate() == (searchTemplate.getCoordinate()));
 
 				if (searchTemplate.getKeyword() != null)
 					aux = aux && (c.getDescription().contains(searchTemplate.getKeyword()));

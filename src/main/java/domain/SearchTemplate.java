@@ -31,7 +31,7 @@ public class SearchTemplate extends DomainEntity {
 	private String		relationship;
 	private Integer		age;
 	private String		genre;
-	private Coordinate	coordinates;
+	private Coordinate	coordinate;
 	private String		keyword;
 	private Date		updateMoment;
 
@@ -61,12 +61,13 @@ public class SearchTemplate extends DomainEntity {
 		this.genre = genre;
 	}
 
-	public Coordinate getCoordinates() {
-		return this.coordinates;
+	@Valid
+	public Coordinate getCoordinate() {
+		return this.coordinate;
 	}
 
-	public void setCoordinates(final Coordinate coordinates) {
-		this.coordinates = coordinates;
+	public void setCoordinate(final Coordinate coordinate) {
+		this.coordinate = coordinate;
 	}
 
 	public String getKeyword() {
