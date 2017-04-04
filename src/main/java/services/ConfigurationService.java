@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -30,19 +31,17 @@ public class ConfigurationService {
 
 	// Simple CRUD methods ----------------------------------------------------
 	public Configuration findOne(final int configurationId) {
+		Assert.isTrue(configurationId != 0);
 		Configuration configuration;
-
 		configuration = this.configurationRepository.findOne(configurationId);
 		Assert.notNull(configuration);
-
 		return configuration;
 	}
 
 	public Collection<Configuration> findAll() {
 		Collection<Configuration> result;
-
 		result = this.configurationRepository.findAll();
-
+		Assert.notNull(result);
 		return result;
 	}
 
@@ -55,7 +54,11 @@ public class ConfigurationService {
 	}
 
 	// Other business methods -------------------------------------------------
-
+	public Configuration findConfiguration() {
+		final ArrayList<Configuration> aux = (ArrayList<Configuration>) this.configurationRepository.findAll();
+		final Configuration configuration = aux.get(0);
+		return configuration;
+	}
 	public Integer horasCache() {
 		Configuration configuration;
 		final List<Configuration> configurations = (List<Configuration>) this.findAll();
