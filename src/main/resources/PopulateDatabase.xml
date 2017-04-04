@@ -224,11 +224,11 @@
 	
 	<bean id="searchTemplate1" class="domain.SearchTemplate">
 		<property name="relationship" value="love" />
-		<property name="age" value="26" />
-		<property name="genre" value="woman" />
-		<property name="coordinates" ref="coordinate1" />
-		<property name="keyword" value="modelo" />
-		<property name="updateMoment" value="02/26/2017 12:00"/>
+		<property name="age" value="" />
+		<property name="genre" value="" />
+	<!--  	<property name="coordinates" ref="coordinate1" /> -->
+		<property name="keyword" value="" />
+		<property name="updateMoment" value="04/04/2017 12:00"/>
 		<property name="results">
 			<list>
 				<ref bean="chorbi3"/>

@@ -80,19 +80,19 @@ public class SearchTemplateService {
 		SearchTemplate result;
 		result = this.searchTemplateRepository.save(searchTemplate);
 
-		if (chorbi.getSearchTemplate() == null) {
-			chorbi.setSearchTemplate(searchTemplate);
-			this.chorbiService.save(chorbi);
-		}
+		//		if (chorbi.getSearchTemplate() == null) {
+		//			chorbi.setSearchTemplate(searchTemplate);
+		//			this.chorbiService.save(chorbi);
+		//		}
 
 		return result;
 	}
 
 	public SearchTemplate saveWithoutClearResults(final SearchTemplate searchTemplate) {
-		Assert.notNull(searchTemplate);
+		Assert.notNull(searchTemplate, "search is null");
 		final Chorbi chorbi = this.chorbiService.findByPrincipal();
-		if (searchTemplate.getId() != 0)
-			Assert.isTrue(searchTemplate.getId() == chorbi.getSearchTemplate().getId());
+		//		if (searchTemplate.getId() != 0)
+		//			Assert.isTrue(searchTemplate.getId() == chorbi.getSearchTemplate().getId(), "id no es igual");
 
 		SearchTemplate result;
 		result = this.searchTemplateRepository.save(searchTemplate);
@@ -118,12 +118,13 @@ public class SearchTemplateService {
 
 	public Collection<Chorbi> findBySearchResult(SearchTemplate searchTemplate) {
 		Assert.notNull(searchTemplate);
+		Assert.notNull(this.chorbiService.findByPrincipal());
 		Collection<Chorbi> chorbies;
 		Collection<Chorbi> result = new ArrayList<Chorbi>();
 		Calendar calendar;
 
 		calendar = Calendar.getInstance();
-		calendar.set(Calendar.HOUR_OF_DAY, this.configurationService.horasCache());
+		calendar.set(Calendar.HOUR_OF_DAY, -this.configurationService.horasCache());
 
 		if (calendar.getTime().before(searchTemplate.getUpdateMoment()) && !searchTemplate.getResults().isEmpty())
 			result = searchTemplate.getResults();

@@ -64,7 +64,7 @@ public class ConfigurationService {
 		configuration = configurations.get(0);
 		final String horas = configuration.getTime();
 		tiempo = horas.split(":");
-		result = Integer.parseInt(tiempo[0]) + (Integer.parseInt(tiempo[1]) / 60) + (Integer.parseInt(tiempo[3]) / 3600);
+		result = Integer.parseInt(tiempo[0]) + (Integer.parseInt(tiempo[1]) / 60) + (Integer.parseInt(tiempo[2]) / 3600);
 		return result;
 	}
 
