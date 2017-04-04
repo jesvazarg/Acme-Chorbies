@@ -61,7 +61,6 @@ public class SearchTemplate extends DomainEntity {
 		this.genre = genre;
 	}
 
-	@Valid
 	public Coordinate getCoordinate() {
 		return this.coordinate;
 	}

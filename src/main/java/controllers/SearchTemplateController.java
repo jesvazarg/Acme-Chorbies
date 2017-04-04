@@ -1,6 +1,8 @@
 
 package controllers;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,6 +96,22 @@ public class SearchTemplateController extends AbstractController {
 				System.out.println(oops.toString());
 				result = this.createEditModelAndView(searchTemplate, "searchTemplate.commit.error");
 			}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/findBySearchTemplate", method = RequestMethod.GET)
+	public ModelAndView buscador(@RequestParam final int searchTemplateId) {
+		ModelAndView result;
+		SearchTemplate searchTemplate;
+
+		searchTemplate = this.searchTemplateService.findOne(searchTemplateId);
+		Assert.notNull(searchTemplate);
+		final Collection<Chorbi> chorbies = searchTemplate.getResults();
+
+		result = new ModelAndView("chorbi/list");
+		result.addObject("chorbies", chorbies);
+		result.addObject("requestURI", "searchTemplate/chorbi/findBySearchTemplate.do");
 
 		return result;
 	}

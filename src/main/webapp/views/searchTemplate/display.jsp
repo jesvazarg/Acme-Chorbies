@@ -30,8 +30,23 @@
 				</li>
 				
 				<li>
-					<b><spring:message code="searchTemplate.coordinates" />:</b>
-					<jstl:out value="${searchTemplate.coordinate}" />
+					<b><spring:message code="searchTemplate.coordinates.city" />:</b>
+					<jstl:out value="${searchTemplate.coordinate.city}" />
+				</li>
+				
+				<li>
+					<b><spring:message code="searchTemplate.coordinates.country" />:</b>
+					<jstl:out value="${searchTemplate.coordinate.country}" />
+				</li>
+				
+				<li>
+					<b><spring:message code="searchTemplate.coordinates.state" />:</b>
+					<jstl:out value="${searchTemplate.coordinate.state}" />
+				</li>
+				
+				<li>
+					<b><spring:message code="searchTemplate.coordinates.province" />:</b>
+					<jstl:out value="${searchTemplate.coordinate.province}" />
 				</li>
 				
 				<li>
