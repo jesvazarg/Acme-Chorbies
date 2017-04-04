@@ -42,6 +42,10 @@
 			</li>
 		</security:authorize>
 		
+		<security:authorize access="hasRole('CHORBI')">
+			<li><a href="searchTemplate/chorbi/display.do"><spring:message code="master.page.searchTemplate.display" /></a></li>					
+		</security:authorize>
+		
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 		</security:authorize>
