@@ -4,6 +4,7 @@ package services;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -123,6 +124,19 @@ public class ChorbiService {
 		result = this.chorbiRepository.findByUserAccountId(userAccount.getId());
 		Assert.notNull(result);
 
+		return result;
+	}
+
+	public Integer edadChorbi(final Chorbi chorbi) {
+		Assert.notNull(chorbi);
+		Integer result;
+		Date calendarHoy;
+		Date cumple;
+
+		cumple = chorbi.getBirthDate();
+		calendarHoy = Calendar.getInstance().getTime();
+
+		result = calendarHoy.getYear() - cumple.getYear();
 		return result;
 	}
 }
