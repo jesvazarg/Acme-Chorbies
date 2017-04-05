@@ -1,10 +1,12 @@
 
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -26,10 +28,10 @@ public class Chirp extends DomainEntity {
 
 
 	// Attributes -------------------------------------------------------------
-	private String	subject;
-	private String	text;
-	private String	attachments;
-	private Date	moment;
+	private String				subject;
+	private String				text;
+	private Collection<String>	attachments;
+	private Date				moment;
 
 
 	@NotBlank
@@ -50,11 +52,13 @@ public class Chirp extends DomainEntity {
 		this.text = text;
 	}
 
-	public String getAttachments() {
+	@NotNull
+	@ElementCollection
+	public Collection<String> getAttachments() {
 		return this.attachments;
 	}
 
-	public void setAttachments(final String attachments) {
+	public void setAttachments(final Collection<String> attachments) {
 		this.attachments = attachments;
 	}
 
