@@ -16,7 +16,8 @@
 			<ul>
 				<li>
 					<b><spring:message code="searchTemplate.relationship"/>:</b>
-					<jstl:out value="${searchTemplate.relationship}"/>
+					<spring:message code="searchTemplate.relationship.${searchTemplate.relationship}"/>
+		<!-- 			<jstl:out value="${searchTemplate.relationship}"/>  -->
 				</li>
 				
 				<li>
@@ -26,7 +27,8 @@
 				
 				<li>
 					<b><spring:message code="searchTemplate.genre"/>:</b>
-					<jstl:out value="${searchTemplate.genre}"/>
+					<spring:message code="searchTemplate.relationship.${searchTemplate.genre}"/>
+		<!--			<jstl:out value="${searchTemplate.genre}"/> -->
 				</li>
 				
 				<li>
