@@ -48,6 +48,10 @@
 		<security:intercept-url pattern="/searchTemplate/chorbi/display.do" access="hasRole('CHORBI')" /> 
 		<security:intercept-url pattern="/searchTemplate/chorbi/edit.do" access="hasRole('CHORBI')" />
 		<security:intercept-url pattern="/searchTemplate/chorbi/findBySearchTemplate.do" access="hasRole('CHORBI')" /> 
+		
+		<security:intercept-url pattern="/chirp/chorbi/create.do" access="hasRole('CHORBI')" /> 
+		<security:intercept-url pattern="/chirp/chorbi/list.do" access="hasRole('CHORBI')" /> 
+		<security:intercept-url pattern="/chirp/chorbi/display.do" access="hasRole('CHORBI')" /> 
 
 		<!-- ADMINISTRATOR -->
 		

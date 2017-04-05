@@ -94,6 +94,16 @@ public class ChirpService {
 
 	// Other business methods -------------------------------------------------
 
+	public Collection<Chirp> findChirpByChorbiId(final int chorbiId) {
+
+		Collection<Chirp> result;
+
+		result = this.chirpRepository.findMessagesByChorbiId(chorbiId);
+
+		return result;
+
+	}
+
 	//Devuelve true si la collection esta vacia o si las URLs contenidas en ellas son URLs validas
 	public Boolean validatorURL(final Collection<String> lista) {
 		Boolean res = false;

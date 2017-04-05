@@ -33,7 +33,8 @@
 		</security:authorize>
 		
 		<security:authorize access="hasRole('CHORBI')">
-			<li><a href="searchTemplate/chorbi/display.do"><spring:message code="master.page.searchTemplate.display" /></a></li>					
+			<li><a href="searchTemplate/chorbi/display.do"><spring:message code="master.page.searchTemplate.display" /></a></li>	
+			<li><a href="chirp/chorbi/list.do"><spring:message code="master.page.chirp.list" /></a></li>				
 		</security:authorize>
 		
 		<security:authorize access="isAnonymous()">
