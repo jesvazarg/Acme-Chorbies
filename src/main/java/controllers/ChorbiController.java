@@ -22,6 +22,7 @@ import services.ActorService;
 import services.ChorbiService;
 import domain.Actor;
 import domain.Chorbi;
+import domain.Sense;
 
 @Controller
 @RequestMapping("/chorbi")
@@ -47,18 +48,23 @@ public class ChorbiController extends AbstractController {
 	public ModelAndView action1() {
 		ModelAndView result;
 		Collection<Chorbi> chorbies;
+		Collection<Sense> sensesSent;
 		Actor principal;
 		Boolean isAdmin;
 
 		principal = this.actorService.findByPrincipal();
 		isAdmin = this.actorService.checkAuthority(principal, Authority.ADMIN);
-		if (isAdmin)
+		if (isAdmin) {
 			chorbies = this.chorbiService.findAll();
-		else
+			sensesSent = null;
+		} else {
 			chorbies = this.chorbiService.findAllNotBanned();
+			sensesSent = this.chorbiService.findOne(principal.getId()).getGiveSenses();
+		}
 
 		result = new ModelAndView("chorbi/list");
 		result.addObject("chorbies", chorbies);
+		result.addObject("sensesSent", sensesSent);
 		result.addObject("requestURI", "chorbi/list.do");
 
 		return result;

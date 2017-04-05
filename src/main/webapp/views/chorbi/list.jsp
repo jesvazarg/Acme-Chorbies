@@ -17,8 +17,6 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<h3><spring:message code="chorbi.list" /></h3>
-
 <display:table name="${chorbies}" id="chorbi" class="displaytag" pagesize="5" keepStatus="true" requestURI="${requestURI}">
 
 	<acme:column code="chorbi.name" property="name" sortable="true"/>
@@ -32,5 +30,26 @@
 	<display:column>
 		<a href="profile/display.do?actorId=${chorbi.id}"><spring:message code="chorbi.show"/></a>
 	</display:column>
+	
+	<security:authorize access="hasRole('CHORBI')">
+		<jstl:set var="haveLike" value="${false}"/>
+		<jstl:forEach var="sense" items="${sensesSent}">
+			<jstl:if test="${sense.recipient.id == chorbi.id}">
+				<jstl:set var="haveLike" value="${true}"/>
+			</jstl:if>
+		</jstl:forEach>
+		<jstl:choose>
+			<jstl:when test="${haveLike==false}">
+				<display:column>
+					<a href="sense/chorbi/create.do?chorbiId=${chorbi.id}"><spring:message code="chorbi.like"/></a>
+				</display:column>
+			</jstl:when>
+			<jstl:otherwise>
+				<display:column>
+					<a href="sense/chorbi/delete.do?chorbiId=${chorbi.id}"><spring:message code="chorbi.dislike"/></a>
+				</display:column>
+			</jstl:otherwise>
+		</jstl:choose>
+	</security:authorize>
 	
 </display:table>
