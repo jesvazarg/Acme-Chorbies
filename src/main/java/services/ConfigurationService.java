@@ -3,7 +3,6 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,10 +60,9 @@ public class ConfigurationService {
 	}
 	public Integer horasCache() {
 		Configuration configuration;
-		final List<Configuration> configurations = (List<Configuration>) this.findAll();
 		String[] tiempo;
 		Integer result;
-		configuration = configurations.get(0);
+		configuration = this.findConfiguration();
 		final String horas = configuration.getTime();
 		tiempo = horas.split(":");
 		result = Integer.parseInt(tiempo[0]) + (Integer.parseInt(tiempo[1]) / 60) + (Integer.parseInt(tiempo[2]) / 3600);

@@ -72,16 +72,16 @@ public class SearchTemplateService {
 	}
 
 	public SearchTemplate save(final SearchTemplate searchTemplate) {
-		Assert.notNull(searchTemplate);
+		Assert.notNull(searchTemplate, "SearchTemplate es null");
 		final Chorbi chorbi = this.chorbiService.findByPrincipal();
 		if (searchTemplate.getId() != 0)
-			Assert.isTrue(searchTemplate.getId() == chorbi.getSearchTemplate().getId());
+			Assert.isTrue(searchTemplate.getId() == chorbi.getSearchTemplate().getId(), "No es el dueño");
 		searchTemplate.getResults().clear();
-
-		chorbi.setSearchTemplate(searchTemplate);
 
 		SearchTemplate result;
 		result = this.searchTemplateRepository.save(searchTemplate);
+
+		chorbi.setSearchTemplate(result);
 
 		//if (chorbi.getSearchTemplate() == null) {
 
@@ -97,10 +97,9 @@ public class SearchTemplateService {
 		if (searchTemplate.getId() != 0)
 			Assert.isTrue(chorbi.getSearchTemplate().equals(searchTemplate), "id no es igual");
 
-		chorbi.setSearchTemplate(searchTemplate);
-
 		SearchTemplate result;
 		result = this.searchTemplateRepository.save(searchTemplate);
+		chorbi.setSearchTemplate(result);
 
 		//if (chorbi.getSearchTemplate() == null) {
 
@@ -140,19 +139,28 @@ public class SearchTemplateService {
 			for (final Chorbi c : chorbies) {
 				Boolean aux = true;
 
-				if (searchTemplate.getRelationship() != null)
+				if (!searchTemplate.getRelationship().equals(" "))
 					aux = aux && (c.getRelationship().equals(searchTemplate.getRelationship()));
 
 				if (searchTemplate.getAge() != null)
 					aux = aux && (((searchTemplate.getAge() - 5) < this.chorbiService.edadChorbi(c)) && ((searchTemplate.getAge() + 5) > this.chorbiService.edadChorbi(c)));
 
-				if (searchTemplate.getGenre() != null)
-					aux = aux && (c.getGenre() == (searchTemplate.getGenre()));
+				if (!searchTemplate.getGenre().equals(" "))
+					aux = aux && (c.getGenre().equals(searchTemplate.getGenre()));
 
-				if (searchTemplate.getCoordinate() != null)
-					aux = aux && (c.getCoordinate() == (searchTemplate.getCoordinate()));
+				if (searchTemplate.getCoordinate().getCity().equals(" "))
+					aux = aux && (c.getCoordinate().equals(searchTemplate.getCoordinate()));
 
-				if (searchTemplate.getKeyword() != null)
+				if (searchTemplate.getCoordinate().getCountry().equals(" "))
+					aux = aux && (c.getCoordinate().equals(searchTemplate.getCoordinate()));
+
+				if (searchTemplate.getCoordinate().getState().equals(" "))
+					aux = aux && (c.getCoordinate().equals(searchTemplate.getCoordinate()));
+
+				if (searchTemplate.getCoordinate().getProvince().equals(" "))
+					aux = aux && (c.getCoordinate().equals(searchTemplate.getCoordinate()));
+
+				if (!searchTemplate.getKeyword().isEmpty())
 					aux = aux && (c.getDescription().contains(searchTemplate.getKeyword()));
 
 				if (aux)

@@ -15,9 +15,39 @@
 	<form:hidden path="results" />
 	<form:hidden path="updateMoment" />
 	
-	<acme:input code="searchTemplate.relationship" path="relationship" />
+	<spring:message code="searchTemplate.relationship.love" var="love"/>
+	<spring:message code="searchTemplate.relationship.activities" var="activities"/>
+	<spring:message code="searchTemplate.relationship.friendship" var="friendship"/>
+	
+	
+	
+	<form:label path="relationship">
+		<spring:message code="searchTemplate.relationship" />
+	</form:label>
+	<form:select path="relationship" >
+		<form:option value=" " label="----" /> 
+		<form:option value="Love" label="${love}" />
+		<form:option value="Activities" label="${activities}" />
+		<form:option value="Friendship" label="${friendship}" />
+	</form:select>
+	<form:errors path="relationship" cssClass="error" />
+	<br/>
+	
+	<spring:message code="searchTemplate.relationship.man" var="man"/>
+	<spring:message code="searchTemplate.relationship.woman" var="woman"/>
+	
+	<form:label path="genre">
+		<spring:message code="searchTemplate.genre" />
+	</form:label>
+	<form:select path="genre" >
+		<form:option value=" " label="----" /> 
+		<form:option value="Man" label="${man}" />
+		<form:option value="Woman" label="${woman}" />
+	</form:select>
+	<form:errors path="genre" cssClass="error" />
+	<br/>
+
 	<acme:input code="searchTemplate.age" path="age" />
-	<acme:input code="searchTemplate.genre" path="genre" />
 	<acme:input code="searchTemplate.coordinates.city" path="coordinate.city" />
 	<acme:input code="searchTemplate.coordinates.country" path="coordinate.country" />
 	<acme:input code="searchTemplate.coordinates.state" path="coordinate.state" />
