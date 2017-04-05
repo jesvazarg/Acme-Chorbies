@@ -99,7 +99,7 @@ public class ChorbiService {
 			Assert.isTrue(expiryDate.after(today));
 
 			final String brandName = card.getBrandName().toUpperCase();
-			Assert.isTrue(brandName == "VISA" || brandName == "MASTERCARD" || brandName == "DISCOVER" || brandName == "DINNERS" || brandName == "AMEX");
+			Assert.isTrue(brandName.equals("VISA") || brandName.equals("MASTERCARD") || brandName.equals("DISCOVER") || brandName.equals("DINNERS") || brandName.equals("AMEX"));
 		}
 		result = this.chorbiRepository.save(chorbi);
 		return result;
@@ -126,6 +126,17 @@ public class ChorbiService {
 		result = this.chorbiRepository.findByUserAccountId(userAccount.getId());
 		Assert.notNull(result);
 
+		return result;
+	}
+
+	public Collection<Chorbi> findAllNotBanned() {
+		Collection<Chorbi> allChorbies;
+		final Collection<Chorbi> result = new ArrayList<Chorbi>();
+
+		allChorbies = this.findAll();
+		for (final Chorbi c : allChorbies)
+			if (!c.getBan())
+				result.add(c);
 		return result;
 	}
 

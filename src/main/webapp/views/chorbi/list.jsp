@@ -29,5 +29,8 @@
 	<security:authorize access="hasRole('ADMIN')">
 		<acme:column code="chorbi.ban" property="ban" sortable="true"/>
 	</security:authorize>
+	<display:column>
+		<a href="profile/display.do?actorId=${chorbi.id}"><spring:message code="chorbi.show"/></a>
+	</display:column>
 	
 </display:table>

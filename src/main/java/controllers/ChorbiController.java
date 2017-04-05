@@ -17,7 +17,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.Authority;
+import services.ActorService;
 import services.ChorbiService;
+import domain.Actor;
 import domain.Chorbi;
 
 @Controller
@@ -27,6 +30,9 @@ public class ChorbiController extends AbstractController {
 	// Service ---------------------------------------------------------------		
 	@Autowired
 	private ChorbiService	chorbiService;
+
+	@Autowired
+	private ActorService	actorService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -41,8 +47,15 @@ public class ChorbiController extends AbstractController {
 	public ModelAndView action1() {
 		ModelAndView result;
 		Collection<Chorbi> chorbies;
+		Actor principal;
+		Boolean isAdmin;
 
-		chorbies = this.chorbiService.findAll();
+		principal = this.actorService.findByPrincipal();
+		isAdmin = this.actorService.checkAuthority(principal, Authority.ADMIN);
+		if (isAdmin)
+			chorbies = this.chorbiService.findAll();
+		else
+			chorbies = this.chorbiService.findAllNotBanned();
 
 		result = new ModelAndView("chorbi/list");
 		result.addObject("chorbies", chorbies);

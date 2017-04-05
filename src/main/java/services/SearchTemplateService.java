@@ -78,13 +78,15 @@ public class SearchTemplateService {
 			Assert.isTrue(searchTemplate.getId() == chorbi.getSearchTemplate().getId());
 		searchTemplate.getResults().clear();
 
+		chorbi.setSearchTemplate(searchTemplate);
+
 		SearchTemplate result;
 		result = this.searchTemplateRepository.save(searchTemplate);
 
-		if (chorbi.getSearchTemplate() == null) {
-			chorbi.setSearchTemplate(searchTemplate);
-			this.chorbiService.save(chorbi);
-		}
+		//if (chorbi.getSearchTemplate() == null) {
+
+		this.chorbiService.save(chorbi);
+		//}
 
 		return result;
 	}
@@ -95,13 +97,15 @@ public class SearchTemplateService {
 		if (searchTemplate.getId() != 0)
 			Assert.isTrue(chorbi.getSearchTemplate().equals(searchTemplate), "id no es igual");
 
+		chorbi.setSearchTemplate(searchTemplate);
+
 		SearchTemplate result;
 		result = this.searchTemplateRepository.save(searchTemplate);
 
-		if (chorbi.getSearchTemplate() == null) {
-			chorbi.setSearchTemplate(searchTemplate);
-			this.chorbiService.save(chorbi);
-		}
+		//if (chorbi.getSearchTemplate() == null) {
+
+		this.chorbiService.save(chorbi);
+		//}
 
 		return result;
 	}

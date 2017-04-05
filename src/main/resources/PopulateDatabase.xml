@@ -122,7 +122,7 @@
 	<!-- Configuration -->
 	
 	<bean id="configuration1" class="domain.Configuration">
-		<property name="time" value="12:30:00" /> 
+		<property name="time" value="12:00:00" /> 
 		<property name="banners">
 			<list>
 				<value>http:www.acme-cng.com</value>
@@ -224,10 +224,7 @@
 	
 	<bean id="searchTemplate1" class="domain.SearchTemplate">
 		<property name="relationship" value="love" />
-		<property name="age" value="" />
-		<property name="genre" value="" />
 	<!--  	<property name="coordinate" ref="coordinate1" /> -->
-		<property name="keyword" value="" />
 		<property name="updateMoment" value="04/04/2017 12:00"/>
 		<property name="results">
 			<list>

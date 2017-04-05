@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.ActorRepository;
+import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
@@ -94,6 +95,19 @@ public class ActorService {
 		Actor result;
 
 		result = this.actorRepository.findByUserAccountId(userAccountId);
+
+		return result;
+	}
+
+	public Boolean checkAuthority(final Actor actor, final String authority) {
+		Boolean result;
+		Collection<Authority> authorities;
+
+		authorities = actor.getUserAccount().getAuthorities();
+
+		result = false;
+		for (final Authority a : authorities)
+			result = result || (a.getAuthority().equals(authority));
 
 		return result;
 	}
