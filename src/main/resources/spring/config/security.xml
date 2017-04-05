@@ -42,6 +42,8 @@
 
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
 		
+		<security:intercept-url pattern="/chorbi/create.do" access="permitAll" /> 
+		
 		<!-- CHORBI -->
 		
 		<security:intercept-url pattern="/searchTemplate/chorbi/create.do" access="hasRole('CHORBI')" /> 
@@ -52,6 +54,9 @@
 		<security:intercept-url pattern="/chirp/chorbi/create.do" access="hasRole('CHORBI')" /> 
 		<security:intercept-url pattern="/chirp/chorbi/list.do" access="hasRole('CHORBI')" /> 
 		<security:intercept-url pattern="/chirp/chorbi/display.do" access="hasRole('CHORBI')" /> 
+		
+		<security:intercept-url pattern="/sense/chorbi/like.do" access="hasRole('CHORBI')" />
+		<security:intercept-url pattern="/sense/chorbi/dislike.do" access="hasRole('CHORBI')" />  
 
 		<!-- ADMINISTRATOR -->
 		
@@ -61,9 +66,9 @@
 		<security:intercept-url pattern="/configuration/administrator/list.do" access="hasRole('ADMIN')" /> 
 		<security:intercept-url pattern="/configuration/administrator/edit.do" access="hasRole('ADMIN')" /> 
 		
-		<security:intercept-url pattern="/chorbi/list.do" access="isAuthenticated()" /> 
+		<!-- isAuthenticated -->
 		
-		<security:intercept-url pattern="/chorbi/action-2.do" access="hasRole('CHORBI')" /> 
+		<security:intercept-url pattern="/chorbi/list.do" access="isAuthenticated()" /> 
 
 		<security:intercept-url pattern="/profile/action-1.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/profile/action-2.do" access="isAuthenticated()" /> 

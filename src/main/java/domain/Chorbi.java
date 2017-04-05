@@ -36,7 +36,6 @@ public class Chorbi extends Actor {
 	private Date		birthDate;
 	private String		genre;
 	private Coordinate	coordinate;
-	private CreditCard	creditCard;
 	private Boolean		ban;
 
 
@@ -93,14 +92,6 @@ public class Chorbi extends Actor {
 		this.coordinate = coordinate;
 	}
 
-	@Valid
-	public CreditCard getCreditCard() {
-		return this.creditCard;
-	}
-	public void setCreditCard(final CreditCard creditCard) {
-		this.creditCard = creditCard;
-	}
-
 	@NotNull
 	public Boolean getBan() {
 		return this.ban;
@@ -116,6 +107,7 @@ public class Chorbi extends Actor {
 	private Collection<Chirp>	sentChirps;
 	private Collection<Chirp>	reciveChirps;
 	private SearchTemplate		searchTemplate;
+	private CreditCard			creditCard;
 
 
 	@Valid
@@ -165,6 +157,15 @@ public class Chorbi extends Actor {
 	}
 	public void setSearchTemplate(final SearchTemplate searchTemplate) {
 		this.searchTemplate = searchTemplate;
+	}
+
+	@Valid
+	@OneToOne(optional = true)
+	public CreditCard getCreditCard() {
+		return this.creditCard;
+	}
+	public void setCreditCard(final CreditCard creditCard) {
+		this.creditCard = creditCard;
 	}
 
 }

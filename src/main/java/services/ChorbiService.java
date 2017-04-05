@@ -18,6 +18,7 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Chirp;
 import domain.Chorbi;
+import domain.Coordinate;
 import domain.CreditCard;
 import domain.Sense;
 import forms.CreateChorbiForm;
@@ -140,6 +141,7 @@ public class ChorbiService {
 		return result;
 	}
 
+	@SuppressWarnings("deprecation")
 	public Integer edadChorbi(final Chorbi chorbi) {
 		Assert.notNull(chorbi);
 		Integer result;
@@ -165,18 +167,24 @@ public class ChorbiService {
 		principal.setBirthDate(chorbi.getBirthDate());
 		principal.setGenre(chorbi.getGenre());
 		principal.setCoordinate(chorbi.getCoordinate());
-		principal.setCreditCard(chorbi.getCreditCard());
 
 		this.chorbiRepository.save(principal);
 	}
 
-	public Chorbi reconstructProfile(final CreateChorbiForm createChorbiForm) {
+	public Chorbi reconstructProfile(final CreateChorbiForm createChorbiForm, final String type) {
 		Assert.notNull(createChorbiForm);
-		Chorbi chorbi;
+		Chorbi chorbi = null;
 		Md5PasswordEncoder encoder;
 		String password;
+		Coordinate coordinate;
 
-		chorbi = this.findByPrincipal();
+		Assert.isTrue(createChorbiForm.getPassword().equals(createChorbiForm.getConfirmPassword()));
+
+		//Creo uno nuevo vacio para meterle los datos del formulario a dicho chorbi
+		if (type.equals("create"))
+			chorbi = this.create();
+		else if (type.equals("edit"))
+			chorbi = this.findByPrincipal();
 
 		password = createChorbiForm.getPassword();
 
@@ -194,13 +202,17 @@ public class ChorbiService {
 		chorbi.setRelationship(createChorbiForm.getRelationship());
 		chorbi.setBirthDate(createChorbiForm.getBirthDate());
 		chorbi.setGenre(createChorbiForm.getGenre());
-		chorbi.setCoordinate(createChorbiForm.getCoordinate());
-		chorbi.setCreditCard(createChorbiForm.getCreditCard());
+		coordinate = new Coordinate();
+		coordinate.setCity(createChorbiForm.getCity());
+		coordinate.setCountry(createChorbiForm.getCountry());
+		coordinate.setState(createChorbiForm.getState());
+		coordinate.setProvince(createChorbiForm.getProvince());
+		chorbi.setCoordinate(coordinate);
 
 		return chorbi;
 	}
 
-	public CreateChorbiForm desreconstructProfile(final Chorbi chorbi) {
+	public CreateChorbiForm constructProfile(final Chorbi chorbi) {
 		Assert.notNull(chorbi);
 		CreateChorbiForm createChorbiForm;
 
@@ -216,8 +228,10 @@ public class ChorbiService {
 		createChorbiForm.setRelationship(chorbi.getRelationship());
 		createChorbiForm.setBirthDate(chorbi.getBirthDate());
 		createChorbiForm.setGenre(chorbi.getGenre());
-		createChorbiForm.setCoordinate(chorbi.getCoordinate());
-		createChorbiForm.setCreditCard(chorbi.getCreditCard());
+		createChorbiForm.setCity(chorbi.getCoordinate().getCity());
+		createChorbiForm.setCountry(chorbi.getCoordinate().getCountry());
+		createChorbiForm.setState(chorbi.getCoordinate().getState());
+		createChorbiForm.setProvince(chorbi.getCoordinate().getProvince());
 
 		return createChorbiForm;
 	}

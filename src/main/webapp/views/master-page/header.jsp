@@ -38,11 +38,12 @@
 		</security:authorize>
 		
 		<security:authorize access="isAnonymous()">
+			<li><a class="fNiv" href="chorbi/create.do"><spring:message code="master.page.chorbi.create" /></a></li>
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">
-			<li><a href="chorbi/list.do"><spring:message code="master.page.chorbiList" /></a></li>
+			<li><a href="chorbi/list.do"><spring:message code="master.page.chorbi.list" /></a></li>
 			<li>
 				<a class="fNiv"> 
 					<spring:message code="master.page.profile" /> 

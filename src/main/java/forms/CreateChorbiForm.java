@@ -5,7 +5,6 @@ import java.util.Date;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
@@ -18,26 +17,29 @@ import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import domain.Coordinate;
-import domain.CreditCard;
-
 public class CreateChorbiForm {
 
-	private String		username;
-	private String		password;
-	private String		confirmPassword;
-	private String		name;
-	private String		surname;
-	private String		email;
-	private String		phone;
-	private String		picture;
-	private String		description;
-	private String		relationship;
-	private Date		birthDate;
-	private String		genre;
-	private Coordinate	coordinate;
-	private CreditCard	creditCard;
-	private Boolean		ban;
+	//Solo meto los datos que quiero que el usuario tenga que rellenar
+	//Las relaciones tambien se pueden meter
+	//Cada atributo tendra su get y set con las mismas restricciones que en el dominio
+	//Con SafeHtml es para seguridad que tambien se le puede meter en el dominio
+
+	private String	username;
+	private String	password;
+	private String	confirmPassword;
+	private String	name;
+	private String	surname;
+	private String	email;
+	private String	phone;
+	private String	picture;
+	private String	description;
+	private String	relationship;
+	private Date	birthDate;
+	private String	genre;
+	private String	city;				//Tengo que separar los 4 atributos de Coordinate aqui tambien
+	private String	country;
+	private String	state;
+	private String	province;
 
 
 	@NotBlank
@@ -106,6 +108,7 @@ public class CreateChorbiForm {
 
 	@NotBlank
 	@Pattern(regexp = "(\\+\\d{1,3} )?(\\(\\d{1,3}\\) )?(\\w{4,})")
+	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
 	public String getPhone() {
 		return this.phone;
 	}
@@ -134,7 +137,6 @@ public class CreateChorbiForm {
 	}
 
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
 	public String getRelationship() {
 		return this.relationship;
 	}
@@ -154,7 +156,6 @@ public class CreateChorbiForm {
 	}
 
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
 	public String getGenre() {
 		return this.genre;
 	}
@@ -162,29 +163,37 @@ public class CreateChorbiForm {
 		this.genre = genre;
 	}
 
-	@NotNull
-	@Valid
-	public Coordinate getCoordinate() {
-		return this.coordinate;
+	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
+	public String getCity() {
+		return this.city;
 	}
-	public void setCoordinate(final Coordinate coordinate) {
-		this.coordinate = coordinate;
-	}
-
-	@Valid
-	public CreditCard getCreditCard() {
-		return this.creditCard;
-	}
-	public void setCreditCard(final CreditCard creditCard) {
-		this.creditCard = creditCard;
+	public void setCity(final String city) {
+		this.city = city;
 	}
 
-	@NotNull
-	public Boolean getBan() {
-		return this.ban;
+	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
+	public String getCountry() {
+		return this.country;
 	}
-	public void setBan(final Boolean ban) {
-		this.ban = ban;
+	public void setCountry(final String country) {
+		this.country = country;
+	}
+
+	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
+	public String getState() {
+		return this.state;
+	}
+	public void setState(final String state) {
+		this.state = state;
+	}
+
+	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
+	public String getProvince() {
+		return this.province;
+	}
+	public void setProvince(final String province) {
+		this.province = province;
 	}
 
 }

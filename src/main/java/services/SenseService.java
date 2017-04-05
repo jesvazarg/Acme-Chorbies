@@ -78,7 +78,7 @@ public class SenseService {
 
 		principal = this.chorbiService.findByPrincipal();
 		Assert.notNull(principal);
-		Assert.isTrue(sense.getSender().getId() != principal.getId());
+		Assert.isTrue(sense.getSender().getId() == principal.getId());
 
 		result = this.senseRepository.save(sense);
 
@@ -92,4 +92,19 @@ public class SenseService {
 
 		this.senseRepository.delete(sense);
 	}
+
+	// Other business methods -------------------------------------------------
+	public Sense findSense(final Chorbi sender, final Chorbi recipient) {
+		Sense result = null;
+		Collection<Sense> senses;
+
+		senses = sender.getGiveSenses();
+		for (final Sense s : senses)
+			if (s.getRecipient().getId() == recipient.getId()) {
+				result = s;
+				break;
+			}
+		return result;
+	}
+
 }
