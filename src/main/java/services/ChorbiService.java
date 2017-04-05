@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -19,6 +20,7 @@ import domain.Chirp;
 import domain.Chorbi;
 import domain.CreditCard;
 import domain.Sense;
+import forms.CreateChorbiForm;
 
 @Service
 @Transactional
@@ -138,5 +140,74 @@ public class ChorbiService {
 
 		result = calendarHoy.getYear() - cumple.getYear();
 		return result;
+	}
+
+	public void updateProfile(final Chorbi chorbi) {
+		final Chorbi principal = this.findByPrincipal();
+		principal.setName(chorbi.getName());
+		principal.setSurname(chorbi.getSurname());
+		principal.setEmail(chorbi.getEmail());
+		principal.setPhone(chorbi.getPhone());
+		principal.setPicture(chorbi.getPicture());
+		principal.setDescription(chorbi.getDescription());
+		principal.setRelationship(chorbi.getRelationship());
+		principal.setBirthDate(chorbi.getBirthDate());
+		principal.setGenre(chorbi.getGenre());
+		principal.setCoordinate(chorbi.getCoordinate());
+		principal.setCreditCard(chorbi.getCreditCard());
+
+		this.chorbiRepository.save(principal);
+	}
+
+	public Chorbi reconstructProfile(final CreateChorbiForm createChorbiForm) {
+		Assert.notNull(createChorbiForm);
+		Chorbi chorbi;
+		Md5PasswordEncoder encoder;
+		String password;
+
+		chorbi = this.findByPrincipal();
+
+		password = createChorbiForm.getPassword();
+
+		encoder = new Md5PasswordEncoder();
+		password = encoder.encodePassword(password, null);
+
+		chorbi.getUserAccount().setUsername(createChorbiForm.getUsername());
+		chorbi.getUserAccount().setPassword(password);
+		chorbi.setName(createChorbiForm.getName());
+		chorbi.setSurname(createChorbiForm.getSurname());
+		chorbi.setEmail(createChorbiForm.getEmail());
+		chorbi.setPhone(createChorbiForm.getPhone());
+		chorbi.setPicture(createChorbiForm.getPicture());
+		chorbi.setDescription(createChorbiForm.getDescription());
+		chorbi.setRelationship(createChorbiForm.getRelationship());
+		chorbi.setBirthDate(createChorbiForm.getBirthDate());
+		chorbi.setGenre(createChorbiForm.getGenre());
+		chorbi.setCoordinate(createChorbiForm.getCoordinate());
+		chorbi.setCreditCard(createChorbiForm.getCreditCard());
+
+		return chorbi;
+	}
+
+	public CreateChorbiForm desreconstructProfile(final Chorbi chorbi) {
+		Assert.notNull(chorbi);
+		CreateChorbiForm createChorbiForm;
+
+		createChorbiForm = new CreateChorbiForm();
+		createChorbiForm.setUsername(chorbi.getUserAccount().getUsername());
+		createChorbiForm.setPassword(chorbi.getUserAccount().getPassword());
+		createChorbiForm.setName(chorbi.getName());
+		createChorbiForm.setSurname(chorbi.getSurname());
+		createChorbiForm.setEmail(chorbi.getEmail());
+		createChorbiForm.setPhone(chorbi.getPhone());
+		createChorbiForm.setPicture(chorbi.getPicture());
+		createChorbiForm.setDescription(chorbi.getDescription());
+		createChorbiForm.setRelationship(chorbi.getRelationship());
+		createChorbiForm.setBirthDate(chorbi.getBirthDate());
+		createChorbiForm.setGenre(chorbi.getGenre());
+		createChorbiForm.setCoordinate(chorbi.getCoordinate());
+		createChorbiForm.setCreditCard(chorbi.getCreditCard());
+
+		return createChorbiForm;
 	}
 }
