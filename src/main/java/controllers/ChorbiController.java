@@ -10,31 +10,46 @@
 
 package controllers;
 
+import java.util.Collection;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ChorbiService;
+import domain.Chorbi;
+
 @Controller
-@RequestMapping("/customer")
-public class CustomerController extends AbstractController {
+@RequestMapping("/chorbi")
+public class ChorbiController extends AbstractController {
+
+	// Service ---------------------------------------------------------------		
+	@Autowired
+	private ChorbiService	chorbiService;
+
 
 	// Constructors -----------------------------------------------------------
 
-	public CustomerController() {
+	public ChorbiController() {
 		super();
 	}
 
-	// Action-1 ---------------------------------------------------------------		
+	// List ---------------------------------------------------------------		
 
-	@RequestMapping("/action-1")
+	@RequestMapping("/list")
 	public ModelAndView action1() {
 		ModelAndView result;
+		Collection<Chorbi> chorbies;
 
-		result = new ModelAndView("customer/action-1");
+		chorbies = this.chorbiService.findAll();
+
+		result = new ModelAndView("chorbi/list");
+		result.addObject("chorbies", chorbies);
+		result.addObject("requestURI", "chorbi/list.do");
 
 		return result;
 	}
-
 	// Action-2 ---------------------------------------------------------------		
 
 	@RequestMapping("/action-2")
