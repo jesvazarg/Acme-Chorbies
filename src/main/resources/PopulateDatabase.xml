@@ -284,7 +284,7 @@
 		<property name="picture" value="https://laqueseavecinafiu.files.wordpress.com/2012/04/105445.jpg" />
 		<property name="description" value="¡Tengo el salami en oferta!" />
 		<property name="relationship" value="Love" />
-		<property name="birthDate" value="06/10/1980 00:00" />
+		<property name="birthDate" value="06/10/1980" />
 		<property name="genre" value="Man" />
 		<property name="ban" value="false" />
 		<property name="coordinate" ref="coordinate1" />
@@ -325,7 +325,7 @@
 		<property name="picture" value="http://s04.s3c.es/imag/_v0/250x200/a/5/e/eva-isanta.jpg" />
 		<property name="description" value="Hola, hola, hola. Soy Maite Figueroa, deja tu mensaje y te llamo en media hora" />
 		<property name="relationship" value="Friendship" />
-		<property name="birthDate" value="02/17/1978 00:00" />
+		<property name="birthDate" value="02/17/1978" />
 		<property name="genre" value="Woman" />
 		<property name="ban" value="false" />
 		<property name="coordinate" ref="coordinate2" />
@@ -366,7 +366,7 @@
 		<property name="picture" value="http://www.formulatv.com/images/noticias/38000/38083/1_db269c5dbd.jpg" />
 		<property name="description" value="¡Yo soy Estela Reynolds!, a mí Fernando Esteso me chupó un pezón" />
 		<property name="relationship" value="Love" />
-		<property name="birthDate" value="11/28/1967 00:00" />
+		<property name="birthDate" value="11/28/1967" />
 		<property name="genre" value="Woman" />
 		<property name="ban" value="false" />
 		<property name="coordinate" ref="coordinate3" />
@@ -400,7 +400,7 @@
 		<property name="picture" value="http://3.bp.blogspot.com/-I_M4LJ8RXSs/UWJs45emcUI/AAAAAAAAACw/sfoEJl0w9_w/s1600/enrique2.jpg" />
 		<property name="description" value="Enrique Pastor, concejal de juventud y tiempo libre" />
 		<property name="relationship" value="Activities" />
-		<property name="birthDate" value="01/02/1957 00:00" />
+		<property name="birthDate" value="01/02/1957" />
 		<property name="genre" value="Man" />
 		<property name="ban" value="false" />
 		<property name="coordinate" ref="coordinate4" />
@@ -433,7 +433,7 @@
 		<property name="picture" value="http://listas.eleconomista.es/system/items/000/012/141/medium/antoniore.jpg?1447028500" />
 		<property name="description" value="¡Mayorista, no limpio pescado!" />
 		<property name="relationship" value="Love" />
-		<property name="birthDate" value="04/08/1954 00:00" />
+		<property name="birthDate" value="04/08/1954" />
 		<property name="genre" value="Man" />
 		<property name="ban" value="true" />
 		<property name="coordinate" ref="coordinate5" />
@@ -466,7 +466,7 @@
 		<property name="picture" value="http://listas.eleconomista.es/system/items/000/012/141/medium/antoniore.jpg?1447028500" />
 		<property name="description" value="¡Te pinsho como no me llames ¿eh?!" />
 		<property name="relationship" value="Activities" />
-		<property name="birthDate" value="06/10/1983 00:00" />
+		<property name="birthDate" value="06/10/1983" />
 		<property name="genre" value="Woman" />
 		<property name="ban" value="true" />
 		<property name="coordinate" ref="coordinate6" />

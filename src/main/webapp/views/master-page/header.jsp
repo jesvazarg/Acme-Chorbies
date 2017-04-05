@@ -32,16 +32,6 @@
 			</li>
 		</security:authorize>
 		
-		<security:authorize access="hasRole('CUSTOMER')">
-			<li><a class="fNiv"><spring:message	code="master.page.customer" /></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="customer/action-1.do"><spring:message code="master.page.customer.action.1" /></a></li>
-					<li><a href="customer/action-2.do"><spring:message code="master.page.customer.action.2" /></a></li>					
-				</ul>
-			</li>
-		</security:authorize>
-		
 		<security:authorize access="hasRole('CHORBI')">
 			<li><a href="searchTemplate/chorbi/display.do"><spring:message code="master.page.searchTemplate.display" /></a></li>					
 		</security:authorize>
@@ -51,6 +41,7 @@
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">
+			<li><a href="chorbi/list.do"><spring:message code="master.page.chorbiList" /></a></li>
 			<li>
 				<a class="fNiv"> 
 					<spring:message code="master.page.profile" /> 
