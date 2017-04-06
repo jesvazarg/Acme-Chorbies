@@ -139,13 +139,13 @@ public class SearchTemplateService {
 			for (final Chorbi c : chorbies) {
 				Boolean aux = true;
 
-				if (!searchTemplate.getRelationship().equals(" "))
+				if (!searchTemplate.getRelationship().equals(""))
 					aux = aux && (c.getRelationship().equals(searchTemplate.getRelationship()));
 
 				if (searchTemplate.getAge() != null)
 					aux = aux && (((searchTemplate.getAge() - 5) < this.chorbiService.edadChorbi(c)) && ((searchTemplate.getAge() + 5) > this.chorbiService.edadChorbi(c)));
 
-				if (!searchTemplate.getGenre().equals(" "))
+				if (!searchTemplate.getGenre().equals(""))
 					aux = aux && (c.getGenre().equals(searchTemplate.getGenre()));
 
 				if (searchTemplate.getCoordinate().getCity().equals(" "))
