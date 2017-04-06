@@ -16,15 +16,19 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.Authority;
 import services.ActorService;
+import services.AdministratorService;
 import services.ChorbiService;
 import domain.Actor;
+import domain.Administrator;
 import domain.Chorbi;
 import domain.Sense;
 import forms.CreateChorbiForm;
@@ -35,10 +39,13 @@ public class ChorbiController extends AbstractController {
 
 	// Service ---------------------------------------------------------------		
 	@Autowired
-	private ChorbiService	chorbiService;
+	private ChorbiService			chorbiService;
 
 	@Autowired
-	private ActorService	actorService;
+	private AdministratorService	administratorService;
+
+	@Autowired
+	private ActorService			actorService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -89,21 +96,6 @@ public class ChorbiController extends AbstractController {
 		return result;
 	}
 
-	// Edition ---------------------------------------------------------------
-
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit() {
-		ModelAndView result;
-		CreateChorbiForm createChorbiForm;
-		Chorbi chorbi;
-
-		chorbi = this.chorbiService.findByPrincipal();
-		createChorbiForm = this.chorbiService.constructProfile(chorbi);
-		result = this.createEditModelAndView(createChorbiForm);
-
-		return result;
-	}
-
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
 	public ModelAndView saveCreate(@Valid final CreateChorbiForm createChorbiForm, final BindingResult binding) {
 
@@ -125,6 +117,21 @@ public class ChorbiController extends AbstractController {
 		return result;
 	}
 
+	// Edition ---------------------------------------------------------------
+
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit() {
+		ModelAndView result;
+		CreateChorbiForm createChorbiForm;
+		Chorbi chorbi;
+
+		chorbi = this.chorbiService.findByPrincipal();
+		createChorbiForm = this.chorbiService.constructProfile(chorbi);
+		result = this.createEditModelAndView(createChorbiForm);
+
+		return result;
+	}
+
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView saveEdit(@Valid final CreateChorbiForm createChorbiForm, final BindingResult binding) {
 
@@ -143,6 +150,46 @@ public class ChorbiController extends AbstractController {
 				result = this.createEditModelAndView(createChorbiForm, "chorbi.commit.error");
 
 			}
+		return result;
+	}
+
+	// Ban ---------------------------------------------------------------	
+
+	@RequestMapping(value = "/ban", method = RequestMethod.GET)
+	public ModelAndView ban(@RequestParam final int chorbiId) {
+		ModelAndView result;
+		Administrator admin;
+		Chorbi chorbi;
+
+		admin = this.administratorService.findByPrincipal();
+		Assert.notNull(admin);
+		chorbi = this.chorbiService.findOne(chorbiId);
+		chorbi.setBan(true);
+
+		chorbi = this.chorbiService.save(chorbi);
+
+		result = new ModelAndView("redirect:/chorbi/list.do");
+
+		return result;
+	}
+
+	// Unban ---------------------------------------------------------------	
+
+	@RequestMapping(value = "/unban", method = RequestMethod.GET)
+	public ModelAndView unban(@RequestParam final int chorbiId) {
+		ModelAndView result;
+		Administrator admin;
+		Chorbi chorbi;
+
+		admin = this.administratorService.findByPrincipal();
+		Assert.notNull(admin);
+		chorbi = this.chorbiService.findOne(chorbiId);
+		chorbi.setBan(false);
+
+		chorbi = this.chorbiService.save(chorbi);
+
+		result = new ModelAndView("redirect:/chorbi/list.do");
+
 		return result;
 	}
 

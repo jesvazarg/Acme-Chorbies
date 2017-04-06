@@ -32,6 +32,17 @@
 		<a href="profile/display.do?actorId=${chorbi.id}"><spring:message code="chorbi.show"/></a>
 	</display:column>
 	
+	<security:authorize access="hasRole('ADMIN')">
+		<display:column>
+			<jstl:if test="${chorbi.ban == false}">
+				<a href="chorbi/ban.do?chorbiId=${chorbi.id}"><spring:message code="chorbi.ban"/></a>
+			</jstl:if>
+			<jstl:if test="${chorbi.ban == true}">
+				<a href="chorbi/unban.do?chorbiId=${chorbi.id}"><spring:message code="chorbi.unban"/></a>
+			</jstl:if>
+		</display:column>
+	</security:authorize>
+	
 	<security:authorize access="hasRole('CHORBI')">
 		<display:column>
 			<jstl:if test="${chorbi.id != principal.id}">
