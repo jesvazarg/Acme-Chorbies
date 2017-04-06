@@ -235,4 +235,16 @@ public class ChorbiService {
 
 		return createChorbiForm;
 	}
+
+	public Double[] minMaxAvgReciveChirps() {
+		return this.chorbiRepository.minMaxAvgReciveChirps();
+	}
+
+	public Collection<Chorbi> findChorbiMoreReciveChirps() {
+		return this.chorbiRepository.findChorbiMoreReciveChirps();
+	}
+
+	public Collection<Chorbi> findChorbiMoreSentChirps() {
+		return this.chorbiRepository.findChorbiMoreSentChirps();
+	}
 }

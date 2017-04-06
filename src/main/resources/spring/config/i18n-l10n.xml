@@ -28,6 +28,7 @@
 		<value>/views/chirp/messages</value>
 		<value>/views/chorbi/messages</value>
 		<value>/views/profile/messages</value>
+		<value>/views/sense/messages</value>
 		<value>/views/searchTemplate/messages</value>
 	</util:list>
 

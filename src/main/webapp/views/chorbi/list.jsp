@@ -43,12 +43,19 @@
 				</jstl:forEach>
 				<jstl:choose>
 					<jstl:when test="${haveLike==false}">
-						<a href="sense/chorbi/like.do?chorbiId=${chorbi.id}"><spring:message code="chorbi.like"/></a>
+						<a href="sense/chorbi/like.do?chorbiId=${chorbi.id}"><img src="http://observatorioecommerce.com/wp-content/uploads/2015/04/logo-me-gusta-facebook.png" alt="<spring:message code="chorbi.like"/>" width="30" height="30"/></a>
 					</jstl:when>
 					<jstl:otherwise>
-						<a href="sense/chorbi/dislike.do?chorbiId=${chorbi.id}"><spring:message code="chorbi.dislike"/></a>
+						<a href="sense/chorbi/dislike.do?chorbiId=${chorbi.id}"><img src="http://oyadance.com/genre/commonfiles/images/jw_dislike_disable.png" alt="<spring:message code="chorbi.dislike"/>" width="30" height="30"/></a>
 					</jstl:otherwise>
 				</jstl:choose>
+			</jstl:if>
+		</display:column>
+		
+		<spring:message code="sense.comment" var="commentHeader" />
+		<display:column title="${commentHeader}">
+			<jstl:if test="${haveLike==true}">
+				<a href="sense/chorbi/comment.do?chorbiId=${chorbi.id}"><spring:message code="sense.comment"/></a>
 			</jstl:if>
 		</display:column>
 	</security:authorize>
