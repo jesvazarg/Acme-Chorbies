@@ -52,7 +52,8 @@
 		<security:intercept-url pattern="/searchTemplate/chorbi/findBySearchTemplate.do" access="hasRole('CHORBI')" /> 
 		
 		<security:intercept-url pattern="/chirp/chorbi/create.do" access="hasRole('CHORBI')" /> 
-		<security:intercept-url pattern="/chirp/chorbi/list.do" access="hasRole('CHORBI')" /> 
+		<security:intercept-url pattern="/chirp/chorbi/listIn.do" access="hasRole('CHORBI')" /> 
+		<security:intercept-url pattern="/chirp/chorbi/listOut.do" access="hasRole('CHORBI')" /> 
 		<security:intercept-url pattern="/chirp/chorbi/display.do" access="hasRole('CHORBI')" /> 
 		
 		<security:intercept-url pattern="/sense/chorbi/like.do" access="hasRole('CHORBI')" />
@@ -71,6 +72,8 @@
 		
 		<security:intercept-url pattern="/chorbi/list.do" access="isAuthenticated()" /> 
 
+		<security:intercept-url pattern="/profile/myProfile.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/profile/display.do" access="isAuthenticated()" />  
 		<security:intercept-url pattern="/profile/action-1.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/profile/action-2.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/profile/action-3.do" access="isAuthenticated()" /> 

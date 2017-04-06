@@ -14,8 +14,9 @@
 	<form:hidden path="version" />
 	<form:hidden path="moment" />
 	<form:hidden path="sender" />
+	<form:hidden path="recipient" />
 
-	<acme:select items="${recipients}" itemLabel="name" code="chirp.recipient" path="recipient" />
+	<%-- <acme:select items="${recipients}" itemLabel="name" code="chirp.recipient" path="recipient" /> --%>
 	
 	<acme:input code="chirp.subject" path="subject" />
 	
@@ -26,6 +27,6 @@
 	
 	<acme:submit name="save" code="chirp.save" />
 	
-	<acme:cancel url="chirp/chorbi/list.do" code="chirp.cancel" />
+	<acme:cancel url="chorbi/list.do" code="chirp.cancel" />
 	
 </form:form>

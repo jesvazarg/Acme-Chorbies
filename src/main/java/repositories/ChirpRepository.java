@@ -13,6 +13,9 @@ import domain.Chirp;
 public interface ChirpRepository extends JpaRepository<Chirp, Integer> {
 
 	@Query("select c from Chirp c where c.sender.id=?1")
-	Collection<Chirp> findMessagesByChorbiId(int chorbiId);
+	Collection<Chirp> findChirpsSentByChorbiId(int chorbiId);
+
+	@Query("select c from Chirp c where c.recipient.id=?1")
+	Collection<Chirp> findChirpsReceivedByChorbiId(int chorbiId);
 
 }

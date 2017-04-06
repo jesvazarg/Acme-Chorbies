@@ -33,8 +33,15 @@
 		</security:authorize>
 		
 		<security:authorize access="hasRole('CHORBI')">
+			<li><a class="fNiv"><spring:message	code="master.page.chirps" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="chirp/chorbi/listIn.do"><spring:message code="master.page.chirps.received" /></a></li>
+					<li><a href="chirp/chorbi/listOut.do"><spring:message code="master.page.chirps.sent" /></a></li>
+				</ul>
+			</li>
 			<li><a href="searchTemplate/chorbi/display.do"><spring:message code="master.page.searchTemplate.display" /></a></li>	
-			<li><a href="chirp/chorbi/list.do"><spring:message code="master.page.chirp.list" /></a></li>				
+			<li><a href="chorbi/list.do"><spring:message code="master.page.chorbi.list" /></a></li>				
 		</security:authorize>
 		
 		<security:authorize access="isAnonymous()">
@@ -43,7 +50,6 @@
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">
-			<li><a href="chorbi/list.do"><spring:message code="master.page.chorbi.list" /></a></li>
 			<li>
 				<a class="fNiv"> 
 					<spring:message code="master.page.profile" /> 
@@ -51,6 +57,7 @@
 				</a>
 				<ul>
 					<li class="arrow"></li>
+					<li><a href="profile/myProfile.do"><spring:message code="master.page.profile.myProfile" /></a></li>
 					<li><a href="profile/action-1.do"><spring:message code="master.page.profile.action.1" /></a></li>
 					<li><a href="profile/action-2.do"><spring:message code="master.page.profile.action.2" /></a></li>
 					<li><a href="profile/action-3.do"><spring:message code="master.page.profile.action.3" /></a></li>					

@@ -69,6 +69,25 @@ public class ChirpService {
 		return result;
 	}
 
+	public Chirp create(final Chorbi recipient) {
+		Chirp result;
+		Chorbi chorbi;
+
+		Calendar calendar;
+
+		result = new Chirp();
+		chorbi = this.chorbiService.findByPrincipal();
+
+		calendar = Calendar.getInstance();
+		calendar.set(Calendar.MILLISECOND, -10);
+
+		result.setAttachments(new ArrayList<String>());
+		result.setMoment(calendar.getTime());
+		result.setSender(chorbi);
+		result.setRecipient(recipient);
+		return result;
+	}
+
 	//	public Chirp create(final Chirp chirp) {
 	//		Chirp result;
 	//
@@ -94,11 +113,21 @@ public class ChirpService {
 
 	// Other business methods -------------------------------------------------
 
-	public Collection<Chirp> findChirpByChorbiId(final int chorbiId) {
+	public Collection<Chirp> findChirpsSentByChorbiId(final int chorbiId) {
 
 		Collection<Chirp> result;
 
-		result = this.chirpRepository.findMessagesByChorbiId(chorbiId);
+		result = this.chirpRepository.findChirpsSentByChorbiId(chorbiId);
+
+		return result;
+
+	}
+
+	public Collection<Chirp> findChirpsReceivedByChorbiId(final int chorbiId) {
+
+		Collection<Chirp> result;
+
+		result = this.chirpRepository.findChirpsReceivedByChorbiId(chorbiId);
 
 		return result;
 
