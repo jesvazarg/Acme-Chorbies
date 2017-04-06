@@ -85,28 +85,34 @@ public class ChirpService {
 		result.setMoment(calendar.getTime());
 		result.setSender(chorbi);
 		result.setRecipient(recipient);
+		result.setCopy(false);
 		return result;
 	}
 
-	//	public Chirp create(final Chirp chirp) {
-	//		Chirp result;
-	//
-	//		result = new Chirp();
-	//		result.setSubject(chirp.getSubject());
-	//		result.setText(chirp.getText());
-	//		result.setMoment(chirp.getMoment());
-	//		result.setAttachments(chirp.getAttachments());
-	//		result.setSender(chirp.getSender());
-	//		result.setRecipient(chirp.getRecipient());
-	//
-	//		return result;
-	//	}
+	public Chirp create(final Chirp chirp) {
+		Chirp result;
+
+		result = new Chirp();
+		result.setSubject(chirp.getSubject());
+		result.setText(chirp.getText());
+		result.setMoment(chirp.getMoment());
+		result.setAttachments(chirp.getAttachments());
+		result.setSender(chirp.getSender());
+		result.setRecipient(chirp.getRecipient());
+		result.setCopy(false);
+		return result;
+	}
 
 	public Chirp save(Chirp chirp) {
 		Assert.notNull(chirp);
 		Assert.isTrue(this.validatorURL(chirp.getAttachments()));
 
+		Chirp copy;
+		copy = new Chirp();
+		copy.setCopy(true);
+
 		chirp = this.chirpRepository.save(chirp);
+		this.chirpRepository.save(copy);
 
 		return chirp;
 	}

@@ -17,13 +17,13 @@
 	<acme:column code="chirp.subject" property="subject"/>
 	<acme:column code="chirp.text" property="text"/>
 	<acme:column code="chirp.moment" property="moment"/>
-	<acme:column code="chirp.sender" property="sender"/>
-	<acme:column code="chirp.recipient" property="recipient"/>
-	
-	<a href="chirp/chorbi/display.do?chirpId=${chirp.id}"><spring:message
-	code="chirp.display"/>
-	</a>
-	
+	<acme:column code="chirp.sender" property="sender.name"/>
+	<acme:column code="chirp.recipient" property="recipient.name"/>
+	<display:column>
+		<a href="chirp/chorbi/display.do?chirpId=${chirp.id}"><spring:message
+		code="chirp.display"/>
+		</a>
+	</display:column>
 	
 	
 </display:table>

@@ -73,17 +73,17 @@ public class ChirpChorbiController extends AbstractController {
 	public ModelAndView display(@RequestParam final int chirpId) {
 		ModelAndView result;
 		Chirp chirp;
-		//Boolean isRecipient = false;
+		Boolean isRecipient = false;
 		final Chorbi chorbi = this.chorbiService.findByPrincipal();
 
 		chirp = this.chirpService.findOne(chirpId);
 
-		//		if (message.getRecipient().equals(Chorbi))
-		//			isRecipient = true;
+		if (chirp.getRecipient().equals(chorbi))
+			isRecipient = true;
 
-		result = new ModelAndView("message/display");
+		result = new ModelAndView("chirp/display");
 		result.addObject("chirp", chirp);
-		//result.addObject("isRecipient", isRecipient);
+		result.addObject("isRecipient", isRecipient);
 
 		return result;
 	}

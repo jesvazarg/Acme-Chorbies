@@ -45,7 +45,7 @@
 
 <jstl:if test="${isRecipient}">
 	<div>
-		<a href="chirp/chorbi/createResponse.do?chirpId=${chirp.id}"><spring:message
+		<a href="chirp/chorbi/createReply.do?chirpId=${chirp.id}"><spring:message
 				code="chirp.response" /></a>
 	</div>
 </jstl:if>

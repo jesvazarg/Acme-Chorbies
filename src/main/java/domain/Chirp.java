@@ -32,6 +32,7 @@ public class Chirp extends DomainEntity {
 	private String				text;
 	private Collection<String>	attachments;
 	private Date				moment;
+	private Boolean				copy;
 
 
 	@NotBlank
@@ -71,6 +72,14 @@ public class Chirp extends DomainEntity {
 
 	public void setMoment(final Date moment) {
 		this.moment = moment;
+	}
+
+	public Boolean getCopy() {
+		return this.copy;
+	}
+
+	public void setCopy(final Boolean copy) {
+		this.copy = copy;
 	}
 
 

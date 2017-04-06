@@ -303,6 +303,10 @@
 				<ref bean="chirp3"/>
 				<ref bean="chirp5"/>
 				<ref bean="chirp7"/>
+				<ref bean="chirp8"/>
+				<ref bean="chirp10"/>
+				<ref bean="chirp12"/>
+				<ref bean="chirp14"/>
 			</list>
 		</property>
 		<property name="reciveChirps">
@@ -310,6 +314,10 @@
 				<ref bean="chirp2"/>
 				<ref bean="chirp4"/>
 				<ref bean="chirp6"/>
+				<ref bean="chirp9"/>
+				<ref bean="chirp11"/>
+				<ref bean="chirp13"/>
+				
 			</list>
 		</property>
 	</bean>
@@ -341,8 +349,12 @@
 		<property name="sentChirps">
 			<list>
 				<ref bean="chirp2"/>
-				<ref bean="chirp3"/>
 				<ref bean="chirp4"/>
+				<ref bean="chirp6"/>
+				<ref bean="chirp9"/>
+				<ref bean="chirp11"/>
+				<ref bean="chirp13"/>
+				
 			</list>
 		</property>
 		<property name="reciveChirps">
@@ -351,6 +363,10 @@
 				<ref bean="chirp3"/>
 				<ref bean="chirp5"/>
 				<ref bean="chirp7"/>
+				<ref bean="chirp8"/>
+				<ref bean="chirp10"/>
+				<ref bean="chirp12"/>
+				<ref bean="chirp14"/>
 			</list>
 		</property>
 	</bean>
@@ -492,6 +508,7 @@
 	<bean id="chirp1" class="domain.Chirp">
 		<property name="subject" value="Chirigota1" />
 		<property name="text" value="Me gustan los pitisues..." />
+		<property name="copy" value="false"/>
 		<property name="attachments">
 			<list>
 			
@@ -505,6 +522,7 @@
 	<bean id="chirp2" class="domain.Chirp">
 		<property name="subject" value="Chirigota1" />
 		<property name="text" value="Y las milhojas de crema..." />
+		<property name="copy" value="false"/>
 		<property name="attachments">
 			<list>
 			
@@ -518,6 +536,7 @@
 	<bean id="chirp3" class="domain.Chirp">
 		<property name="subject" value="Chirigota1" />
 		<property name="text" value="Los cuernos y las  canastillas..." />
+		<property name="copy" value="false"/>
 		<property name="attachments">
 			<list>
 			
@@ -531,6 +550,7 @@
 	<bean id="chirp4" class="domain.Chirp">
 		<property name="subject" value="Chirigota1" />
 		<property name="text" value="Y las palmeras de yema..." />
+		<property name="copy" value="false"/>
 		<property name="attachments">
 			<list>
 			
@@ -544,6 +564,7 @@
 	<bean id="chirp5" class="domain.Chirp">
 		<property name="subject" value="Chirigota1" />
 		<property name="text" value="Esos palitos de nata..." />
+		<property name="copy" value="false"/>
 		<property name="attachments">
 			<list>
 			
@@ -557,6 +578,7 @@
 	<bean id="chirp6" class="domain.Chirp">
 		<property name="subject" value="Chirigota1" />
 		<property name="text" value="Me como 10 y no me harto..." />
+		<property name="copy" value="false"/>
 		<property name="attachments">
 			<list>
 			
@@ -570,6 +592,105 @@
 	<bean id="chirp7" class="domain.Chirp">
 		<property name="subject" value="Chirigota1" />
 		<property name="text" value="Y esas merengas que tienen..." />
+		<property name="copy" value="false"/>
+		<property name="attachments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="moment" value="02/16/2017 00:00" />
+		<property name="sender" ref="chorbi1" />
+		<property name="recipient" ref="chorbi2" />
+	</bean>
+	
+	<bean id="chirp8" class="domain.Chirp">
+		<property name="subject" value="Chirigota1" />
+		<property name="text" value="1Me gustan los pitisues..." />
+		<property name="copy" value="true"/>
+		<property name="attachments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="moment" value="02/10/2017 00:00" />
+		<property name="sender" ref="chorbi1" />
+		<property name="recipient" ref="chorbi2" />
+	</bean>
+	
+	<bean id="chirp9" class="domain.Chirp">
+		<property name="subject" value="Chirigota1" />
+		<property name="text" value="Y las milhojas de crema..." />
+		<property name="copy" value="true"/>
+		<property name="attachments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="moment" value="02/11/2017 00:00" />
+		<property name="sender" ref="chorbi2" />
+		<property name="recipient" ref="chorbi1" />
+	</bean>
+	
+	<bean id="chirp10" class="domain.Chirp">
+		<property name="subject" value="Chirigota1" />
+		<property name="text" value="Los cuernos y las  canastillas..." />
+		<property name="copy" value="true"/>
+		<property name="attachments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="moment" value="02/12/2017 00:00" />
+		<property name="sender" ref="chorbi1" />
+		<property name="recipient" ref="chorbi2" />
+	</bean>
+	
+	<bean id="chirp11" class="domain.Chirp">
+		<property name="subject" value="Chirigota1" />
+		<property name="text" value="Y las palmeras de yema..." />
+		<property name="copy" value="true"/>
+		<property name="attachments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="moment" value="02/13/2017 00:00" />
+		<property name="sender" ref="chorbi2" />
+		<property name="recipient" ref="chorbi1" />
+	</bean>
+	
+	<bean id="chirp12" class="domain.Chirp">
+		<property name="subject" value="Chirigota1" />
+		<property name="text" value="Esos palitos de nata..." />
+		<property name="copy" value="true"/>
+		<property name="attachments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="moment" value="02/14/2017 00:00" />
+		<property name="sender" ref="chorbi1" />
+		<property name="recipient" ref="chorbi2" />
+	</bean>
+	
+	<bean id="chirp13" class="domain.Chirp">
+		<property name="subject" value="Chirigota1" />
+		<property name="text" value="Me como 10 y no me harto..." />
+		<property name="copy" value="true"/>
+		<property name="attachments">
+			<list>
+			
+			</list>
+		</property>
+		<property name="moment" value="02/15/2017 00:00" />
+		<property name="sender" ref="chorbi2" />
+		<property name="recipient" ref="chorbi1" />
+	</bean>
+	
+	<bean id="chirp14" class="domain.Chirp">
+		<property name="subject" value="Chirigota1" />
+		<property name="text" value="Y esas merengas que tienen..." />
+		<property name="copy" value="true"/>
 		<property name="attachments">
 			<list>
 			
