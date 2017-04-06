@@ -78,7 +78,7 @@ public class AdministratorService {
 		Assert.notNull(chorbi);
 		Assert.notNull(this.findByPrincipal());
 
-		chorbi.setBan(true);
+		chorbi.setBanned(true);
 		this.chorbiService.save(chorbi);
 	}
 
@@ -86,7 +86,7 @@ public class AdministratorService {
 		Assert.notNull(chorbi);
 		Assert.notNull(this.findByPrincipal());
 
-		chorbi.setBan(false);
+		chorbi.setBanned(false);
 		this.chorbiService.save(chorbi);
 	}
 

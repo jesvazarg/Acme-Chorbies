@@ -77,7 +77,6 @@ public class ChorbiController extends AbstractController {
 		result = new ModelAndView("chorbi/list");
 		result.addObject("chorbies", chorbies);
 		result.addObject("sensesSent", sensesSent);
-		result.addObject("principal", principal);
 		result.addObject("requestURI", "chorbi/list.do");
 
 		return result;
@@ -164,7 +163,7 @@ public class ChorbiController extends AbstractController {
 		admin = this.administratorService.findByPrincipal();
 		Assert.notNull(admin);
 		chorbi = this.chorbiService.findOne(chorbiId);
-		chorbi.setBan(true);
+		chorbi.setBanned(true);
 
 		chorbi = this.chorbiService.save(chorbi);
 
@@ -184,7 +183,7 @@ public class ChorbiController extends AbstractController {
 		admin = this.administratorService.findByPrincipal();
 		Assert.notNull(admin);
 		chorbi = this.chorbiService.findOne(chorbiId);
-		chorbi.setBan(false);
+		chorbi.setBanned(false);
 
 		chorbi = this.chorbiService.save(chorbi);
 

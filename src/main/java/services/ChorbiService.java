@@ -133,10 +133,11 @@ public class ChorbiService {
 	public Collection<Chorbi> findAllNotBanned() {
 		Collection<Chorbi> allChorbies;
 		final Collection<Chorbi> result = new ArrayList<Chorbi>();
+		final Chorbi principal = this.findByPrincipal();
 
 		allChorbies = this.findAll();
 		for (final Chorbi c : allChorbies)
-			if (!c.getBan())
+			if (!c.getBanned() && principal.getId() != c.getId())
 				result.add(c);
 		return result;
 	}

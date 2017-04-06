@@ -25,7 +25,7 @@
 	<acme:column code="chorbi.relationship" property="relationship" sortable="true"/>
 	<acme:column code="chorbi.birthDate" property="birthDate" format="{0,date,dd-MM-yyyy}" sortable="true"/>
 	<security:authorize access="hasRole('ADMIN')">
-		<acme:column code="chorbi.ban" property="ban" sortable="true"/>
+		<acme:column code="chorbi.banned" property="banned" sortable="true"/>
 	</security:authorize>
 	<spring:message code="chorbi.profile" var="profileHeader" />
 	<display:column title="${profileHeader}">
@@ -34,10 +34,10 @@
 	
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column>
-			<jstl:if test="${chorbi.ban == false}">
+			<jstl:if test="${chorbi.banned == false}">
 				<a href="chorbi/ban.do?chorbiId=${chorbi.id}"><spring:message code="chorbi.ban"/></a>
 			</jstl:if>
-			<jstl:if test="${chorbi.ban == true}">
+			<jstl:if test="${chorbi.banned == true}">
 				<a href="chorbi/unban.do?chorbiId=${chorbi.id}"><spring:message code="chorbi.unban"/></a>
 			</jstl:if>
 		</display:column>
@@ -45,22 +45,20 @@
 	
 	<security:authorize access="hasRole('CHORBI')">
 		<display:column>
-			<jstl:if test="${chorbi.id != principal.id}">
-				<jstl:set var="haveLike" value="${false}"/>
-				<jstl:forEach var="sense" items="${sensesSent}">
-					<jstl:if test="${sense.recipient.id == chorbi.id}">
-						<jstl:set var="haveLike" value="${true}"/>
-					</jstl:if>
-				</jstl:forEach>
-				<jstl:choose>
-					<jstl:when test="${haveLike==false}">
-						<a href="sense/chorbi/like.do?chorbiId=${chorbi.id}"><img src="http://observatorioecommerce.com/wp-content/uploads/2015/04/logo-me-gusta-facebook.png" alt="<spring:message code="chorbi.like"/>" width="30" height="30"/></a>
-					</jstl:when>
-					<jstl:otherwise>
-						<a href="sense/chorbi/dislike.do?chorbiId=${chorbi.id}"><img src="http://oyadance.com/genre/commonfiles/images/jw_dislike_disable.png" alt="<spring:message code="chorbi.dislike"/>" width="30" height="30"/></a>
-					</jstl:otherwise>
-				</jstl:choose>
-			</jstl:if>
+			<jstl:set var="haveLike" value="${false}"/>
+			<jstl:forEach var="sense" items="${sensesSent}">
+				<jstl:if test="${sense.recipient.id == chorbi.id}">
+					<jstl:set var="haveLike" value="${true}"/>
+				</jstl:if>
+			</jstl:forEach>
+			<jstl:choose>
+				<jstl:when test="${haveLike==false}">
+					<a href="sense/chorbi/like.do?chorbiId=${chorbi.id}"><img src="http://observatorioecommerce.com/wp-content/uploads/2015/04/logo-me-gusta-facebook.png" alt="<spring:message code="chorbi.like"/>" width="30" height="30"/></a>
+				</jstl:when>
+				<jstl:otherwise>
+					<a href="sense/chorbi/dislike.do?chorbiId=${chorbi.id}"><img src="http://oyadance.com/genre/commonfiles/images/jw_dislike_disable.png" alt="<spring:message code="chorbi.dislike"/>" width="30" height="30"/></a>
+				</jstl:otherwise>
+			</jstl:choose>
 		</display:column>
 		
 		<spring:message code="sense.comment" var="commentHeader" />
