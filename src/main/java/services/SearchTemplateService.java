@@ -130,7 +130,7 @@ public class SearchTemplateService {
 		calendar = Calendar.getInstance();
 		calendar.set(Calendar.HOUR_OF_DAY, -this.configurationService.horasCache());
 
-		if (calendar.getTime().before(searchTemplate.getUpdateMoment()))
+		if (calendar.getTime().before(searchTemplate.getUpdateMoment()) && !searchTemplate.getResults().isEmpty())
 			result = searchTemplate.getResults();
 		else {
 			calendar = Calendar.getInstance();

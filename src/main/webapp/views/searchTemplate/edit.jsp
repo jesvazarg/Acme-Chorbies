@@ -25,7 +25,7 @@
 		<spring:message code="searchTemplate.relationship" />
 	</form:label>
 	<form:select path="relationship" >
-		<form:option value=" " label="----" /> 
+		<form:option value="" label="----" /> 
 		<form:option value="Love" label="${love}" />
 		<form:option value="Activities" label="${activities}" />
 		<form:option value="Friendship" label="${friendship}" />
@@ -40,7 +40,7 @@
 		<spring:message code="searchTemplate.genre" />
 	</form:label>
 	<form:select path="genre" >
-		<form:option value=" " label="----" /> 
+		<form:option value="" label="----" /> 
 		<form:option value="Man" label="${man}" />
 		<form:option value="Woman" label="${woman}" />
 	</form:select>
