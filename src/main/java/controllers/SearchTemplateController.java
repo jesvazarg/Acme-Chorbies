@@ -104,10 +104,13 @@ public class SearchTemplateController extends AbstractController {
 	public ModelAndView buscador(@RequestParam final int searchTemplateId) {
 		ModelAndView result;
 		SearchTemplate searchTemplate;
+		Chorbi chorbi;
 
+		chorbi = this.chorbiService.findByPrincipal();
 		searchTemplate = this.searchTemplateService.findOne(searchTemplateId);
 		Assert.notNull(searchTemplate);
 		final Collection<Chorbi> chorbies = this.searchTemplateService.findBySearchResult(searchTemplate);
+		chorbies.remove(chorbi);
 
 		result = new ModelAndView("chorbi/list");
 		result.addObject("chorbies", chorbies);
