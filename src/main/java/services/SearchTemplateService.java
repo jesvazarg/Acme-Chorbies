@@ -76,7 +76,9 @@ public class SearchTemplateService {
 		final Chorbi chorbi = this.chorbiService.findByPrincipal();
 		if (searchTemplate.getId() != 0)
 			Assert.isTrue(searchTemplate.getId() == chorbi.getSearchTemplate().getId(), "No es el dueño");
-		searchTemplate.getResults().clear();
+		final Collection<Chorbi> empty = new ArrayList<Chorbi>();
+		searchTemplate.setResults(empty);
+		//searchTemplate.getResults().clear();
 
 		SearchTemplate result;
 		result = this.searchTemplateRepository.save(searchTemplate);
