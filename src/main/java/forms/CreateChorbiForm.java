@@ -12,8 +12,6 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.SafeHtml;
-import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -44,7 +42,7 @@ public class CreateChorbiForm {
 
 	@NotBlank
 	@Size(min = 5, max = 32)
-	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
+	//	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
 	public String getUsername() {
 		return this.username;
 	}
@@ -55,7 +53,7 @@ public class CreateChorbiForm {
 
 	@NotBlank
 	@Size(min = 5, max = 32)
-	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
+	//	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
 	public String getPassword() {
 		return this.password;
 	}
@@ -66,7 +64,7 @@ public class CreateChorbiForm {
 
 	@NotBlank
 	@Size(min = 5, max = 32)
-	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
+	//	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
 	public String getConfirmPassword() {
 		return this.confirmPassword;
 	}
@@ -76,7 +74,7 @@ public class CreateChorbiForm {
 	}
 
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
+	//	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
 	public String getName() {
 		return this.name;
 	}
@@ -86,7 +84,7 @@ public class CreateChorbiForm {
 	}
 
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
+	//	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
 	public String getSurname() {
 		return this.surname;
 	}
@@ -97,7 +95,7 @@ public class CreateChorbiForm {
 
 	@NotBlank
 	@Email
-	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
+	//	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
 	public String getEmail() {
 		return this.email;
 	}
@@ -108,7 +106,7 @@ public class CreateChorbiForm {
 
 	@NotBlank
 	@Pattern(regexp = "(\\+\\d{1,3} )?(\\(\\d{1,3}\\) )?(\\w{4,})")
-	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
+	//	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
 	public String getPhone() {
 		return this.phone;
 	}
@@ -119,7 +117,7 @@ public class CreateChorbiForm {
 
 	@NotBlank
 	@URL
-	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
+	//	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
 	public String getPicture() {
 		return this.picture;
 	}
@@ -128,7 +126,7 @@ public class CreateChorbiForm {
 	}
 
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
+	//	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
 	public String getDescription() {
 		return this.description;
 	}
@@ -147,7 +145,7 @@ public class CreateChorbiForm {
 	@NotNull
 	@Past
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getBirthDate() {
 		return this.birthDate;
 	}
@@ -164,7 +162,7 @@ public class CreateChorbiForm {
 	}
 
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
+	//	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
 	public String getCity() {
 		return this.city;
 	}
@@ -172,7 +170,7 @@ public class CreateChorbiForm {
 		this.city = city;
 	}
 
-	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
+	//	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
 	public String getCountry() {
 		return this.country;
 	}
@@ -180,7 +178,7 @@ public class CreateChorbiForm {
 		this.country = country;
 	}
 
-	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
+	//	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
 	public String getState() {
 		return this.state;
 	}
@@ -188,7 +186,7 @@ public class CreateChorbiForm {
 		this.state = state;
 	}
 
-	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
+	//	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
 	public String getProvince() {
 		return this.province;
 	}

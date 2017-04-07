@@ -82,15 +82,21 @@ public class ChorbiService {
 		result.setReciveSenses(reciveSenses);
 		result.setSentChirps(sentChirps);
 		result.setReciveChirps(reciveChirps);
+		result.setBanned(false);
 
 		return result;
 	}
 
+	@SuppressWarnings("deprecation")
 	public Chorbi save(final Chorbi chorbi) {
 		Assert.notNull(chorbi);
-		final Chorbi result;
+		Chorbi result;
+		Date nuevo;
 
-		Assert.isTrue(chorbi.getBirthDate().getTime() <= (Calendar.getInstance().getTimeInMillis() - 568024200000L));
+		nuevo = Calendar.getInstance().getTime();
+		nuevo.setYear(nuevo.getYear() - 18);
+
+		Assert.isTrue(chorbi.getBirthDate().before(nuevo));
 		if (chorbi.getCreditCard() != null) {
 			final CreditCard card = chorbi.getCreditCard();
 			final Calendar expiryDate = Calendar.getInstance();
@@ -102,7 +108,7 @@ public class ChorbiService {
 			final String brandName = card.getBrandName().toUpperCase();
 			Assert.isTrue(brandName.equals("VISA") || brandName.equals("MASTERCARD") || brandName.equals("DISCOVER") || brandName.equals("DINNERS") || brandName.equals("AMEX"));
 		}
-		result = this.chorbiRepository.save(chorbi);
+		result = this.chorbiRepository.saveAndFlush(chorbi);
 		return result;
 	}
 

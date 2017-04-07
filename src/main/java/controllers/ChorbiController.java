@@ -110,6 +110,7 @@ public class ChorbiController extends AbstractController {
 				result = new ModelAndView("redirect:/welcome/index.do");
 
 			} catch (final Throwable oops) {
+				System.out.println(oops);
 				result = this.createEditModelAndView(createChorbiForm, "chorbi.commit.error");
 
 			}
@@ -204,7 +205,7 @@ public class ChorbiController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final CreateChorbiForm createChorbiForm, final String message) {
 		ModelAndView result;
 
-		result = new ModelAndView("chorbi/edit");
+		result = new ModelAndView("chorbi/create");
 		result.addObject("createChorbiForm", createChorbiForm);
 		result.addObject("requestURI", "chorbi/create.do");
 		result.addObject("message", message);

@@ -58,11 +58,11 @@
 	<form:errors path="genre" cssClass="error" />
 	<br/>
 	
-	<acme:input code="chorbi.coordinate.city" path="coordinate.city" />
-	<acme:input code="chorbi.coordinate.country" path="coordinate.country" />
-	<acme:input code="chorbi.coordinate.state" path="coordinate.state" />
-	<acme:input code="chorbi.coordinate.province" path="coordinate.province" />
+	<acme:input code="chorbi.coordinate.city" path="city" />
+	<acme:input code="chorbi.coordinate.country" path="country" />
+	<acme:input code="chorbi.coordinate.state" path="state" />
+	<acme:input code="chorbi.coordinate.province" path="province" />
 	
 	<acme:submit name="save" code="chorbi.save" />
-	<acme:cancel url="profile/displayPrincipal.do" code="chorbi.cancel" />
+	<acme:cancel url="" code="chorbi.cancel" />
 </form:form>
