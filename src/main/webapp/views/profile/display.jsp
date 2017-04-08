@@ -47,10 +47,10 @@
 			<jstl:out value="${profile.relationship}" />
 		</li>
 		
-		<li>	
+		<%-- <li>	
 			<b><spring:message code="profile.birthDate" />:</b>
 			<jstl:out value="${profile.birthDate}" />
-		</li>
+		</li> --%>
 		
 		<li>	
 			<b><spring:message code="profile.genre" />:</b>
@@ -58,8 +58,14 @@
 		</li>
 		
 		<li>	
-			<b><spring:message code="profile.coordinate" />:</b>
-			<jstl:out value="${profile.coordinate}" />
+			<b><spring:message code="profile.coordinates" />:</b>
+			<jstl:out value="${profile.coordinate.city}" />
+			
+			<jstl:out value="${profile.coordinate.country}" />
+			
+			<jstl:out value="${profile.coordinate.state}" />
+			
+			<jstl:out value="${profile.coordinate.province}" />
 		</li>
 			
 		</jstl:if>

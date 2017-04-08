@@ -3,6 +3,8 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,6 +69,15 @@ public class ConfigurationService {
 		tiempo = horas.split(":");
 		result = Integer.parseInt(tiempo[0]) + (Integer.parseInt(tiempo[1]) / 60) + (Integer.parseInt(tiempo[2]) / 3600);
 		return result;
+	}
+
+	public String RandomBanner() {
+		final Configuration aux = this.findConfiguration();
+		final List<String> banners = new ArrayList<String>(aux.getBanners());
+		final Random randomNumber = new Random();
+		final Integer i = randomNumber.nextInt(banners.size() - 1);
+		System.out.print(banners.get(i));
+		return banners.get(i);
 	}
 
 }
