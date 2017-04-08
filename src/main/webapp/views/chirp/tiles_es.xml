@@ -31,15 +31,9 @@
 		<put-attribute name="body" value="/views/chirp/list.jsp" />
 	</definition>
 	
-	<definition name="message/response" extends="master.page">	
-		<put-attribute name="title" value="Responder" />
-		<put-attribute name="body" value="/views/message/response.jsp" />
-	</definition>
-	
-	<definition name="message/reply" extends="master.page">	
+	<definition name="chirp/forward" extends="master.page">	
 		<put-attribute name="title" value="Reenviar" />
-		<put-attribute name="body" value="/views/message/reply.jsp" />
+		<put-attribute name="body" value="/views/chirp/forward.jsp" />
 	</definition>
-	
 	
 </tiles-definitions>

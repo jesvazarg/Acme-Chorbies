@@ -43,7 +43,6 @@ public class ChirpChorbiController extends AbstractController {
 	public ModelAndView listIn() {
 		ModelAndView result;
 		Collection<Chirp> chirps;
-		//Boolean isRecipient = false;
 		final Chorbi chorbi = this.chorbiService.findByPrincipal();
 
 		chirps = this.chirpService.findChirpsSentByChorbiId(chorbi.getId());
@@ -58,7 +57,6 @@ public class ChirpChorbiController extends AbstractController {
 	public ModelAndView listOut() {
 		ModelAndView result;
 		Collection<Chirp> chirps;
-		//Boolean isRecipient = false;
 		final Chorbi chorbi = this.chorbiService.findByPrincipal();
 
 		chirps = this.chirpService.findChirpsReceivedByChorbiId(chorbi.getId());
@@ -68,6 +66,7 @@ public class ChirpChorbiController extends AbstractController {
 
 		return result;
 	}
+
 	// Display ----------------------------------------------------------------
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam final int chirpId) {
@@ -77,45 +76,20 @@ public class ChirpChorbiController extends AbstractController {
 		final Chorbi chorbi = this.chorbiService.findByPrincipal();
 
 		chirp = this.chirpService.findOne(chirpId);
+		/* Seguridad */
+		if (!chirp.getRecipient().equals(chorbi) && !chirp.getSender().equals(chorbi))
+			return result = new ModelAndView("redirect:../../welcome/index.do");
+		/*----*/
+		else {
+			if (chirp.getRecipient().equals(chorbi))
+				isRecipient = true;
 
-		if (chirp.getRecipient().equals(chorbi))
-			isRecipient = true;
-
-		result = new ModelAndView("chirp/display");
-		result.addObject("chirp", chirp);
-		result.addObject("isRecipient", isRecipient);
-
+			result = new ModelAndView("chirp/display");
+			result.addObject("chirp", chirp);
+			result.addObject("isRecipient", isRecipient);
+		}
 		return result;
 	}
-
-	// Create ------------------------------------------------------------------------
-	//	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	//	public ModelAndView create() {
-	//		ModelAndView result;
-	//
-	//		final Chirp chirp = this.chirpService.create();
-	//
-	//		result = this.createEditModelAndView(chirp);
-	//
-	//		return result;
-	//	}
-	//
-	//	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
-	//	public ModelAndView save(@Valid final Chirp chirp, final BindingResult binding) {
-	//		ModelAndView result;
-	//
-	//		if (binding.hasErrors())
-	//			result = this.createEditModelAndView(chirp);
-	//		else
-	//			try {
-	//				this.chirpService.save(chirp);
-	//				result = new ModelAndView("redirect:../list.do");
-	//			} catch (final Throwable oops) {
-	//				result = this.createEditModelAndView(chirp, "chirp.commit.error");
-	//			}
-	//
-	//		return result;
-	//	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam final int chorbieId) {
@@ -138,7 +112,7 @@ public class ChirpChorbiController extends AbstractController {
 		else
 			try {
 				this.chirpService.save(Chirp);
-				result = new ModelAndView("redirect:../listOut.do");
+				result = new ModelAndView("redirect:../chorbi/listOut.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(Chirp, "chirp.commit.error");
 			}
@@ -146,72 +120,79 @@ public class ChirpChorbiController extends AbstractController {
 		return result;
 	}
 
-	// Response ----------------------------------------------------------------
+	//Reply ------------------------------------------------------------------------
+	@RequestMapping(value = "/reply", method = RequestMethod.GET)
+	public ModelAndView reply(@RequestParam final int chirpId) {
+		ModelAndView result;
+		final Chorbi chorbi = this.chorbiService.findByPrincipal();
+		final Chirp chirpRequest = this.chirpService.findOne(chirpId);
 
-	//		@RequestMapping(value = "/createResponse", method = RequestMethod.GET)
-	//		public ModelAndView response(@RequestParam final int chirpId) {
-	//			ModelAndView result;
-	//			final Chorbi chorbi = this.chorbiService.findByPrincipal();
-	//			final Chirp chirp = this.chirpService.findOne(chirpId);
-	//	
-	//			if (chirp.) {
-	//				final Chirp message = this.messageService.response(messageRequest);
-	//				result = this.createEditModelAndViewResponse(message);
-	//			} else
-	//				result = new ModelAndView("redirect:../../folder/Chorbi/list/outBox.do");
-	//	
-	//			return result;
-	//		}
-	//	
-	//		@RequestMapping(value = "/createResponse", method = RequestMethod.POST, params = "save")
-	//		public ModelAndView saveResponse(@Valid final Chirp Chirp, final BindingResult binding) {
-	//			ModelAndView result;
-	//	
-	//			if (binding.hasErrors())
-	//				result = this.createEditModelAndViewResponse(Chirp);
-	//			else
-	//				try {
-	//					this.messageService.save(Chirp);
-	//					result = new ModelAndView("redirect:../../folder/Chorbi/list/outBox.do");
-	//				} catch (final Throwable oops) {
-	//					result = this.createEditModelAndViewResponse(Chirp, "message.commit.error");
-	//				}
-	//	
-	//			return result;
-	//		}
+		/* Seguridad */
+		if (!chirpRequest.getRecipient().equals(chorbi) && !chirpRequest.getSender().equals(chorbi))
+			return result = new ModelAndView("redirect:../../welcome/index.do");
+		/*----*/
+		else {
+			final Chirp chirp = this.chirpService.forward(chirpRequest);
+			result = this.createEditModelAndView(chirp);
+		}
+
+		return result;
+	}
 
 	//Reply ------------------------------------------------------------------------
-	//	@RequestMapping(value = "/forward", method = RequestMethod.GET)
-	//	public ModelAndView reply(@RequestParam final int messageId) {
-	//		ModelAndView result;
-	//		final Chorbi Chorbi = this.ChorbiService.findByPrincipal();
-	//		final Chirp messageRequest = this.messageService.findOne(messageId);
-	//
-	//		if (messageRequest.getFolder().getChorbi().equals(Chorbi)) {
-	//			final Chirp message = this.messageService.reply(messageRequest);
-	//			result = this.createEditModelAndViewReply(message);
-	//		} else
-	//			result = new ModelAndView("redirect:../../folder/Chorbi/list/outBox.do");
-	//
-	//		return result;
-	//	}
-	//
-	//	@RequestMapping(value = "/forward", method = RequestMethod.POST, params = "save")
-	//	public ModelAndView saveReply(@Valid final Chirp Chirp, final BindingResult binding) {
-	//		ModelAndView result;
-	//
-	//		if (binding.hasErrors())
-	//			result = this.createEditModelAndViewReply(Chirp);
-	//		else
-	//			try {
-	//				this.messageService.save(Chirp);
-	//				result = new ModelAndView("redirect:../../folder/Chorbi/list/outBox.do");
-	//			} catch (final Throwable oops) {
-	//				result = this.createEditModelAndViewReply(Chirp, "message.commit.error");
-	//			}
-	//
-	//		return result;
-	//	}
+	@RequestMapping(value = "/forward", method = RequestMethod.GET)
+	public ModelAndView forward(@RequestParam final int chirpId) {
+		ModelAndView result;
+		final Chorbi chorbi = this.chorbiService.findByPrincipal();
+		final Chirp chirpRequest = this.chirpService.findOne(chirpId);
+
+		/* Seguridad */
+		if (!chirpRequest.getRecipient().equals(chorbi) && !chirpRequest.getSender().equals(chorbi))
+			return result = new ModelAndView("redirect:../../welcome/index.do");
+		/*----*/
+		else {
+
+			final Chirp chirp = this.chirpService.reply(chirpRequest);
+			result = this.createEditModelAndViewForward(chirp);
+		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/forward", method = RequestMethod.POST, params = "save")
+	public ModelAndView saveReply(@Valid final Chirp chirp, final BindingResult binding) {
+		ModelAndView result;
+
+		if (binding.hasErrors())
+			result = this.createEditModelAndViewForward(chirp);
+		else
+			try {
+				this.chirpService.save(chirp);
+				result = new ModelAndView("redirect:../chorbi/listOut.do");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(chirp, "chirp.commit.error");
+			}
+
+		return result;
+	}
+
+	//Reply ------------------------------------------------------------------------
+	@RequestMapping(value = "/delete", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(final Chirp chirp, final BindingResult binding) {
+		ModelAndView result;
+		final Chorbi chorbi = this.chorbiService.findByPrincipal();
+		/* Seguridad */
+		if (!chirp.getRecipient().equals(chorbi) && !chirp.getSender().equals(chorbi))
+			return result = new ModelAndView("redirect:../../welcome/index.do");
+		else
+			try {
+				this.chirpService.delete(chirp);
+				result = new ModelAndView("redirect:../chorbi/listIn.do");
+			} catch (final Throwable oops) {
+				result = new ModelAndView("redirect:../chorbi/listIn.do");
+			}
+		return result;
+	}
 
 	//Ancillary methods---------------------------------------------------------
 
@@ -237,41 +218,26 @@ public class ChirpChorbiController extends AbstractController {
 		return result;
 	}
 
-	//	//Response --------------------------------------------------------------------
-	//	protected ModelAndView createEditModelAndViewResponse(final Chirp message) {
-	//		final ModelAndView result = this.createEditModelAndViewResponse(message, null);
-	//		return result;
-	//	}
-	//
-	//	protected ModelAndView createEditModelAndViewResponse(final Chirp Chirp, final String message) {
-	//		ModelAndView result;
-	//
-	//		result = new ModelAndView("message/response");
-	//		result.addObject("Chirp", Chirp);
-	//		result.addObject("message", message);
-	//		return result;
-	//	}
-	//
-	//	//Reply ------------------------------------------------------------------------
-	//	protected ModelAndView createEditModelAndViewReply(final Chirp message) {
-	//		final ModelAndView result = this.createEditModelAndViewReply(message, null);
-	//		return result;
-	//	}
-	//
-	//	protected ModelAndView createEditModelAndViewReply(final Chirp Chirp, final String message) {
-	//		ModelAndView result;
-	//		Chorbi Chorbi;
-	//		Collection<Chorbi> recipients;
-	//
-	//		Chorbi = this.ChorbiService.findByPrincipal();
-	//		recipients = this.ChorbiService.findAll();
-	//		recipients.remove(Chorbi);
-	//
-	//		result = new ModelAndView("message/reply");
-	//		result.addObject("Chirp", Chirp);
-	//		result.addObject("recipients", recipients);
-	//		result.addObject("message", message);
-	//		return result;
-	//	}
+	//Reply ------------------------------------------------------------------------
+	protected ModelAndView createEditModelAndViewForward(final Chirp chirp) {
+		final ModelAndView result = this.createEditModelAndViewForward(chirp, null);
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndViewForward(final Chirp chirp, final String message) {
+		ModelAndView result;
+		Chorbi chorbi;
+		Collection<Chorbi> recipients;
+
+		chorbi = this.chorbiService.findByPrincipal();
+		recipients = this.chorbiService.findAll();
+		recipients.remove(chorbi);
+
+		result = new ModelAndView("chirp/forward");
+		result.addObject("chirp", chirp);
+		result.addObject("recipients", recipients);
+		result.addObject("message", message);
+		return result;
+	}
 
 }

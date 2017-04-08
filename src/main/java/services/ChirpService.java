@@ -66,6 +66,7 @@ public class ChirpService {
 		result.setAttachments(new ArrayList<String>());
 		result.setMoment(calendar.getTime());
 		result.setSender(chorbi);
+		result.setCopy(false);
 		return result;
 	}
 
@@ -89,18 +90,39 @@ public class ChirpService {
 		return result;
 	}
 
-	public Chirp create(final Chirp chirp) {
+	public Chirp forward(final Chirp chirp) {
+		Assert.notNull(chirp);
 		Chirp result;
+		final Chorbi chorbi = this.chorbiService.findByPrincipal();
 
 		result = new Chirp();
 		result.setSubject(chirp.getSubject());
 		result.setText(chirp.getText());
 		result.setMoment(chirp.getMoment());
 		result.setAttachments(chirp.getAttachments());
-		result.setSender(chirp.getSender());
-		result.setRecipient(chirp.getRecipient());
+		result.setSender(chorbi);
 		result.setCopy(false);
 		return result;
+	}
+
+	public Chirp reply(final Chirp chirp) {
+		Assert.notNull(chirp);
+
+		final Chirp result = this.create();
+		result.setRecipient(chirp.getSender());
+		result.setSubject(chirp.getSubject());
+		//result.setText(message.getText());
+		//result.setAttachments(message.getAttachments());
+
+		return result;
+	}
+
+	public void delete(final Chirp chirp) {
+		Assert.notNull(chirp);
+		final Chorbi chorbi = this.chorbiService.findByPrincipal();
+		Assert.isTrue(chirp.getSender().equals(chorbi) || chirp.getRecipient().equals(chorbi));
+
+		this.chirpRepository.delete(chirp);
 	}
 
 	public Chirp save(Chirp chirp) {
@@ -110,6 +132,12 @@ public class ChirpService {
 		Chirp copy;
 		copy = new Chirp();
 		copy.setCopy(true);
+		copy.setAttachments(chirp.getAttachments());
+		copy.setMoment(chirp.getMoment());
+		copy.setRecipient(chirp.getRecipient());
+		copy.setSender(chirp.getSender());
+		copy.setSubject(chirp.getSubject());
+		copy.setText(chirp.getText());
 
 		chirp = this.chirpRepository.save(chirp);
 		this.chirpRepository.save(copy);
@@ -160,4 +188,5 @@ public class ChirpService {
 
 		return res;
 	}
+
 }

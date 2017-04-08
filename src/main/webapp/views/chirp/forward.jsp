@@ -8,24 +8,25 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form method="post" action="message/actor/forward.do" modelAttribute="messageEmail" >
+<form:form method="post" action="chirp/chorbi/forward.do" modelAttribute="chirp" >
 	
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<form:hidden path="sentMoment" />
-	<form:hidden path="folder" />
+	<form:hidden path="moment" />
 	<form:hidden path="sender" />
-	<form:hidden path="title" />
-	<form:hidden path="text" />
-	<form:hidden path="attachments" />
+	<form:hidden path="copy" />
 
+	<acme:select items="${recipients}" itemLabel="name" code="chirp.recipient" path="recipient" />
 	
-	<acme:select items="${recipients}" itemLabel="name" code="message.recipient" path="recipient" />
+	<acme:input code="chirp.subject" path="subject" />
+	
+	<acme:input code="chirp.text" path="text" />
+	
+	<acme:input code="chirp.attachments" path="attachments" />
 	
 	
+	<acme:submit name="save" code="chirp.save" />
 	
-	<acme:submit name="save" code="message.save" />
-	
-	<acme:cancel url="folder/actor/list/outBox.do" code="message.cancel" />
+	<acme:cancel url="chorbi/list.do" code="chirp.cancel" />
 	
 </form:form>

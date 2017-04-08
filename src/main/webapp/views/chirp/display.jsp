@@ -45,14 +45,31 @@
 
 <jstl:if test="${isRecipient}">
 	<div>
-		<a href="chirp/chorbi/createReply.do?chirpId=${chirp.id}"><spring:message
-				code="chirp.response" /></a>
+		<a href="chirp/chorbi/reply.do?chirpId=${chirp.id}"><spring:message
+				code="chirp.reply" /></a>
 	</div>
 </jstl:if>
 
 	<div>
 		<a href="chirp/chorbi/forward.do?chirpId=${chirp.id}"><spring:message
-				code="chirp.reply" /></a>
+				code="chirp.forward" /></a>
 	</div>
 
+<form:form method="post" action="chirp/chorbi/delete.do" modelAttribute="chirp" >
+
+	<form:hidden path="id" />
+	<form:hidden path="version" />
+	<form:hidden path="moment" />
+	<form:hidden path="copy" />
+	<form:hidden path="sender" />
+	<form:hidden path="recipient" />
+	<form:hidden path="attachments" />
+	
+	
+	<jstl:if test="${chirp.id != 0}">
+		<input type="submit" name="delete"
+			value="<spring:message code="chirp.delete" />"
+			onclick="return confirm('<spring:message code="chirp.confirm.delete" />')" />&nbsp;
+	</jstl:if>
+</form:form>
 
