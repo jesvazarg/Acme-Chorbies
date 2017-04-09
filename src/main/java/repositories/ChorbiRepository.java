@@ -15,8 +15,49 @@ public interface ChorbiRepository extends JpaRepository<Chorbi, Integer> {
 	@Query("select c from Chorbi c where c.userAccount.id = ?1")
 	Chorbi findByUserAccountId(int userAccountId);
 
+	//----------------- 1º Opcion -----------------------------------
+
+	//Para obtener la edad de un usuario:
+	@Query("select (YEAR(CURRENT_TIMESTAMP) - YEAR(c.birthDate)) from Chorbi c where c.id=?1")
+	Integer ageOfChorbi(int chorbiId);
+
+	//C2: The minimum, the maximum, and the average ages of the chorbies.
+	@Query("select min((YEAR(CURRENT_TIMESTAMP) - YEAR(c.birthDate))),avg((YEAR(CURRENT_TIMESTAMP) - YEAR(c.birthDate))),max((YEAR(CURRENT_TIMESTAMP) - YEAR(c.birthDate))) from Chorbi c")
+	Double[] minMaxAvgAgeOfChorbi();
+
+	//----------------- 2º Opcion -----------------------------------
+
+	// Primero las pondre por separado para que sean mas fácil de leer y luego
+	// pondré la query en su conjunto.
+
+	//C2: The minimum ages of the chorbies.
+	@Query("select min((YEAR(CURRENT_TIMESTAMP) - YEAR(c.birthDate)) -  case when (DATE_FORMAT(CURRENT_TIMESTAMP, '00-%m-%d')< DATE_FORMAT(c.birthDate, '00-%m-%d')) then 1 else 0 end )from Chorbi c")
+	Double minAgeOfChorbi2();
+
+	//C2: The average ages of the chorbies.
+	@Query("select avg((YEAR(CURRENT_TIMESTAMP) - YEAR(c.birthDate)) -  case when (DATE_FORMAT(CURRENT_TIMESTAMP, '00-%m-%d')< DATE_FORMAT(c.birthDate, '00-%m-%d')) then 1 else 0 end )from Chorbi c")
+	Double maxAgeOfChorbi2();
+
+	//C2: The maximum ages of the chorbies.
+	@Query("select max((YEAR(CURRENT_TIMESTAMP) - YEAR(c.birthDate)) -  case when (DATE_FORMAT(CURRENT_TIMESTAMP, '00-%m-%d')< DATE_FORMAT(c.birthDate, '00-%m-%d')) then 1 else 0 end )from Chorbi c")
+	Double avgAgeOfChorbi2();
+
+	//C2: The minimum, the maximum, and the average ages of the chorbies.
+	@Query("select min((YEAR(CURRENT_TIMESTAMP) - YEAR(c.birthDate)) -  case when (DATE_FORMAT(CURRENT_TIMESTAMP, '00-%m-%d')< DATE_FORMAT(c.birthDate, '00-%m-%d')) then 1 else 0 end ), avg((YEAR(CURRENT_TIMESTAMP) - YEAR(c.birthDate)) -  case when (DATE_FORMAT(CURRENT_TIMESTAMP, '00-%m-%d')< DATE_FORMAT(c.birthDate, '00-%m-%d')) then 1 else 0 end ), max((YEAR(CURRENT_TIMESTAMP) - YEAR(c.birthDate)) -  case when (DATE_FORMAT(CURRENT_TIMESTAMP, '00-%m-%d')< DATE_FORMAT(c.birthDate, '00-%m-%d')) then 1 else 0 end )from Chorbi c")
+	Double[] minMaxAvgAgeOfChorbi2();
+
+	//C3: The ratio of chorbies who have not registered a credit card
+	@Query("select (select (select count(ch)*1.0 from Chorbi ch)-count(cr)*1.0 from CreditCard cr) /  count(c)*1.0 from Chorbi c)")
+	Double ratioNotRegisteredCreditcardPerChorbi();
+
+	@Query("select count(s) from Chorbi s join s.creditCard cred where cred.expirationYear <= YEAR(CURRENT_DATE)")
+	Double numberChorbiesWithInvalidCreditYear();
+
+	@Query("select count(s) from Chorbi s join s.creditCard cred where cred.expirationMonth <= MONTH(CURRENT_DATE)")
+	Double numberChorbiesWithInvalidCreditMonth();
+
 	//A1: The minimum, the maximum, and the average number of chirps that a chor-bi receives from other chorbies.
-	@Query("select min(c.reciveChirps.size), max(c.reciveChirps.size), avg(c.reciveChirps.size) from Chorbi c")
+	@Query("select min(YEAR(CURRENT_TIMESTAMP) - YEAR(c.birthDate)) -  case when (DATE_FORMAT(CURRENT_TIMESTAMP, '00-%m-%d')< DATE_FORMAT(c.birthDate, '00-%m-%d')) then 1 else 0 end from Chorbi c)")
 	Double[] minMaxAvgReciveChirps();
 
 	//A3: The chorbies who have got more chirps.
