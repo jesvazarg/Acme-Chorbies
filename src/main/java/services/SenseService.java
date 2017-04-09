@@ -107,4 +107,9 @@ public class SenseService {
 		return result;
 	}
 
+	public Double[] minAvgMaxOfSenses() {
+		final Double[] result = this.senseRepository.minAvgMaxOfSenses();
+		return result;
+	}
+
 }

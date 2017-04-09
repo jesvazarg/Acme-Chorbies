@@ -189,4 +189,9 @@ public class ChirpService {
 		return res;
 	}
 
+	public Double[] minAvgMaxChirpsSent() {
+		final Double[] result = this.chirpRepository.minAvgMaxChirpsSent();
+		return result;
+	}
+
 }

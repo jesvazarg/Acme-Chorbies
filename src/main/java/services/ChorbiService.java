@@ -254,4 +254,18 @@ public class ChorbiService {
 	public Collection<Chorbi> findChorbiMoreSentChirps() {
 		return this.chorbiRepository.findChorbiMoreSentChirps();
 	}
+
+	public Double ratioChorbiesWithNullOrInvalidCreditcard() {
+		final Double res1 = this.chorbiRepository.ratioNotRegisteredCreditcardPerChorbi();
+		final Double res2 = this.chorbiRepository.numberChorbiesWithInvalidCreditMonth();
+		final Double res3 = this.chorbiRepository.numberChorbiesWithInvalidCreditYear();
+		final Integer totalChorbies = this.chorbiRepository.findAll().size();
+		final Double result = (res3 / totalChorbies) + (res2 / totalChorbies) + res1;
+		return result;
+	}
+
+	public Double[] minMaxAvgAgeOfChorbi2() {
+		final Double[] result = this.chorbiRepository.minMaxAvgAgeOfChorbi2();
+		return result;
+	}
 }
