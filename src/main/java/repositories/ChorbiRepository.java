@@ -69,7 +69,7 @@ public interface ChorbiRepository extends JpaRepository<Chorbi, Integer> {
 	Collection<Chorbi> chorbiesSortedGotLikes();
 
 	//A1: The minimum, the maximum, and the average number of chirps that a chor-bi receives from other chorbies.
-	@Query("select min(YEAR(CURRENT_TIMESTAMP) - YEAR(c.birthDate)) -  case when (DATE_FORMAT(CURRENT_TIMESTAMP, '00-%m-%d')< DATE_FORMAT(c.birthDate, '00-%m-%d')) then 1 else 0 end from Chorbi c)")
+	@Query("select min(c.reciveChirps.size), avg(c.reciveChirps.size), max(c.reciveChirps.size) from Chorbi c")
 	Double[] minMaxAvgReciveChirps();
 
 	//A3: The chorbies who have got more chirps.
