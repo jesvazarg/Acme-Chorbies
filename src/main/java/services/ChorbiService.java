@@ -249,6 +249,18 @@ public class ChorbiService {
 		return query;
 	}
 
+	//C4: The ratios of chorbies who search for activities, friendship, and love.
+	public Double ratioPerChorbiAndSearchTemplateRelationship() {
+		final Double result = this.chorbiRepository.ratioPerChorbiAndSearchTemplateRelationship();
+		return result;
+	}
+
+	//B1: The list of chorbies, sorted by the number of likes they have got.
+	public Collection<Chorbi> chorbiesSortedGotLikes() {
+		final Collection<Chorbi> result = this.chorbiRepository.chorbiesSortedGotLikes();
+		return result;
+	}
+
 	public Double[] minMaxAvgReciveChirps() {
 		return this.chorbiRepository.minMaxAvgReciveChirps();
 	}

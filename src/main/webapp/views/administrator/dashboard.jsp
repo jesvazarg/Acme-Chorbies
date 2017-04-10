@@ -9,7 +9,7 @@
 
 <fieldset><legend class="dashLegend"><b><spring:message code="admin.dashboard.level.c"/></b></legend>
 	<h3><spring:message code="admin.dashboard.c1"/></h3>
-		<display:table name="numberChorbiPerCountryAndCity" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
+		<display:table name="numberChorbiPerCountryAndCity" id="row" requestURI="${requestURInumberChorbiPerCountryAndCity}" pagesize="5" class="displaytag">
 			
 			<acme:column code="admin.dashboard.coordinate.country" property="[0]"/>
 			<acme:column code="admin.dashboard.coordinate.city" property="[1]"/>
@@ -37,4 +37,89 @@
 		<br/>
 		<jstl:out value="${ratioChorbiesWithNullOrInvalidCreditcard}" />
 		<br/><br/>
+		
+	<h3><spring:message code="admin.dashboard.c4"/></h3>
+		<br/>
+		<jstl:out value="${ratioPerChorbiAndSearchTemplateRelationship}" />
+		<br/><br/>
+	</fieldset>
+	
+	<fieldset><legend class="dashLegend"><b><spring:message code="admin.dashboard.level.b"/></b></legend>
+		<h3><spring:message code="admin.dashboard.b1"/></h3>
+		<display:table name="chorbiesSortedGotLikes" id="row" requestURI="${requestURIchorbiesSortedGotLikes}" pagesize="5" class="displaytag">
+			
+			<acme:column code="admin.dashboard.chorbi.name" property="name"/>
+			<acme:column code="admin.dashboard.chorbi.surname" property="surname"/>
+			<acme:column code="admin.dashboard.chorbi.email" property="email"/>
+			
+		</display:table>
+		
+		<h3><spring:message code="admin.dashboard.b2"/></h3>
+		<ul>
+			<li>
+				<b><spring:message code="admin.dashboard.min"/>:</b>
+				<jstl:out value="${minAvgMaxOfSenses[0]}"/>
+			</li>
+			<li>
+				<b><spring:message code="admin.dashboard.avg"/>:</b>
+				<jstl:out value="${minAvgMaxOfSenses[1]}"/>
+			</li>
+			<li>
+				<b><spring:message code="admin.dashboard.max"/>:</b>
+				<jstl:out value="${minAvgMaxOfSenses[2]}"/>
+			</li>
+		</ul>
+	</fieldset>
+	
+	<fieldset><legend class="dashLegend"><b><spring:message code="admin.dashboard.level.a"/></b></legend>
+	<h3><spring:message code="admin.dashboard.a1"/></h3>
+		<ul>
+			<li>
+				<b><spring:message code="admin.dashboard.min"/>:</b>
+				<jstl:out value="${minMaxAvgReciveChirps[0]}"/>
+			</li>
+			<li>
+				<b><spring:message code="admin.dashboard.avg"/>:</b>
+				<jstl:out value="${minMaxAvgReciveChirps[1]}"/>
+			</li>
+			<li>
+				<b><spring:message code="admin.dashboard.max"/>:</b>
+				<jstl:out value="${minMaxAvgReciveChirps[2]}"/>
+			</li>
+		</ul>
+		
+		<h3><spring:message code="admin.dashboard.a2"/></h3>
+		<ul>
+			<li>
+				<b><spring:message code="admin.dashboard.min"/>:</b>
+				<jstl:out value="${minAvgMaxChirpsSent[0]}"/>
+			</li>
+			<li>
+				<b><spring:message code="admin.dashboard.avg"/>:</b>
+				<jstl:out value="${minAvgMaxChirpsSent[1]}"/>
+			</li>
+			<li>
+				<b><spring:message code="admin.dashboard.max"/>:</b>
+				<jstl:out value="${minAvgMaxChirpsSent[2]}"/>
+			</li>
+		</ul>
+		
+		<h3><spring:message code="admin.dashboard.a3"/></h3>
+		<display:table name="findChorbiMoreReciveChirps" id="row" requestURI="${requestURIfindChorbiMoreReciveChirps}" pagesize="5" class="displaytag">
+			
+			<acme:column code="admin.dashboard.chorbi.name" property="name"/>
+			<acme:column code="admin.dashboard.chorbi.surname" property="surname"/>
+			<acme:column code="admin.dashboard.chorbi.email" property="email"/>
+			
+		</display:table>
+		
+		<h3><spring:message code="admin.dashboard.a4"/></h3>
+		<display:table name="findChorbiMoreSentChirps" id="row" requestURI="${requestURIfindChorbiMoreSentChirps}" pagesize="5" class="displaytag">
+			
+			<acme:column code="admin.dashboard.chorbi.name" property="name"/>
+			<acme:column code="admin.dashboard.chorbi.surname" property="surname"/>
+			<acme:column code="admin.dashboard.chorbi.email" property="email"/>
+			
+		</display:table>
+		
 	</fieldset>
