@@ -89,7 +89,6 @@ public class ChorbiController extends AbstractController {
 		CreateChorbiForm createChorbiForm;
 
 		createChorbiForm = new CreateChorbiForm();
-		//createChorbiForm = this.chorbiService.constructProfile(this.chorbiService.create());
 		result = this.createEditModelAndView(createChorbiForm);
 
 		return result;
@@ -127,7 +126,7 @@ public class ChorbiController extends AbstractController {
 
 		chorbi = this.chorbiService.findByPrincipal();
 		createChorbiForm = this.chorbiService.constructProfile(chorbi);
-		result = this.createEditModelAndView(createChorbiForm);
+		result = this.editionEditModelAndView(createChorbiForm);
 
 		return result;
 	}
@@ -139,7 +138,7 @@ public class ChorbiController extends AbstractController {
 		Chorbi chorbi;
 
 		if (binding.hasErrors())
-			result = this.createEditModelAndView(createChorbiForm);
+			result = this.editionEditModelAndView(createChorbiForm);
 		else
 			try {
 				chorbi = this.chorbiService.reconstructProfile(createChorbiForm, "edit");
@@ -208,6 +207,25 @@ public class ChorbiController extends AbstractController {
 		result = new ModelAndView("chorbi/create");
 		result.addObject("createChorbiForm", createChorbiForm);
 		result.addObject("requestURI", "chorbi/create.do");
+		result.addObject("message", message);
+
+		return result;
+	}
+
+	protected ModelAndView editionEditModelAndView(final CreateChorbiForm createChorbiForm) {
+		ModelAndView result;
+
+		result = this.editionEditModelAndView(createChorbiForm, null);
+
+		return result;
+	}
+
+	protected ModelAndView editionEditModelAndView(final CreateChorbiForm createChorbiForm, final String message) {
+		ModelAndView result;
+
+		result = new ModelAndView("chorbi/edit");
+		result.addObject("createChorbiForm", createChorbiForm);
+		result.addObject("requestURI", "chorbi/edit.do");
 		result.addObject("message", message);
 
 		return result;
