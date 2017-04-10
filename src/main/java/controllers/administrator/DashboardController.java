@@ -37,6 +37,14 @@ public class DashboardController extends AbstractController {
 		numberChorbiPerCountryAndCity = this.chorbiService.numberChorbiPerCountryAndCity();
 		result.addObject("numberChorbiPerCountryAndCity", numberChorbiPerCountryAndCity);
 
+		// C2
+		final Double[] minMaxAvgAgeOfChorbi2 = this.chorbiService.minMaxAvgAgeOfChorbi2();
+		result.addObject("minMaxAvgAgeOfChorbi2", minMaxAvgAgeOfChorbi2);
+
+		//C3
+		final Double ratioChorbiesWithNullOrInvalidCreditcard = this.chorbiService.ratioChorbiesWithNullOrInvalidCreditcard();
+		result.addObject("ratioChorbiesWithNullOrInvalidCreditcard", ratioChorbiesWithNullOrInvalidCreditcard);
+
 		return result;
 
 	}
