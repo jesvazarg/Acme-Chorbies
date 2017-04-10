@@ -18,7 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.Authority;
 import services.ActorService;
+import services.ChorbiService;
 import domain.Actor;
+import domain.Chorbi;
 
 @Controller
 @RequestMapping("/profile")
@@ -28,6 +30,9 @@ public class ProfileController extends AbstractController {
 
 	@Autowired
 	private ActorService	actorService;
+
+	@Autowired
+	private ChorbiService	chorbiService;
 
 
 	// Constructor ---------------------------------------------------------------
@@ -45,10 +50,19 @@ public class ProfileController extends AbstractController {
 		final Boolean sameActor = true;
 
 		actor = this.actorService.findByPrincipal();
-		isAdmin = this.actorService.checkAuthority(actor, Authority.ADMIN);
 
 		result = new ModelAndView("profile/display");
 		result.addObject("profile", actor);
+
+		isAdmin = this.actorService.checkAuthority(actor, Authority.ADMIN);
+
+		if (isAdmin == false) {
+			final Chorbi chorbi = this.chorbiService.findByUserAccount(actor.getUserAccount());
+			result.addObject("description", chorbi.getDescription());
+		}
+		result.addObject("phone", actor.getPhone());
+		result.addObject("email", actor.getEmail());
+
 		result.addObject("isAdmin", isAdmin);
 		result.addObject("sameActor", sameActor);
 		result.addObject("requestURI", "profile/display");
@@ -64,11 +78,17 @@ public class ProfileController extends AbstractController {
 		Boolean sameActor = false;
 
 		actor = this.actorService.findOne(actorId);
+
+		final Chorbi chorbi = this.chorbiService.findByUserAccount(actor.getUserAccount());
+
 		if (actor.equals(this.actorService.findByPrincipal()))
 			sameActor = true;
 
 		result = new ModelAndView("profile/display");
 		result.addObject("profile", actor);
+		result.addObject("phone", actor.maskEmailAndPhone(chorbi.getPhone()));
+		result.addObject("email", actor.maskEmailAndPhone(chorbi.getEmail()));
+		result.addObject("description", actor.maskEmailAndPhone(chorbi.getDescription()));
 		result.addObject("isAdmin", isAdmin);
 		result.addObject("sameActor", sameActor);
 		result.addObject("requestURI", "profile/display.do?actorId=" + actor.getId());

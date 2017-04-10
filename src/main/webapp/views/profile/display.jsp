@@ -21,12 +21,12 @@
 		
 		<li>
 			<b><spring:message code="profile.email"/>:</b>
-			<jstl:out value="${profile.email}"/>
+			<jstl:out value="${email}"/>
 		</li>
 		
 		<li>
 			<b><spring:message code="profile.phone" />:</b>
-			<jstl:out value="${profile.phone}" />
+			<jstl:out value="${phone}" />
 		</li>
 		
 		<jstl:if test="${isAdmin==false}">
@@ -39,7 +39,7 @@
 			
 		<li>
 			<b><spring:message code="profile.description" />:</b>
-			<jstl:out value="${profile.description}" />
+			<jstl:out value="${description}" />
 		</li>
 		
 		<li>	

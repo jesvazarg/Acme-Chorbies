@@ -87,4 +87,12 @@ public class Actor extends DomainEntity {
 		this.userAccount = userAccount;
 	}
 
+	public String maskEmailAndPhone(final String string) {
+
+		final String masked = string.replaceAll("[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]", "***");
+		final String masked2 = masked.replaceAll("(\\+\\d{1,3})?(\\(\\d{1,3}\\) )?(\\d{3,})", "***");
+
+		return masked2;
+	}
+
 }
