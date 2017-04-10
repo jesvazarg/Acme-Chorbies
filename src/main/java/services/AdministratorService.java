@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.AdministratorRepository;
+import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Administrator;
@@ -75,18 +77,28 @@ public class AdministratorService {
 	}
 
 	public void banChorbi(final Chorbi chorbi) {
+		final Collection<Authority> authorities = new ArrayList<Authority>();
+		final Authority authority = new Authority();
 		Assert.notNull(chorbi);
 		Assert.notNull(this.findByPrincipal());
 
-		chorbi.setBanned(true);
+		authority.setAuthority(Authority.BANNED);
+		authorities.add(authority);
+		chorbi.getUserAccount().setAuthorities(authorities);
+
 		this.chorbiService.save(chorbi);
 	}
 
 	public void desBanChorbi(final Chorbi chorbi) {
+		final Collection<Authority> authorities = new ArrayList<Authority>();
+		final Authority authority = new Authority();
 		Assert.notNull(chorbi);
 		Assert.notNull(this.findByPrincipal());
 
-		chorbi.setBanned(false);
+		authority.setAuthority(Authority.CHORBI);
+		authorities.add(authority);
+		chorbi.getUserAccount().setAuthorities(authorities);
+
 		this.chorbiService.save(chorbi);
 	}
 

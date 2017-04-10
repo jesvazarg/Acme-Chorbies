@@ -283,7 +283,6 @@
 		<property name="relationship" value="Love" />
 		<property name="birthDate" value="06/10/1980" />
 		<property name="genre" value="Man" />
-		<property name="banned" value="false" />
 		<property name="coordinate" ref="coordinate1" />
 		<property name="userAccount" ref="userAccount2" />
 		<property name="searchTemplate" ref="searchTemplate1" />
@@ -332,7 +331,6 @@
 		<property name="relationship" value="Friendship" />
 		<property name="birthDate" value="02/17/1978" />
 		<property name="genre" value="Woman" />
-		<property name="banned" value="false" />
 		<property name="coordinate" ref="coordinate2" />
 		<property name="userAccount" ref="userAccount3" />
 		<property name="giveSenses">
@@ -381,7 +379,6 @@
 		<property name="relationship" value="Love" />
 		<property name="birthDate" value="11/28/1967" />
 		<property name="genre" value="Woman" />
-		<property name="banned" value="false" />
 		<property name="coordinate" ref="coordinate3" />
 		<property name="creditCard" ref="creditCard1" />
 		<property name="userAccount" ref="userAccount4" />
@@ -415,7 +412,6 @@
 		<property name="relationship" value="Activities" />
 		<property name="birthDate" value="01/02/1957" />
 		<property name="genre" value="Man" />
-		<property name="banned" value="false" />
 		<property name="coordinate" ref="coordinate4" />
 		<property name="creditCard" ref="creditCard2" />
 		<property name="userAccount" ref="userAccount5" />
@@ -448,7 +444,6 @@
 		<property name="relationship" value="Love" />
 		<property name="birthDate" value="04/08/1954" />
 		<property name="genre" value="Man" />
-		<property name="banned" value="true" />
 		<property name="coordinate" ref="coordinate5" />
 		<property name="creditCard" ref="creditCard3" />
 		<property name="userAccount" ref="userAccount6" />
@@ -481,7 +476,6 @@
 		<property name="relationship" value="Activities" />
 		<property name="birthDate" value="06/10/1983" />
 		<property name="genre" value="Woman" />
-		<property name="banned" value="true" />
 		<property name="coordinate" ref="coordinate6" />
 		<property name="userAccount" ref="userAccount7" />
 		<property name="searchTemplate" ref="searchTemplate2" />

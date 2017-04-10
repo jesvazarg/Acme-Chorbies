@@ -31,8 +31,10 @@ public class ChorbiService {
 	@Autowired
 	private ChorbiRepository	chorbiRepository;
 
-
 	// Supporting services ----------------------------------------------------
+	@Autowired
+	private ActorService		actorService;
+
 
 	// Constructors------------------------------------------------------------
 	public ChorbiService() {
@@ -82,7 +84,6 @@ public class ChorbiService {
 		result.setReciveSenses(reciveSenses);
 		result.setSentChirps(sentChirps);
 		result.setReciveChirps(reciveChirps);
-		result.setBanned(false);
 
 		return result;
 	}
@@ -143,7 +144,7 @@ public class ChorbiService {
 
 		allChorbies = this.findAll();
 		for (final Chorbi c : allChorbies)
-			if (!c.getBanned() && principal.getId() != c.getId())
+			if (this.actorService.checkAuthority(c, Authority.CHORBI) && principal.getId() != c.getId())
 				result.add(c);
 		return result;
 	}

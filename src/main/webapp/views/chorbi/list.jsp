@@ -19,13 +19,23 @@
 
 <display:table name="${chorbies}" id="chorbi" class="displaytag" pagesize="5" keepStatus="true" requestURI="${requestURI}">
 
+	<jstl:set var="isBanned" value="${false}"/>
+	<jstl:forEach var="authority" items="${chorbi.userAccount.authorities}">
+		<jstl:if test="${authority eq BANNED}">
+			<jstl:set var="isBanned" value="${true}"/>
+		</jstl:if>
+	</jstl:forEach>
+	
 	<acme:column code="chorbi.name" property="name" sortable="true"/>
 	<acme:column code="chorbi.surname" property="surname" sortable="true"/>
 	<acme:column code="chorbi.description" property="description"/>
 	<acme:column code="chorbi.relationship" property="relationship" sortable="true"/>
 	<acme:column code="chorbi.birthDate" property="birthDate" format="{0,date,dd-MM-yyyy}" sortable="true"/>
 	<security:authorize access="hasRole('ADMIN')">
-		<acme:column code="chorbi.banned" property="banned" sortable="true"/>
+		<spring:message code="chorbi.banned" var="bannedHeader" />
+		<display:column title="${bannedHeader}">
+			<jstl:out value="${isBanned}"/>
+		</display:column>
 	</security:authorize>
 	<spring:message code="chorbi.profile" var="profileHeader" />
 	<display:column title="${profileHeader}">
@@ -34,10 +44,10 @@
 	
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column>
-			<jstl:if test="${chorbi.banned == false}">
+			<jstl:if test="${isBanned == false}">
 				<a href="chorbi/ban.do?chorbiId=${chorbi.id}"><spring:message code="chorbi.ban"/></a>
 			</jstl:if>
-			<jstl:if test="${chorbi.banned == true}">
+			<jstl:if test="${isBanned == true}">
 				<a href="chorbi/unban.do?chorbiId=${chorbi.id}"><spring:message code="chorbi.unban"/></a>
 			</jstl:if>
 		</display:column>
@@ -53,10 +63,10 @@
 			</jstl:forEach>
 			<jstl:choose>
 				<jstl:when test="${haveLike==false}">
-					<a href="sense/chorbi/like.do?chorbiId=${chorbi.id}"><img src="http://observatorioecommerce.com/wp-content/uploads/2015/04/logo-me-gusta-facebook.png" alt="<spring:message code="chorbi.like"/>" width="30" height="30"/></a>
+					<a href="sense/chorbi/like.do?chorbiId=${chorbi.id}"><spring:message code="chorbi.like"/></a>
 				</jstl:when>
 				<jstl:otherwise>
-					<a href="sense/chorbi/dislike.do?chorbiId=${chorbi.id}"><img src="http://oyadance.com/genre/commonfiles/images/jw_dislike_disable.png" alt="<spring:message code="chorbi.dislike"/>" width="30" height="30"/></a>
+					<a href="sense/chorbi/dislike.do?chorbiId=${chorbi.id}"><spring:message code="chorbi.dislike"/></a>
 				</jstl:otherwise>
 			</jstl:choose>
 		</display:column>

@@ -36,7 +36,6 @@ public class Chorbi extends Actor {
 	private Date		birthDate;
 	private String		genre;
 	private Coordinate	coordinate;
-	private Boolean		banned;
 
 
 	@NotBlank
@@ -90,14 +89,6 @@ public class Chorbi extends Actor {
 	}
 	public void setCoordinate(final Coordinate coordinate) {
 		this.coordinate = coordinate;
-	}
-
-	@NotNull
-	public Boolean getBanned() {
-		return this.banned;
-	}
-	public void setBanned(final Boolean banned) {
-		this.banned = banned;
 	}
 
 
