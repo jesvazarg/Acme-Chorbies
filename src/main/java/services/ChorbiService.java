@@ -243,6 +243,12 @@ public class ChorbiService {
 		return createChorbiForm;
 	}
 
+	//C1: A listing with the number of chorbies per country and city.
+	public Collection<Object[]> numberChorbiPerCountryAndCity() {
+		final Collection<Object[]> query = this.chorbiRepository.numberChorbiPerCountryAndCity();
+		return query;
+	}
+
 	public Double[] minMaxAvgReciveChirps() {
 		return this.chorbiRepository.minMaxAvgReciveChirps();
 	}

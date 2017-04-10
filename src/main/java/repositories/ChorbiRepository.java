@@ -15,6 +15,10 @@ public interface ChorbiRepository extends JpaRepository<Chorbi, Integer> {
 	@Query("select c from Chorbi c where c.userAccount.id = ?1")
 	Chorbi findByUserAccountId(int userAccountId);
 
+	//C1: A listing with the number of chorbies per country and city.
+	@Query("select c.coordinate.country, c.coordinate.city, count(c) from Chorbi c group by c.coordinate.country, c.coordinate.city")
+	Collection<Object[]> numberChorbiPerCountryAndCity();
+
 	//----------------- 1º Opcion -----------------------------------
 
 	//Para obtener la edad de un usuario:
@@ -55,6 +59,22 @@ public interface ChorbiRepository extends JpaRepository<Chorbi, Integer> {
 
 	@Query("select count(s) from Chorbi s join s.creditCard cred where cred.expirationMonth <= MONTH(CURRENT_DATE)")
 	Double numberChorbiesWithInvalidCreditMonth();
+
+	//C4.1: The ratios of chorbies who search for Activities.
+	@Query("select count(c)/count(t) from Chorbi c join c.searchTemplate t where t.relationship='Activities'")
+	Integer ratioChorbiPerSearchActivities();
+
+	//C4.2: The ratios of chorbies who search for Friendship.
+	@Query("select count(c)/count(t) from Chorbi c join c.searchTemplate t where t.relationship='Friendship'")
+	Integer ratioChorbiPerSearchFriendship();
+
+	//C4.3: The ratios of chorbies who search for Love.
+	@Query("select count(c)/count(t) from Chorbi c join c.searchTemplate t where t.relationship='Love'")
+	Integer ratioChorbiPerSearchLove();
+
+	//B.1: The list of chorbies, sorted by the number of likes they have got.
+	@Query("select c from Chorbi c order by c.reciveSenses.size DESC")
+	Chorbi[] chorbiesSortedGotLikes();
 
 	//A1: The minimum, the maximum, and the average number of chirps that a chor-bi receives from other chorbies.
 	@Query("select min(YEAR(CURRENT_TIMESTAMP) - YEAR(c.birthDate)) -  case when (DATE_FORMAT(CURRENT_TIMESTAMP, '00-%m-%d')< DATE_FORMAT(c.birthDate, '00-%m-%d')) then 1 else 0 end from Chorbi c)")
