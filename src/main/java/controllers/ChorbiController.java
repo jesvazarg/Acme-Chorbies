@@ -10,6 +10,7 @@
 
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.validation.Valid;
@@ -159,11 +160,16 @@ public class ChorbiController extends AbstractController {
 		ModelAndView result;
 		Administrator admin;
 		Chorbi chorbi;
+		final Collection<Authority> authorities = new ArrayList<Authority>();
+		final Authority authority = new Authority();
 
 		admin = this.administratorService.findByPrincipal();
 		Assert.notNull(admin);
 		chorbi = this.chorbiService.findOne(chorbiId);
 		chorbi.setBanned(true);
+		authority.setAuthority(Authority.BANNED);
+		authorities.add(authority);
+		chorbi.getUserAccount().setAuthorities(authorities);
 
 		chorbi = this.chorbiService.save(chorbi);
 
@@ -179,11 +185,16 @@ public class ChorbiController extends AbstractController {
 		ModelAndView result;
 		Administrator admin;
 		Chorbi chorbi;
+		final Collection<Authority> authorities = new ArrayList<Authority>();
+		final Authority authority = new Authority();
 
 		admin = this.administratorService.findByPrincipal();
 		Assert.notNull(admin);
 		chorbi = this.chorbiService.findOne(chorbiId);
 		chorbi.setBanned(false);
+		authority.setAuthority(Authority.CHORBI);
+		authorities.add(authority);
+		chorbi.getUserAccount().setAuthorities(authorities);
 
 		chorbi = this.chorbiService.save(chorbi);
 

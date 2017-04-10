@@ -84,7 +84,7 @@
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="CHORBI" />
+					<property name="authority" value="BANNED" />
 				</bean>
 			</list>
 		</property>
@@ -96,7 +96,7 @@
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="CHORBI" />
+					<property name="authority" value="BANNED" />
 				</bean>
 			</list>
 		</property>

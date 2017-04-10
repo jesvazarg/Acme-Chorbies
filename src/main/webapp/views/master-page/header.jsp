@@ -50,7 +50,9 @@
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">
-			<li><a href="chorbi/list.do"><spring:message code="master.page.chorbi.list" /></a></li>		
+			<security:authorize access="hasAnyRole('CHORBI', 'ADMINISTRATOR')">
+				<li><a href="chorbi/list.do"><spring:message code="master.page.chorbi.list" /></a></li>
+			</security:authorize>		
 			<li>
 				<a class="fNiv"> 
 					<spring:message code="master.page.profile" /> 
@@ -58,10 +60,12 @@
 				</a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="profile/myProfile.do"><spring:message code="master.page.profile.myProfile" /></a></li>
-					<security:authorize access="hasRole('CHORBI')">
-						<li><a href="chorbi/edit.do"><spring:message code="master.page.chorbi.edit" /></a></li>
-					</security:authorize>				
+					<security:authorize access="hasAnyRole('CHORBI', 'ADMINISTRATOR')">
+						<li><a href="profile/myProfile.do"><spring:message code="master.page.profile.myProfile" /></a></li>
+						<security:authorize access="hasRole('CHORBI')">
+							<li><a href="chorbi/edit.do"><spring:message code="master.page.chorbi.edit" /></a></li>
+						</security:authorize>				
+					</security:authorize>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
 				</ul>
 			</li>

@@ -108,7 +108,7 @@ public class ChorbiService {
 			final String brandName = card.getBrandName().toUpperCase();
 			Assert.isTrue(brandName.equals("VISA") || brandName.equals("MASTERCARD") || brandName.equals("DISCOVER") || brandName.equals("DINNERS") || brandName.equals("AMEX"));
 		}
-		result = this.chorbiRepository.saveAndFlush(chorbi);
+		result = this.chorbiRepository.save(chorbi);
 		return result;
 	}
 
