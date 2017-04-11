@@ -3,8 +3,6 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,13 +69,14 @@ public class ConfigurationService {
 		return result;
 	}
 
-	public String RandomBanner() {
-		final Configuration aux = this.findConfiguration();
-		final List<String> banners = new ArrayList<String>(aux.getBanners());
-		final Random randomNumber = new Random();
-		final Integer i = randomNumber.nextInt(banners.size() - 1);
-		System.out.print(banners.get(i));
-		return banners.get(i);
-	}
+	//	public String RandomBanner() {
+	//		Configuration aux;
+	//		aux = this.findConfiguration();
+	//		final List<String> banners = new ArrayList<String>(aux.getBanners());
+	//		final Random randomNumber = new Random();
+	//		final Integer i = randomNumber.nextInt(banners.size());
+	//		//System.out.print(banners.get(i));
+	//		return banners.get(i);
+	//	}
 
 }

@@ -1,13 +1,9 @@
 
 package domain;
 
-import java.util.Collection;
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -23,9 +19,10 @@ public class Configuration extends DomainEntity {
 
 
 	// Attributes -------------------------------------------------------------
-	private String				time;
-	private Collection<String>	banners;
+	private String	time;
 
+
+	//	private Collection<String>	banners;
 
 	@NotBlank
 	@Pattern(regexp = "\\d{2}\\:\\d{2}\\:\\d{2}?")
@@ -37,16 +34,16 @@ public class Configuration extends DomainEntity {
 		this.time = time;
 	}
 
-	@NotNull
-	//@URL
-	@ElementCollection
-	public Collection<String> getBanners() {
-		return this.banners;
-	}
-
-	public void setBanners(final Collection<String> banners) {
-		this.banners = banners;
-	}
+	//	@NotNull
+	//	//@URL
+	//	@ElementCollection
+	//	public Collection<String> getBanners() {
+	//		return this.banners;
+	//	}
+	//
+	//	public void setBanners(final Collection<String> banners) {
+	//		this.banners = banners;
+	//	}
 
 	// Relationships ----------------------------------------------------------
 
