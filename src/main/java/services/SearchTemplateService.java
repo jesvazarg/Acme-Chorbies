@@ -150,16 +150,16 @@ public class SearchTemplateService {
 				if (!searchTemplate.getGenre().equals(""))
 					aux = aux && (c.getGenre().equals(searchTemplate.getGenre()));
 
-				if (searchTemplate.getCoordinate().getCity().equals(" "))
+				if (!searchTemplate.getCoordinate().getCity().equals(" "))
 					aux = aux && (c.getCoordinate().getCity().equals(searchTemplate.getCoordinate().getCity()));
 
-				if (searchTemplate.getCoordinate().getCountry().equals(" "))
+				if (!searchTemplate.getCoordinate().getCountry().equals(" "))
 					aux = aux && (c.getCoordinate().getCountry().equals(searchTemplate.getCoordinate().getCountry()));
 
-				if (searchTemplate.getCoordinate().getState().equals(" "))
+				if (!searchTemplate.getCoordinate().getState().equals(" "))
 					aux = aux && (c.getCoordinate().getState().equals(searchTemplate.getCoordinate().getState()));
 
-				if (searchTemplate.getCoordinate().getProvince().equals(" "))
+				if (!searchTemplate.getCoordinate().getProvince().equals(" "))
 					aux = aux && (c.getCoordinate().getProvince().equals(searchTemplate.getCoordinate().getProvince()));
 
 				if (!searchTemplate.getKeyword().isEmpty())
