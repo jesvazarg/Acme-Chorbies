@@ -4,6 +4,8 @@ package services;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -122,17 +124,24 @@ public class SearchTemplateService {
 
 	// Other business methods -------------------------------------------------
 
+	@SuppressWarnings("deprecation")
 	public Collection<Chorbi> findBySearchResult(SearchTemplate searchTemplate) {
 		Assert.notNull(searchTemplate);
 		Assert.notNull(this.chorbiService.findByPrincipal());
 		Collection<Chorbi> chorbies;
 		Collection<Chorbi> result = new ArrayList<Chorbi>();
+		Date calendarDate;
 		Calendar calendar;
+		List<Integer> horasMinSeg = new ArrayList<Integer>();
 
-		calendar = Calendar.getInstance();
-		calendar.set(Calendar.HOUR_OF_DAY, -this.configurationService.horasCache());
+		horasMinSeg = this.configurationService.horasMinutosSegundosCache();
 
-		if (calendar.getTime().before(searchTemplate.getUpdateMoment()) && !searchTemplate.getResults().isEmpty())
+		calendarDate = Calendar.getInstance().getTime();
+		calendarDate.setHours(calendarDate.getHours() - horasMinSeg.get(0));
+		calendarDate.setMinutes(calendarDate.getMinutes() - horasMinSeg.get(1));
+		calendarDate.setSeconds(calendarDate.getSeconds() - horasMinSeg.get(2));
+
+		if (calendarDate.before(searchTemplate.getUpdateMoment()) && !searchTemplate.getResults().isEmpty())
 			result = searchTemplate.getResults();
 		else {
 			calendar = Calendar.getInstance();

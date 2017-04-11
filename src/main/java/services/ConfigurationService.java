@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,15 +59,29 @@ public class ConfigurationService {
 		final Configuration configuration = aux.get(0);
 		return configuration;
 	}
-	public Integer horasCache() {
+	public Double horasCache() {
 		Configuration configuration;
 		String[] tiempo;
-		Integer result;
+		Double result;
 		configuration = this.findConfiguration();
 		final String horas = configuration.getTime();
 		tiempo = horas.split(":");
-		result = Integer.parseInt(tiempo[0]) + (Integer.parseInt(tiempo[1]) / 60) + (Integer.parseInt(tiempo[2]) / 3600);
+		result = Double.parseDouble(tiempo[0]) + (Double.parseDouble(tiempo[1]) / 60) + (Double.parseDouble(tiempo[2]) / 3600);
 		return result;
+	}
+
+	public List<Integer> horasMinutosSegundosCache() {
+		final List<Integer> result = new ArrayList<Integer>();
+		Configuration configuration;
+		String[] tiempo;
+		configuration = this.findConfiguration();
+		final String horas = configuration.getTime();
+		tiempo = horas.split(":");
+		result.add(Integer.parseInt(tiempo[0]));//Horas
+		result.add(Integer.parseInt(tiempo[1]));//Minutos
+		result.add(Integer.parseInt(tiempo[2]));//Segundos
+		return result;
+
 	}
 
 	//	public String RandomBanner() {
