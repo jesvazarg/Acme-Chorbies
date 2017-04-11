@@ -236,7 +236,7 @@
 	<!-- SearchTemplate -->
 	
 	<bean id="searchTemplate1" class="domain.SearchTemplate">
-		<property name="relationship" value="Love" />
+		<property name="relationship" value="Activities" />
 	  	<property name="coordinate" ref="coordinate1" />
 	  	<property name="age" value="" />
 		<property name="genre" value="" />
