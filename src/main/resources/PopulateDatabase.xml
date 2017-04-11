@@ -150,44 +150,44 @@
 	<bean id="coordinate1" class="domain.Coordinate">
 		<property name="city" value="Madrid" /> 
 		<property name="country" value="España" />
-		<property name="state" value=" " />
-		<property name="province" value=" " />
+		<property name="state" value="" />
+		<property name="province" value="" />
 	</bean>
 	
 	<bean id="coordinate2" class="domain.Coordinate">
 		<property name="city" value="Madrid" /> 
-		<property name="country" value=" " />
-		<property name="state" value=" " />
-		<property name="province" value=" " />
+		<property name="country" value="" />
+		<property name="state" value="" />
+		<property name="province" value="" />
 		
 	</bean>
 	
 	<bean id="coordinate3" class="domain.Coordinate">
 		<property name="city" value="Malaga" /> 
 		<property name="state" value="Andalucia" /> 
-		<property name="province" value=" " />
-		<property name="country" value=" " />
+		<property name="province" value="" />
+		<property name="country" value="" />
 	</bean>
 	
 	<bean id="coordinate4" class="domain.Coordinate">
 		<property name="city" value="Madrid" /> 
 		<property name="country" value="España" /> 
-		<property name="province" value=" " />
-		<property name="state" value=" " />
+		<property name="province" value="" />
+		<property name="state" value="" />
 	</bean>
 	
 	<bean id="coordinate5" class="domain.Coordinate">
 		<property name="city" value="Dos Hermanas" />
 		<property name="province" value="Sevilla" /> 
 		<property name="country" value="España" /> 
-		<property name="state" value=" " />
+		<property name="state" value="" />
 	</bean>
 	
 	<bean id="coordinate6" class="domain.Coordinate">
 		<property name="city" value="Cádiz" /> 
 		<property name="state" value="Andalucia" /> 
-		<property name="country" value=" " /> 
-		<property name="province" value=" " /> 
+		<property name="country" value="" /> 
+		<property name="province" value="" /> 
 	</bean>
 	
 	<!-- CreditCard -->
