@@ -48,11 +48,11 @@ public class WelcomeController extends AbstractController {
 
 		formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		moment = formatter.format(new Date());
-		System.out.println(banner);
+		System.out.println(banner.getPicture());
 		result = new ModelAndView("welcome/index");
 		result.addObject("name", name);
 		result.addObject("moment", moment);
-		result.addObject("chubidadu", banner);
+		result.addObject("banner", banner.getPicture());
 
 		return result;
 	}

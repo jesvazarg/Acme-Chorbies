@@ -76,6 +76,8 @@ public class ChirpChorbiController extends AbstractController {
 		final Chorbi chorbi = this.chorbiService.findByPrincipal();
 
 		chirp = this.chirpService.findOne(chirpId);
+		if (chirp.getRecipient().equals(chorbi))
+			isRecipient = true;
 		/* Seguridad */
 		if (!chirp.getRecipient().equals(chorbi) && !chirp.getSender().equals(chorbi))
 			return result = new ModelAndView("redirect:../../welcome/index.do");
@@ -132,7 +134,7 @@ public class ChirpChorbiController extends AbstractController {
 			return result = new ModelAndView("redirect:../../welcome/index.do");
 		/*----*/
 		else {
-			final Chirp chirp = this.chirpService.forward(chirpRequest);
+			final Chirp chirp = this.chirpService.reply(chirpRequest);
 			result = this.createEditModelAndView(chirp);
 		}
 
@@ -152,7 +154,7 @@ public class ChirpChorbiController extends AbstractController {
 		/*----*/
 		else {
 
-			final Chirp chirp = this.chirpService.reply(chirpRequest);
+			final Chirp chirp = this.chirpService.forward(chirpRequest);
 			result = this.createEditModelAndViewForward(chirp);
 		}
 

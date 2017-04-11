@@ -32,25 +32,25 @@ public class BannerAdministratorController extends AbstractController {
 		super();
 	}
 
-	//	// Listing ----------------------------------------------------------------
-	//
-	//	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	//	public ModelAndView list() {
-	//		ModelAndView result;
-	//		Collection<Banner> banners;
-	//
-	//		banners = this.bannerService.findAll();
-	//
-	//		result = new ModelAndView("banner/list");
-	//		result.addObject("banners", banners);
-	//
-	//		return result;
-	//	}
+	// Listing ----------------------------------------------------------------
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list() {
+		ModelAndView result;
+		Collection<Banner> banners;
+
+		banners = this.bannerService.findAll();
+
+		result = new ModelAndView("banner/list");
+		result.addObject("banners", banners);
+
+		return result;
+	}
 
 	// Creation ---------------------------------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(String picture) {
+	public ModelAndView create(final String picture) {
 		ModelAndView result;
 		Banner banner;
 

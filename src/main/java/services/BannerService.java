@@ -78,7 +78,7 @@ public class BannerService {
 	public Banner RandomBanner() {
 		final List<Banner> banners = (ArrayList<Banner>) this.findAll();
 		final Random randomNumber = new Random();
-		final Integer i = randomNumber.nextInt(banners.size() - 1);
+		final Integer i = randomNumber.nextInt(banners.size());
 		//System.out.print(banners.get(i));
 		return banners.get(i);
 	}

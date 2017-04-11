@@ -23,12 +23,20 @@
 			<bean class="converters.Class1ToClass2" /> 
 		-->
 		
+		<bean class="converters.ActorToStringConverter" /> 
 		<bean class="converters.SearchTemplateToStringConverter" /> 
-		<bean class="converters.ChorbiToStringConverter" /> 
+		<bean class="converters.BannerToStringConverter" /> 
+		<bean class="converters.ChirpToStringConverter" />
+		<bean class="converters.ChorbiToStringConverter" />  
+		<bean class="converters.ConfigurationToStringConverter" /> 
 		<bean class="converters.SenseToStringConverter" />
 		
+		<bean class="converters.StringToActorConverter" /> 
 		<bean class="converters.StringToSearchTemplateConverter" /> 
+		<bean class="converters.StringToBannerConverter" /> 
+		<bean class="converters.StringToChirpConverter" /> 
 		<bean class="converters.StringToChorbiConverter" /> 
+		<bean class="converters.StringToConfigurationConverter" /> 
 		<bean class="converters.StringToSenseConverter" /> 
 	</util:list>
 	

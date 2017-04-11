@@ -21,6 +21,5 @@
 <p><spring:message code="welcome.greeting.current.time" /> ${moment}</p> 
 
 <security:authorize access="isAnonymous()">
-	<jstl:out value="${chubidadu}"/>
-	<img src="${chubidadu}" style = "max-width: 200 px; max-height: 200px;"/>
+	<img src="${banner}" style = "max-width: 200 px; max-height: 200px;"/>
 </security:authorize>
