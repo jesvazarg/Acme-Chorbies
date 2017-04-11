@@ -39,7 +39,7 @@ public class ChirpService {
 		Chirp chirp;
 
 		chirp = this.chirpRepository.findOne(chirpId);
-
+		Assert.notNull(chirp);
 		return chirp;
 	}
 
@@ -59,6 +59,7 @@ public class ChirpService {
 
 		result = new Chirp();
 		chorbi = this.chorbiService.findByPrincipal();
+		Assert.notNull(chorbi);
 
 		calendar = Calendar.getInstance();
 		calendar.set(Calendar.MILLISECOND, -10);
@@ -78,6 +79,7 @@ public class ChirpService {
 
 		result = new Chirp();
 		chorbi = this.chorbiService.findByPrincipal();
+		Assert.notNull(chorbi);
 
 		calendar = Calendar.getInstance();
 		calendar.set(Calendar.MILLISECOND, -10);
@@ -94,6 +96,7 @@ public class ChirpService {
 		Assert.notNull(chirp);
 		Chirp result;
 		final Chorbi chorbi = this.chorbiService.findByPrincipal();
+		Assert.notNull(chorbi);
 
 		result = new Chirp();
 		result.setSubject(chirp.getSubject());
@@ -128,6 +131,7 @@ public class ChirpService {
 	public Chirp save(Chirp chirp) {
 		Assert.notNull(chirp);
 		Assert.isTrue(this.validatorURL(chirp.getAttachments()));
+		Assert.notNull(chirp.getId() != 0);
 
 		Chirp copy;
 		copy = new Chirp();
