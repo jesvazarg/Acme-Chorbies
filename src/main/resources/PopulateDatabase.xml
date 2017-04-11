@@ -137,32 +137,45 @@
 	
 	<bean id="coordinate1" class="domain.Coordinate">
 		<property name="city" value="Madrid" /> 
-		<property name="country" value="España" /> 
+		<property name="country" value="España" />
+		<property name="state" value=" " />
+		<property name="province" value=" " />
 	</bean>
 	
 	<bean id="coordinate2" class="domain.Coordinate">
 		<property name="city" value="Madrid" /> 
+		<property name="country" value=" " />
+		<property name="state" value=" " />
+		<property name="province" value=" " />
+		
 	</bean>
 	
 	<bean id="coordinate3" class="domain.Coordinate">
 		<property name="city" value="Malaga" /> 
 		<property name="state" value="Andalucia" /> 
+		<property name="province" value=" " />
+		<property name="country" value=" " />
 	</bean>
 	
 	<bean id="coordinate4" class="domain.Coordinate">
 		<property name="city" value="Madrid" /> 
 		<property name="country" value="España" /> 
+		<property name="province" value=" " />
+		<property name="state" value=" " />
 	</bean>
 	
 	<bean id="coordinate5" class="domain.Coordinate">
 		<property name="city" value="Dos Hermanas" />
 		<property name="province" value="Sevilla" /> 
 		<property name="country" value="España" /> 
+		<property name="state" value=" " />
 	</bean>
 	
 	<bean id="coordinate6" class="domain.Coordinate">
 		<property name="city" value="Cádiz" /> 
 		<property name="state" value="Andalucia" /> 
+		<property name="country" value=" " /> 
+		<property name="province" value=" " /> 
 	</bean>
 	
 	<!-- CreditCard -->
@@ -223,8 +236,11 @@
 	<!-- SearchTemplate -->
 	
 	<bean id="searchTemplate1" class="domain.SearchTemplate">
-		<property name="relationship" value="love" />
-	<!--  	<property name="coordinate" ref="coordinate1" /> -->
+		<property name="relationship" value="Love" />
+	  	<property name="coordinate" ref="coordinate1" />
+	  	<property name="age" value="" />
+		<property name="genre" value="" />
+		<property name="keyword" value="" />
 		<property name="updateMoment" value="04/04/2017 12:00"/>
 		<property name="results">
 			<list>
@@ -234,7 +250,7 @@
 	</bean>
 	
 	<bean id="searchTemplate2" class="domain.SearchTemplate">
-		<property name="relationship" value="activities" />
+		<property name="relationship" value="Activities" />
 		<property name="age" value="30" />
 		<property name="genre" value="man" />
 		<property name="coordinate" ref="coordinate2" />
@@ -249,7 +265,7 @@
 	</bean>
 	
 	<bean id="searchTemplate3" class="domain.SearchTemplate">
-		<property name="relationship" value="friendShip" />
+		<property name="relationship" value="Friendship" />
 		<property name="age" value="24" />
 		<property name="genre" value="man" />
 		<property name="coordinate" ref="coordinate3" />
