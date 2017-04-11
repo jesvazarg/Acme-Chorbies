@@ -38,6 +38,7 @@ public class CreateChorbiForm {
 	private String	country;
 	private String	state;
 	private String	province;
+	private Boolean	isAgree;
 
 
 	@NotBlank
@@ -192,6 +193,13 @@ public class CreateChorbiForm {
 	}
 	public void setProvince(final String province) {
 		this.province = province;
+	}
+
+	public Boolean getIsAgree() {
+		return this.isAgree;
+	}
+	public void setIsAgree(final Boolean isAgree) {
+		this.isAgree = isAgree;
 	}
 
 }

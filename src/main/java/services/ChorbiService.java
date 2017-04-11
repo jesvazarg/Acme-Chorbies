@@ -19,7 +19,6 @@ import security.UserAccount;
 import domain.Chirp;
 import domain.Chorbi;
 import domain.Coordinate;
-import domain.CreditCard;
 import domain.Sense;
 import forms.CreateChorbiForm;
 
@@ -98,17 +97,17 @@ public class ChorbiService {
 		nuevo.setYear(nuevo.getYear() - 18);
 
 		Assert.isTrue(chorbi.getBirthDate().before(nuevo));
-		if (chorbi.getCreditCard() != null) {
-			final CreditCard card = chorbi.getCreditCard();
-			final Calendar expiryDate = Calendar.getInstance();
-			expiryDate.set(card.getExpirationYear(), card.getExpirationMonth() - 1, 1);
-			final Calendar today = Calendar.getInstance();
-			expiryDate.add(Calendar.DAY_OF_YEAR, -1);
-			Assert.isTrue(expiryDate.after(today));
-
-			final String brandName = card.getBrandName().toUpperCase();
-			Assert.isTrue(brandName.equals("VISA") || brandName.equals("MASTERCARD") || brandName.equals("DISCOVER") || brandName.equals("DINNERS") || brandName.equals("AMEX"));
-		}
+		//		if (chorbi.getCreditCard() != null) {
+		//			final CreditCard card = chorbi.getCreditCard();
+		//			final Calendar expiryDate = Calendar.getInstance();
+		//			expiryDate.set(card.getExpirationYear(), card.getExpirationMonth() - 1, 1);
+		//			final Calendar today = Calendar.getInstance();
+		//			expiryDate.add(Calendar.DAY_OF_YEAR, -1);
+		//			Assert.isTrue(expiryDate.after(today));
+		//
+		//			final String brandName = card.getBrandName().toUpperCase();
+		//			Assert.isTrue(brandName.equals("VISA") || brandName.equals("MASTERCARD") || brandName.equals("DISCOVER") || brandName.equals("DINNERS") || brandName.equals("AMEX"));
+		//		}
 		result = this.chorbiRepository.save(chorbi);
 		return result;
 	}
@@ -163,22 +162,6 @@ public class ChorbiService {
 		return result;
 	}
 
-	public void updateProfile(final Chorbi chorbi) {
-		final Chorbi principal = this.findByPrincipal();
-		principal.setName(chorbi.getName());
-		principal.setSurname(chorbi.getSurname());
-		principal.setEmail(chorbi.getEmail());
-		principal.setPhone(chorbi.getPhone());
-		principal.setPicture(chorbi.getPicture());
-		principal.setDescription(chorbi.getDescription());
-		principal.setRelationship(chorbi.getRelationship());
-		principal.setBirthDate(chorbi.getBirthDate());
-		principal.setGenre(chorbi.getGenre());
-		principal.setCoordinate(chorbi.getCoordinate());
-
-		this.chorbiRepository.save(principal);
-	}
-
 	public Chorbi reconstructProfile(final CreateChorbiForm createChorbiForm, final String type) {
 		Assert.notNull(createChorbiForm);
 		Chorbi chorbi = null;
@@ -189,9 +172,10 @@ public class ChorbiService {
 		Assert.isTrue(createChorbiForm.getPassword().equals(createChorbiForm.getConfirmPassword()));
 
 		//Creo uno nuevo vacio para meterle los datos del formulario a dicho chorbi
-		if (type.equals("create"))
+		if (type.equals("create")) {
 			chorbi = this.create();
-		else if (type.equals("edit"))
+			Assert.isTrue(createChorbiForm.getIsAgree());
+		} else if (type.equals("edit"))
 			chorbi = this.findByPrincipal();
 
 		password = createChorbiForm.getPassword();
@@ -219,7 +203,6 @@ public class ChorbiService {
 
 		return chorbi;
 	}
-
 	public CreateChorbiForm constructProfile(final Chorbi chorbi) {
 		Assert.notNull(chorbi);
 		CreateChorbiForm createChorbiForm;

@@ -18,14 +18,12 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <display:table name="${chorbies}" id="chorbi" class="displaytag" pagesize="5" keepStatus="true" requestURI="${requestURI}">
-
 	<jstl:set var="isBanned" value="${false}"/>
 	<jstl:forEach var="authority" items="${chorbi.userAccount.authorities}">
-		<jstl:if test="${authority eq BANNED}">
+		<jstl:if test="${authority.authority == 'BANNED'}">
 			<jstl:set var="isBanned" value="${true}"/>
 		</jstl:if>
 	</jstl:forEach>
-	
 	<acme:column code="chorbi.name" property="name" sortable="true"/>
 	<acme:column code="chorbi.surname" property="surname" sortable="true"/>
 	<acme:column code="chorbi.description" property="description"/>

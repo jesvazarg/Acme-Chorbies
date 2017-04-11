@@ -63,6 +63,16 @@
 	<acme:input code="chorbi.coordinate.state" path="state" />
 	<acme:input code="chorbi.coordinate.province" path="province" />
 	
+	<jstl:if test="${requestURI == 'chorbi/create.do'}">
+		<br/>
+		<form:checkbox path="isAgree"/>
+		<form:label path="isAgree">
+			<spring:message code="chorbi.isAgree" />
+			<a href="misc/conditions.do" target="_blank"><spring:message code="chorbi.conditions" /></a>
+		</form:label>
+		<br/>
+	</jstl:if>
+	
 	<acme:submit name="save" code="chorbi.save" />
 	<acme:cancel url="" code="chorbi.cancel" />
 </form:form>
