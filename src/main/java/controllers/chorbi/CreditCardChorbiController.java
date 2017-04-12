@@ -34,6 +34,23 @@ public class CreditCardChorbiController extends AbstractController {
 		super();
 	}
 
+	// Display ---------------------------------------------------------------
+
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display() {
+
+		ModelAndView result;
+		CreditCard creditCard;
+
+		creditCard = this.chorbiService.findByPrincipal().getCreditCard();
+
+		result = new ModelAndView("creditCard/display");
+		result.addObject("creditCard", creditCard);
+		result.addObject("requestURI", "creditCard/display");
+
+		return result;
+
+	}
 	// Creation ---------------------------------------------------------------		
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -59,7 +76,7 @@ public class CreditCardChorbiController extends AbstractController {
 			try {
 				creditCard = this.creditCardService.reconstructCreditCard(createCreditCardForm, "create");
 				this.creditCardService.save(creditCard);
-				result = new ModelAndView("redirect:/profile/myProfile.do");
+				result = new ModelAndView("redirect:/creditCard/chorbi/display.do");
 
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(createCreditCardForm, "creditCard.commit.error");
@@ -95,13 +112,42 @@ public class CreditCardChorbiController extends AbstractController {
 			try {
 				creditCard = this.creditCardService.reconstructCreditCard(createCreditCardForm, "edit");
 				this.creditCardService.save(creditCard);
-				result = new ModelAndView("redirect:/profile/myProfile.do");
+				result = new ModelAndView("redirect:/creditCard/chorbi/display.do");
 
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(createCreditCardForm, "creditCard.commit.error");
 
 			}
 		return result;
+	}
+
+	// Delete ------------------------------------------------------
+
+	//	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	//	public ModelAndView delete(@Valid final CreditCard creditCard) {
+	//
+	//		ModelAndView result;
+	//
+	//		this.creditCardService.delete(creditCard);
+	//		result = new ModelAndView("redirect:/profile/myProfile.do");
+	//
+	//		return result;
+	//
+	//	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(@Valid final CreditCard creditCard) {
+
+		ModelAndView result;
+
+		try {
+			this.creditCardService.delete(creditCard);
+			result = new ModelAndView("redirect:/profile/myProfile.do");
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/creditCard/chorbi/display.do");
+		}
+		return result;
+
 	}
 
 	// Ancillary methods ------------------------------------------------------

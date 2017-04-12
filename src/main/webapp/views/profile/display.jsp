@@ -77,9 +77,16 @@
 <security:authorize access="hasRole('CHORBI')">
 	<jstl:if test="${sameActor==false}">
 	<div>
-		<a href="chirp/chorbi/create.do?chorbieId=${profile.id}"><spring:message
-				code="chirp.create" /></a>
+		<acme:button code="chirp.create" url="chirp/chorbi/create.do?chorbieId=${profile.id}"/>
 	</div>
+	</jstl:if>
+	<jstl:if test="${sameActor==true}">
+		<jstl:if test="${profile.creditCard != null}">
+			<acme:button code="profile.creditCard.display" url="creditCard/chorbi/display.do"/>
+		</jstl:if>
+		<jstl:if test="${profile.creditCard == null}">
+			<acme:button code="profile.creditCard.create" url="creditCard/chorbi/create.do"/>
+		</jstl:if>
 	</jstl:if>
 </security:authorize>
 <%-- 
