@@ -97,6 +97,21 @@ public class CreditCardService {
 
 	}
 
+	public Boolean checkCreditCardBoolean(final CreditCard creditCard) {
+		Boolean result = true;
+		final Calendar expiryDate = Calendar.getInstance();
+		expiryDate.set(creditCard.getExpirationYear(), creditCard.getExpirationMonth() - 1, 1);
+		final Calendar today = Calendar.getInstance();
+		expiryDate.add(Calendar.DAY_OF_YEAR, -1);
+
+		final String brandName = creditCard.getBrandName().toUpperCase();
+
+		if (expiryDate.after(today) == false || (brandName.equals("VISA") || brandName.equals("MASTERCARD") || brandName.equals("DISCOVER") || brandName.equals("DINNERS") || brandName.equals("AMEX")) == false)
+			result = false;
+		return result;
+
+	}
+
 	public CreditCard reconstructCreditCard(final CreateCreditCardForm createCreditCardForm, final String type) {
 		Assert.notNull(createCreditCardForm);
 		CreditCard creditCard = null;

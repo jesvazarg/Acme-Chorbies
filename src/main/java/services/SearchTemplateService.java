@@ -31,6 +31,9 @@ public class SearchTemplateService {
 	@Autowired
 	private ConfigurationService		configurationService;
 
+	@Autowired
+	private CreditCardService			creditCardService;
+
 
 	// Constructors -----------------------------------------------------------
 	public SearchTemplateService() {
@@ -76,6 +79,8 @@ public class SearchTemplateService {
 	public SearchTemplate save(final SearchTemplate searchTemplate) {
 		Assert.notNull(searchTemplate, "SearchTemplate es null");
 		final Chorbi chorbi = this.chorbiService.findByPrincipal();
+		Assert.notNull(chorbi.getCreditCard());
+		this.creditCardService.checkCreditCard(chorbi.getCreditCard());
 		if (searchTemplate.getId() != 0)
 			Assert.isTrue(searchTemplate.getId() == chorbi.getSearchTemplate().getId(), "No es el dueño");
 		final Collection<Chorbi> empty = new ArrayList<Chorbi>();
@@ -98,6 +103,8 @@ public class SearchTemplateService {
 	public SearchTemplate saveWithoutClearResults(final SearchTemplate searchTemplate) {
 		Assert.notNull(searchTemplate, "search is null");
 		final Chorbi chorbi = this.chorbiService.findByPrincipal();
+		Assert.notNull(chorbi.getCreditCard());
+		this.creditCardService.checkCreditCard(chorbi.getCreditCard());
 		if (searchTemplate.getId() != 0)
 			Assert.isTrue(chorbi.getSearchTemplate().equals(searchTemplate), "id no es igual");
 
@@ -133,6 +140,8 @@ public class SearchTemplateService {
 		Date calendarDate;
 		Calendar calendar;
 		List<Integer> horasMinSeg = new ArrayList<Integer>();
+		final Chorbi chorbi = this.chorbiService.findByPrincipal();
+		Assert.notNull(chorbi.getCreditCard());
 
 		horasMinSeg = this.configurationService.horasMinutosSegundosCache();
 

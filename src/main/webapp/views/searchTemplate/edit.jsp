@@ -59,4 +59,6 @@
 	
 	<acme:cancel url="searchTemplate/chorbi/display.do" code="searchTemplate.cancel" />
 	
+	<span class="message"><spring:message code="creditcard.${creditCardError}" /></span>
+	
 </form:form>
