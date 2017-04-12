@@ -26,7 +26,6 @@
 	</jstl:forEach>
 	<acme:column code="chorbi.name" property="name" sortable="true"/>
 	<acme:column code="chorbi.surname" property="surname" sortable="true"/>
-	<acme:column code="chorbi.description" property="description"/>
 	<acme:column code="chorbi.relationship" property="relationship" sortable="true"/>
 	<acme:column code="chorbi.birthDate" property="birthDate" format="{0,date,dd-MM-yyyy}" sortable="true"/>
 	<security:authorize access="hasRole('ADMIN')">
