@@ -63,16 +63,9 @@ public class CreditCardService {
 		CreditCard result;
 		Chorbi principal;
 
-		final Calendar expiryDate = Calendar.getInstance();
-		expiryDate.set(creditCard.getExpirationYear(), creditCard.getExpirationMonth() - 1, 1);
-		final Calendar today = Calendar.getInstance();
-		expiryDate.add(Calendar.DAY_OF_YEAR, -1);
-		Assert.isTrue(expiryDate.after(today));
-
-		final String brandName = creditCard.getBrandName().toUpperCase();
-		Assert.isTrue(brandName.equals("VISA") || brandName.equals("MASTERCARD") || brandName.equals("DISCOVER") || brandName.equals("DINNERS") || brandName.equals("AMEX"));
-
+		this.checkCreditCard(creditCard);
 		result = this.creditCardRepository.save(creditCard);
+
 		principal = this.chorbiService.findByPrincipal();
 		Assert.notNull(principal);
 		principal.setCreditCard(result);
@@ -90,6 +83,20 @@ public class CreditCardService {
 	}
 
 	// Other business methods -------------------------------------------------
+
+	public void checkCreditCard(final CreditCard creditCard) {
+
+		final Calendar expiryDate = Calendar.getInstance();
+		expiryDate.set(creditCard.getExpirationYear(), creditCard.getExpirationMonth() - 1, 1);
+		final Calendar today = Calendar.getInstance();
+		expiryDate.add(Calendar.DAY_OF_YEAR, -1);
+		Assert.isTrue(expiryDate.after(today));
+
+		final String brandName = creditCard.getBrandName().toUpperCase();
+		Assert.isTrue(brandName.equals("VISA") || brandName.equals("MASTERCARD") || brandName.equals("DISCOVER") || brandName.equals("DINNERS") || brandName.equals("AMEX"));
+
+	}
+
 	public CreditCard reconstructCreditCard(final CreateCreditCardForm createCreditCardForm, final String type) {
 		Assert.notNull(createCreditCardForm);
 		CreditCard creditCard = null;
