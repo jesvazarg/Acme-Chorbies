@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ChorbiService;
 import services.CreditCardService;
 import controllers.AbstractController;
+import domain.Chorbi;
 import domain.CreditCard;
 import forms.CreateCreditCardForm;
 
@@ -123,29 +124,18 @@ public class CreditCardChorbiController extends AbstractController {
 
 	// Delete ------------------------------------------------------
 
-	//	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	//	public ModelAndView delete(@Valid final CreditCard creditCard) {
-	//
-	//		ModelAndView result;
-	//
-	//		this.creditCardService.delete(creditCard);
-	//		result = new ModelAndView("redirect:/profile/myProfile.do");
-	//
-	//		return result;
-	//
-	//	}
-
-	@RequestMapping(value = "/delete", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(@Valid final CreditCard creditCard) {
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete() {
 
 		ModelAndView result;
+		Chorbi principal;
+		CreditCard creditCard;
 
-		try {
-			this.creditCardService.delete(creditCard);
-			result = new ModelAndView("redirect:/profile/myProfile.do");
-		} catch (final Throwable oops) {
-			result = new ModelAndView("redirect:/creditCard/chorbi/display.do");
-		}
+		principal = this.chorbiService.findByPrincipal();
+		creditCard = principal.getCreditCard();
+		this.creditCardService.delete(creditCard);
+		result = new ModelAndView("redirect:/profile/myProfile.do");
+
 		return result;
 
 	}

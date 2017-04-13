@@ -45,10 +45,7 @@
 		</li>
 		
 		<acme:button url="creditCard/chorbi/edit.do" code="creditCard.edit"/>
-<%--	<acme:button url="creditCard/chorbi/delete.do" code="creditCard.delete"/>	 --%>
-		<form:form action="creditCard/chorbi/delete.do" modelAttribute="creditCard">
-			<acme:submit name="delete" code="creditCard.delete"/>
-		</form:form>
+		<acme:button url="creditCard/chorbi/delete.do" code="creditCard.delete"/>
 		
 	</ul>
 </div>

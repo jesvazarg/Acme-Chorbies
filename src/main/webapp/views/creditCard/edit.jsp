@@ -25,6 +25,6 @@
 	<acme:input code="creditCard.expirationYear" path="expirationYear" type="number" min="2017" />
 	<acme:input code="creditCard.cvv" path="cvv" type="number" min="100" max="999" />
 	
-	<acme:submit name="save" code="chorbi.save" />
-	<acme:cancel url="profile/myProfile.do" code="chorbi.cancel" />
+	<acme:submit name="save" code="creditCard.save" />
+	<acme:cancel url="profile/myProfile.do" code="creditCard.cancel" />
 </form:form>

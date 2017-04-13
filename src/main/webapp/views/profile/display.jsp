@@ -89,6 +89,20 @@
 		</jstl:if>
 	</jstl:if>
 </security:authorize>
+
+<h2><spring:message code="profile.likeThem"/></h2>
+<display:table name="${likeThem}" id="chorbi" class="displaytag" pagesize="5" keepStatus="true" requestURI="${requestURI}">
+	<acme:column code="profile.name" property="name" sortable="true"/>
+	<acme:column code="profile.surname" property="surname" sortable="true"/>
+	<acme:column code="profile.relationship" property="relationship" sortable="true"/>
+	<acme:column code="profile.birthDate" property="birthDate" format="{0,date,dd-MM-yyyy}" sortable="true"/>
+	<spring:message code="profile.profile" var="profileHeader" />
+	<display:column title="${profileHeader}">
+		<a href="profile/display.do?actorId=${chorbi.id}"><spring:message code="profile.display"/></a>
+	</display:column>
+</display:table>
+
+
 <%-- 
 	<div>
 		<a href="chirp/chorbi/forward.do?chirpId=${chirp.id}"><spring:message

@@ -76,7 +76,12 @@ public class CreditCardService {
 
 	public void delete(final CreditCard creditCard) {
 		Assert.notNull(creditCard);
-		Assert.notNull(this.chorbiService.findByPrincipal());
+		Chorbi principal;
+
+		principal = this.chorbiService.findByPrincipal();
+		Assert.notNull(principal);
+		principal.setCreditCard(null);
+		this.chorbiService.save(principal);
 		Assert.isTrue(creditCard.getId() != 0);
 
 		this.creditCardRepository.delete(creditCard);

@@ -148,6 +148,16 @@ public class ChorbiService {
 		return result;
 	}
 
+	public Collection<Chorbi> filterNotBanned(final Collection<Chorbi> chorbies) {
+		final Collection<Chorbi> result = new ArrayList<Chorbi>();
+		final Chorbi principal = this.findByPrincipal();
+
+		for (final Chorbi c : chorbies)
+			if (this.actorService.checkAuthority(c, Authority.CHORBI) && principal.getId() != c.getId())
+				result.add(c);
+		return result;
+	}
+
 	@SuppressWarnings("deprecation")
 	public Integer edadChorbi(final Chorbi chorbi) {
 		Assert.notNull(chorbi);

@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 
@@ -104,6 +105,22 @@ public class SenseService {
 				result = s;
 				break;
 			}
+		return result;
+	}
+
+	public Collection<Chorbi> findChorbiesSender(final Collection<Sense> senses) {
+		final Collection<Chorbi> result = new ArrayList<Chorbi>();
+
+		for (final Sense s : senses)
+			result.add(s.getSender());
+		return result;
+	}
+
+	public Collection<Chorbi> findChorbiesRecipient(final Collection<Sense> senses) {
+		final Collection<Chorbi> result = new ArrayList<Chorbi>();
+
+		for (final Sense s : senses)
+			result.add(s.getRecipient());
 		return result;
 	}
 

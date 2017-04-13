@@ -36,7 +36,7 @@
 	</security:authorize>
 	<spring:message code="chorbi.profile" var="profileHeader" />
 	<display:column title="${profileHeader}">
-		<a href="profile/display.do?actorId=${chorbi.id}"><spring:message code="chorbi.show"/></a>
+		<a href="profile/display.do?actorId=${chorbi.id}"><spring:message code="chorbi.display"/></a>
 	</display:column>
 	
 	<security:authorize access="hasRole('ADMIN')">

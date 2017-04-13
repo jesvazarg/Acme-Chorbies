@@ -10,6 +10,8 @@
 
 package controllers;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import security.Authority;
 import services.ActorService;
 import services.ChorbiService;
+import services.SenseService;
 import domain.Actor;
 import domain.Chorbi;
 
@@ -34,6 +37,9 @@ public class ProfileController extends AbstractController {
 	@Autowired
 	private ChorbiService	chorbiService;
 
+	@Autowired
+	private SenseService	senseService;
+
 
 	// Constructor ---------------------------------------------------------------
 
@@ -48,6 +54,7 @@ public class ProfileController extends AbstractController {
 		Actor actor;
 		Boolean isAdmin = false;
 		final Boolean sameActor = true;
+		Collection<Chorbi> likeThem;
 
 		actor = this.actorService.findByPrincipal();
 
@@ -58,7 +65,9 @@ public class ProfileController extends AbstractController {
 
 		if (isAdmin == false) {
 			final Chorbi chorbi = this.chorbiService.findByUserAccount(actor.getUserAccount());
+			likeThem = this.chorbiService.filterNotBanned(this.senseService.findChorbiesSender(chorbi.getReciveSenses()));
 			result.addObject("description", chorbi.getDescription());
+			result.addObject("likeThem", likeThem);
 		}
 		result.addObject("phone", actor.getPhone());
 		result.addObject("email", actor.getEmail());
@@ -76,10 +85,12 @@ public class ProfileController extends AbstractController {
 		Actor actor;
 		final Boolean isAdmin = false;
 		Boolean sameActor = false;
+		Collection<Chorbi> likeThem;
 
 		actor = this.actorService.findOne(actorId);
 
 		final Chorbi chorbi = this.chorbiService.findByUserAccount(actor.getUserAccount());
+		likeThem = this.chorbiService.filterNotBanned(this.senseService.findChorbiesSender(chorbi.getReciveSenses()));
 
 		if (actor.equals(this.actorService.findByPrincipal()))
 			sameActor = true;
@@ -91,6 +102,7 @@ public class ProfileController extends AbstractController {
 		result.addObject("description", actor.maskEmailAndPhone(chorbi.getDescription()));
 		result.addObject("isAdmin", isAdmin);
 		result.addObject("sameActor", sameActor);
+		result.addObject("likeThem", likeThem);
 		result.addObject("requestURI", "profile/display.do?actorId=" + actor.getId());
 
 		return result;
