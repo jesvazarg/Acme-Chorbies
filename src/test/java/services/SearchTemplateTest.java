@@ -2,6 +2,7 @@
 package services;
 
 import javax.transaction.Transactional;
+import javax.validation.ConstraintViolationException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,17 +38,45 @@ public class SearchTemplateTest extends AbstractTest {
 	public void driverBuscadorDeChorbies() {
 		final Object testingData[][] = {
 			{
-				"chorbi1", "Love", "Man", 35, "Sevilla", "España", "", "Andalucia", "", null
+				"chorbi3", "", "Woman", 80, "Sevilla", "España", "", "Andalucia", "", null
 			}, {
-				"chorbi1", "Love", "Man", 35, "Sevilla", "España", "", "Andalucia", "", null
+				"chorbi3", "Love", "Man", 35, "", "", "", "Andalucia", "", null
 			}, {
-				"chorbi1", "Love", "Man", 35, "Sevilla", "España", "", "Andalucia", "", null
+				"chorbi3", "Love", "Man", 35, "Sevilla", "España", "", "Andalucia", "rico", null
+			}, {
+				"chorbi3", "Love", "Man", 35, "Sevilla", "España", "", "", "", null
+			}, {
+				"chorbi3", "Love", "Man", 35, "Sevilla", "España", "", "Andalucia", "", null
+			}, {
+				"chorbi3", "Activities", "Man", 40, "Sevilla", "España", "", "Andalucia", "", null
+			}, {
+				"chorbi3", "Friendship", "Woman", 25, "Sevilla", "España", "", "Andalucia", "", null
+			}, {
+				"chorbi3", "Love", "Woman", 25, "", "", "", "", "", null
+			}, {
+				"chorbi3", "", "Woman", 25, "", "", "", "", "playa", null
+			}, {
+				"chorbi3", "", "", 25, "", "", "", "", "", null
+			}, {
+				"chorbi3", "", "", 25, "", "", "", "", "guapo", null
+			}, {
+				"chorbi3", "", "", 25, "Sevilla", "España", "", "Andalucia", "", null
+			}, {
+				"chorbi3", "", "", 25, "Sevilla", "Francia", "", "", "queso", null
+			}, {
+				"chorbi3", "Friendship", "Woman", 25, "Sevilla", "España", "", "Andalucia", "", null
 			}, {
 				"", "Love", "Man", 35, "Sevilla", "España", "", "Andalucia", "", IllegalArgumentException.class
 			}, {
 				"admin", "Love", "Man", 35, "Sevilla", "España", "", "Andalucia", "", IllegalArgumentException.class
 			}, {
-				"NoName", "Love", "Man", 35, "Sevilla", "España", "", "Andalucia", "", IllegalArgumentException.class
+				"chorbi6", "Love", "Man", 35, "Sevilla", "España", "", "Andalucia", "", IllegalArgumentException.class
+			}, {
+				"chorbi1", "Love", "Man", 35, "Sevilla", "España", "", "Andalucia", "", IllegalArgumentException.class
+			}, {
+				"chorbi3", "Love", "Woman", 250, "", "", "", "", "", ConstraintViolationException.class
+			}, {
+				"chorbi3", "Love", "Woman", -1, "", "", "", "", "", ConstraintViolationException.class
 			}
 		};
 
@@ -79,6 +108,7 @@ public class SearchTemplateTest extends AbstractTest {
 			chorbi.setSearchTemplate(search);
 			this.chorbiService.save(chorbi);
 			this.searchTemplateService.findBySearchResult(search);
+			this.searchTemplateService.findAll();
 			this.unauthenticate();
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
@@ -86,39 +116,4 @@ public class SearchTemplateTest extends AbstractTest {
 
 		this.checkExceptions(expected, caught);
 	}
-
-	/*
-	 * @Test
-	 * public void buscadorDeChorbiesCreandoUnoNuevo() {
-	 * super.authenticate("chorbi1");
-	 * Collection<Chorbi> result = new ArrayList<Chorbi>();
-	 * SearchTemplate searchSave;
-	 * 
-	 * final SearchTemplate search = this.searchTemplateService.create();
-	 * search.setRelationship("Love");
-	 * searchSave = this.searchTemplateService.save(search);
-	 * result = this.searchTemplateService.findBySearchResult(searchSave);
-	 * for (final Chorbi aux : result)
-	 * System.out.println(aux.getName());
-	 * super.authenticate(null);
-	 * }
-	 * 
-	 * @Test
-	 * public void buscadorDeChorbiesUsandoUnoCreado() {
-	 * super.authenticate("chorbi1");
-	 * Collection<Chorbi> result = new ArrayList<Chorbi>();
-	 * final SearchTemplate search = this.chorbiService.findByPrincipal().getSearchTemplate();
-	 * System.out.println("===========Buscador===============");
-	 * System.out.println(search.getRelationship());
-	 * System.out.println(search.getResults());
-	 * System.out.println("===========Buscador===============");
-	 * 
-	 * search.setGenre("Man");
-	 * this.searchTemplateService.save(search);
-	 * result = this.searchTemplateService.findBySearchResult(search);
-	 * for (final Chorbi aux : result)
-	 * System.out.println(aux.getName());
-	 * super.authenticate(null);
-	 * }
-	 */
 }
