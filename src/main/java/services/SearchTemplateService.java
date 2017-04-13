@@ -195,7 +195,6 @@ public class SearchTemplateService {
 		return result;
 
 	}
-
 	public SearchTemplate mySearch() {
 		SearchTemplate result;
 		final Chorbi chorbi = this.chorbiService.findByPrincipal();
