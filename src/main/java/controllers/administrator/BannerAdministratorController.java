@@ -94,7 +94,7 @@ public class BannerAdministratorController extends AbstractController {
 			} catch (final Throwable oops) {
 				System.out.println(oops.getMessage());
 
-				result = this.createEditModelAndView(banner, "request.commit.error");
+				result = this.createEditModelAndView(banner, "banner.commit.error");
 			}
 
 		return result;
@@ -116,7 +116,7 @@ public class BannerAdministratorController extends AbstractController {
 			} catch (final Throwable oops) {
 				System.out.println(oops.getMessage());
 
-				result = this.createEditModelAndView(banner, "request.commit.error");
+				result = this.createEditModelAndView(banner, "banner.commit.error");
 			}
 
 		return result;
