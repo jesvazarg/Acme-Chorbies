@@ -21,7 +21,7 @@
 	
 	<acme:input code="chirp.subject" path="subject" />
 	
-	<acme:input code="chirp.text" path="text" />
+	<acme:textarea code="chirp.text" path="text" />
 	
 	<acme:input code="chirp.attachments" path="attachments" />
 	
