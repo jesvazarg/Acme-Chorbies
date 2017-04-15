@@ -97,7 +97,7 @@ public class ChirpService {
 		Chirp result;
 		final Chorbi chorbi = this.chorbiService.findByPrincipal();
 		Assert.notNull(chorbi);
-
+		Assert.isTrue(chirp.getSender().equals(chorbi));
 		result = new Chirp();
 		result.setSubject(chirp.getSubject());
 		result.setText(chirp.getText());
@@ -110,7 +110,7 @@ public class ChirpService {
 
 	public Chirp reply(final Chirp chirp) {
 		Assert.notNull(chirp);
-
+		Assert.isTrue(chirp.getRecipient().equals(this.chorbiService.findByPrincipal()));
 		final Chirp result = this.create();
 		result.setRecipient(chirp.getSender());
 		result.setSubject(chirp.getSubject());

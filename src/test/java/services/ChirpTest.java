@@ -1,17 +1,14 @@
 
 package services;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import javax.transaction.Transactional;
+import javax.validation.ConstraintViolationException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Chirp;
@@ -33,222 +30,186 @@ public class ChirpTest extends AbstractTest {
 
 	// Tests ------------------------------------------------------------------
 
-	//Un actor registrado como chorbi debe ser capaz de ver sus chirps, tanto recibidos
-	//como enviados.
+	// REQUISITOS FUNCIONALES
+	//Chirp to another chorbi.
+	//Browse the list of chirps that he or she's got, and reply to any of them.
+	//Browse the list of chirps that he or she's sent, and re-send any of them.
+	//Erase any of the chirps that he or she's got or sent.
+
+	//En este primer driver se comprueba que un chorbi pueda enviar un chirp a otro chorbi
 
 	@Test
-	public void testFindOne() {
-		super.authenticate("chorbi1");
-		Chirp chirp;
-		chirp = this.chirpService.findOne(133);
-		Assert.notNull(chirp);
-		this.unauthenticate();
+	public void driverEnvioDeChirpAChorbi() {
+		final Object testingData[][] = {
+			{
+				"chorbi1", "Envio1", "text1", this.chorbiService.findOne(128), null
+			}, {
+				"chorbi1", "Envio2", "text2", this.chorbiService.findOne(129), null
+			}, {
+				"chorbi2", "Envio3", "text3", this.chorbiService.findOne(130), null
+			}, {
+				"", "Envio4", "text4", this.chorbiService.findOne(128), IllegalArgumentException.class
+			}, {
+				"admin", "Envio1", "text1", this.chorbiService.findOne(128), IllegalArgumentException.class
+			}, {
+				"chorbi1", "", "text1", this.chorbiService.findOne(128), ConstraintViolationException.class
+			}
+		};
+
+		for (int i = 0; i < testingData.length; i++)
+			this.envioDeChirpAChorbi((String) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (Chorbi) testingData[i][3], (Class<?>) testingData[i][4]);
 	}
+
+	protected void envioDeChirpAChorbi(final String sender, final String subject, final String text, final Chorbi recipient, final Class<?> expected) {
+		Class<?> caught;
+
+		caught = null;
+		try {
+			this.authenticate(sender);
+			final Chirp chirp = this.chirpService.create(recipient);
+
+			chirp.setSubject(subject);
+			chirp.setText(text);
+
+			this.chirpService.save(chirp);
+
+			this.chirpService.findAll();
+			this.unauthenticate();
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.checkExceptions(expected, caught);
+
+	}
+
+	//En este driver se comprueba que un chorbi puede responder un determinado chirp.
 
 	@Test
-	public void testFindAll() {
-		super.authenticate("chorbi1");
-		Collection<Chirp> chirps;
-		chirps = this.chirpService.findAll();
-		//Assert.isTrue(chirps.size() == 14);
-		this.unauthenticate();
+	public void driverRespuestaDeChirp() {
+		final Object testingData[][] = {
+			{
+				"chorbi1", "Envio1", "text1", 134, null
+			}, {
+				"chorbi1", "Envio4", "text4", 133, IllegalArgumentException.class
+			}, {
+				"admin", "Envio1", "text1", 134, IllegalArgumentException.class
+			}, {
+				"chorbi1", "", "text1", 134, ConstraintViolationException.class
+			}
+		};
+
+		for (int i = 0; i < testingData.length; i++)
+			this.respuestaDeChirp((String) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (int) testingData[i][3], (Class<?>) testingData[i][4]);
 	}
+
+	protected void respuestaDeChirp(final String sender, final String subject, final String text, final int chirp, final Class<?> expected) {
+		Class<?> caught;
+
+		caught = null;
+		try {
+			this.authenticate(sender);
+			final Chirp aux1 = this.chirpService.findOne(chirp);
+			final Chirp aux2 = this.chirpService.reply(aux1);
+
+			aux2.setSubject(subject);
+			aux2.setText(text);
+
+			this.chirpService.save(aux2);
+
+			this.chirpService.findAll();
+			this.unauthenticate();
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.checkExceptions(expected, caught);
+
+	}
+
+	//En este driver se comprueba que un chorbi puede reenviar un chirp.
 
 	@Test
-	public void sendChirp() {
-		super.authenticate("chorbi1");
+	public void driverReenvioDeChirpAChorbi() {
+		final Object testingData[][] = {
+			{
+				"chorbi1", "Envio1", "text1", this.chorbiService.findOne(130), 133, null
+			}, {
+				"chorbi1", "Envio2", "text2", this.chorbiService.findOne(131), 133, null
+			}, {
+				"chorbi1", "Envio4", "text4", this.chorbiService.findOne(130), 134, IllegalArgumentException.class
+			}, {
+				"admin", "Envio1", "text1", this.chorbiService.findOne(130), 133, IllegalArgumentException.class
+			}, {
+				"chorbi1", "", "text1", this.chorbiService.findOne(130), 133, ConstraintViolationException.class
+			}
+		};
 
-		Chirp chirp;
-		Chorbi recipient;
-
-		chirp = this.chirpService.create();
-		recipient = this.chorbiService.findOne(128);
-		final Collection<String> attachments = new ArrayList<String>();
-
-		chirp.setSubject("Example subject");
-		chirp.setText("Example text");
-		chirp.setAttachments(attachments);
-		chirp.setRecipient(recipient);
-
-		Assert.notNull(chirp);
-
-		chirp = this.chirpService.save(chirp);
-
-		final Collection<Chirp> all = this.chirpService.findAll();
-
-		Assert.isTrue(all.contains(chirp));
-
-		super.authenticate(null);
+		for (int i = 0; i < testingData.length; i++)
+			this.reenvioDeChirpAChorbi((String) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (Chorbi) testingData[i][3], (int) testingData[i][4], (Class<?>) testingData[i][5]);
 	}
+
+	protected void reenvioDeChirpAChorbi(final String sender, final String subject, final String text, final Chorbi recipient, final int chirp, final Class<?> expected) {
+		Class<?> caught;
+
+		caught = null;
+		try {
+			this.authenticate(sender);
+			final Chirp aux1 = this.chirpService.findOne(chirp);
+			final Chirp aux2 = this.chirpService.forward(aux1);
+
+			aux2.setSubject(subject);
+			aux2.setText(text);
+			aux2.setRecipient(recipient);
+
+			this.chirpService.save(aux2);
+
+			this.chirpService.findAll();
+			this.unauthenticate();
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.checkExceptions(expected, caught);
+
+	}
+
+	//En este primer driver se comprueba que un chorbi puede borrar un chirp suyo.
 
 	@Test
-	public void replyChirp() {
-		super.authenticate("chorbi1");
+	public void driverBorrarhirp() {
+		final Object testingData[][] = {
+			{
+				"chorbi1", 133, null
+			}, {
+				"", 133, IllegalArgumentException.class
+			}, {
+				"admin", 133, IllegalArgumentException.class
+			}, {
+				"chorbi5", 133, IllegalArgumentException.class
+			}
+		};
 
-		Chirp chirp;
-		final Chirp aux = this.chirpService.findOne(134);
-		chirp = this.chirpService.reply(aux);
-		final Collection<String> attachments = new ArrayList<String>();
-
-		chirp.setSubject("Example reply");
-		chirp.setText("Example reply");
-		chirp.setAttachments(attachments);
-
-		Assert.notNull(chirp);
-
-		chirp = this.chirpService.save(chirp);
-
-		final Collection<Chirp> all = this.chirpService.findAll();
-
-		Assert.isTrue(all.contains(chirp));
-
-		super.authenticate(null);
+		for (int i = 0; i < testingData.length; i++)
+			this.borrarChirp((String) testingData[i][0], (int) testingData[i][1], (Class<?>) testingData[i][2]);
 	}
 
-	@Test
-	public void forwardChirp() {
-		super.authenticate("chorbi1");
+	protected void borrarChirp(final String user, final int chirp, final Class<?> expected) {
+		Class<?> caught;
 
-		Chirp chirp;
-		final Chorbi recipient;
-		final Chirp aux = this.chirpService.findOne(133);
-		chirp = this.chirpService.forward(aux);
-		recipient = this.chorbiService.findOne(130);
-		final Collection<String> attachments = new ArrayList<String>();
+		caught = null;
+		try {
+			this.authenticate(user);
+			final Chirp aux = this.chirpService.findOne(chirp);
+			this.chirpService.delete(aux);
 
-		chirp.setSubject("Example forward");
-		chirp.setText("Example forward");
-		chirp.setAttachments(attachments);
-		chirp.setRecipient(recipient);
+			//this.chirpService.findAll();
+			this.unauthenticate();
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
 
-		Assert.notNull(chirp);
+		this.checkExceptions(expected, caught);
 
-		chirp = this.chirpService.save(chirp);
-
-		final Collection<Chirp> all = this.chirpService.findAll();
-
-		Assert.isTrue(all.contains(chirp));
-
-		super.authenticate(null);
-	}
-
-	@Test
-	public void deleteChirp() {
-		super.authenticate("chorbi1");
-
-		final Chirp chirp = this.chirpService.findOne(133);
-		this.chirpService.delete(chirp);
-
-		final Collection<Chirp> all = this.chirpService.findAll();
-
-		Assert.isTrue(!all.contains(chirp));
-
-		super.authenticate(null);
-	}
-
-	//Enviar un mensaje (negativo)
-
-	//Con chirp null
-	@Test(expected = IllegalArgumentException.class)
-	public void testSendChirpNegative1() {
-		super.authenticate("chorbi1");
-
-		Chirp chirp;
-
-		chirp = this.chirpService.save(null);
-		super.authenticate(null);
-	}
-
-	//Sin chorbi
-	@Test(expected = IllegalArgumentException.class)
-	public void sendChirpNegative2() {
-		//super.authenticate("chorbi1");
-
-		Chirp chirp;
-		Chorbi recipient;
-
-		chirp = this.chirpService.create();
-		recipient = this.chorbiService.findOne(128);
-		final Collection<String> attachments = new ArrayList<String>();
-
-		chirp.setSubject("Example subject");
-		chirp.setText("Example text");
-		chirp.setAttachments(attachments);
-		chirp.setRecipient(recipient);
-
-		chirp = this.chirpService.save(chirp);
-
-	}
-
-	//Con admin
-	@Test(expected = IllegalArgumentException.class)
-	public void sendChirpNegative3() {
-		super.authenticate("admin");
-
-		Chirp chirp;
-		Chorbi recipient;
-
-		chirp = this.chirpService.create();
-		recipient = this.chorbiService.findOne(128);
-		final Collection<String> attachments = new ArrayList<String>();
-
-		chirp.setSubject("Example subject");
-		chirp.setText("Example text");
-		chirp.setAttachments(attachments);
-		chirp.setRecipient(recipient);
-
-		chirp = this.chirpService.save(chirp);
-
-		super.authenticate(null);
-	}
-
-	//Responder un mensaje (negativo)
-
-	@Test(expected = IllegalArgumentException.class)
-	public void replyChirpNegative() {
-		super.authenticate("chorbi1");
-
-		Chirp chirp;
-		chirp = this.chirpService.reply(null);
-		final Collection<String> attachments = new ArrayList<String>();
-
-		chirp.setSubject("Example reply");
-		chirp.setText("Example reply");
-		chirp.setAttachments(attachments);
-
-		chirp = this.chirpService.save(chirp);
-
-		super.authenticate(null);
-	}
-
-	//Reenviar un mensaje
-
-	@Test(expected = IllegalArgumentException.class)
-	public void forwardChirpNegative() {
-		super.authenticate("chorbi1");
-
-		Chirp chirp;
-		final Chorbi recipient;
-		chirp = this.chirpService.forward(null);
-		recipient = this.chorbiService.findOne(130);
-		final Collection<String> attachments = new ArrayList<String>();
-
-		chirp.setSubject("Example forward");
-		chirp.setText("Example forward");
-		chirp.setAttachments(attachments);
-		chirp.setRecipient(recipient);
-
-		chirp = this.chirpService.save(chirp);
-		super.authenticate(null);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void deleteChirpNegative() {
-		super.authenticate("chorbi3");
-
-		final Chirp chirp = this.chirpService.findOne(133);
-		this.chirpService.delete(chirp);
-
-		super.authenticate(null);
 	}
 }
