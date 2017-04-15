@@ -1,16 +1,14 @@
 
 package services;
 
-import java.util.Collection;
-
 import javax.transaction.Transactional;
+import javax.validation.ConstraintViolationException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Banner;
@@ -30,68 +28,117 @@ public class BannerTest extends AbstractTest {
 
 	// Tests ------------------------------------------------------------------
 
+	// REQUISITOS FUNCIONALES
+	//Change the banners that are displayed on the welcome page
+
+	//En este primer driver se comprueba que podemos añadir nuevos banners
+
 	@Test
-	public void testFindById() {
-		super.authenticate("admin");
-		Banner banner;
+	public void driverAñadirBanner() {
+		final Object testingData[][] = {
+			{
+				"admin", "https://www.mozilla.org/media/img/firefox/firefox-256.e2c1fc556816.jpg", null
+			}, {
+				"admin", "firefox", ConstraintViolationException.class
+			}
+		};
 
-		banner = this.bannerService.findOne(118);
-		Assert.notNull(banner);
-
-		System.out.println("Id request: " + banner.getId() + " Picture: " + banner.getPicture());
-		System.out.println("----------------------------------------");
-		this.unauthenticate();
+		for (int i = 0; i < testingData.length; i++)
+			this.añadirBanner((String) testingData[i][0], (String) testingData[i][1], (Class<?>) testingData[i][2]);
 	}
 
-	@Test
-	public void testFindAll() {
-		super.authenticate("admin");
-		Collection<Banner> banners;
+	protected void añadirBanner(final String user, final String picture, final Class<?> expected) {
+		Class<?> caught;
 
-		banners = this.bannerService.findAll();
-		Assert.isTrue(banners.size() == 3);
+		caught = null;
+		try {
+			this.authenticate(user);
+			final Banner banner = this.bannerService.create();
+			banner.setPicture(picture);
 
-		this.unauthenticate();
-	}
-
-	@Test
-	public void testEditBanner() {
-		super.authenticate("admin");
-		Collection<Banner> banners;
-
-		banners = this.bannerService.findAll();
-		for (final Banner banner : banners) {
-			System.out.println("Id request: " + banner.getId() + " Picture antes: " + banner.getPicture());
-			banner.setPicture("http://segurosbaratos.motorgiga.com/uploads/comparador_seguros_de_coche.jpg");
 			this.bannerService.save(banner);
-			System.out.println("Id request: " + banner.getId() + " Picture después: " + banner.getPicture());
-			System.out.println("----------------------------------------");
+
+			this.bannerService.findAll();
+			this.unauthenticate();
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
 		}
 
-		Assert.isTrue(banners.size() == 3);
-		this.unauthenticate();
+		this.checkExceptions(expected, caught);
+
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testEditBannerNegative1() {
-		super.authenticate("admin");
-		Banner banner;
+	//En ester driver se comprueba que podemos eliminar un banner.
 
-		banner = this.bannerService.findOne(0);
-		banner.setPicture("http://segurosbaratos.motorgiga.com/uploads/comparador_seguros_de_coche.jpg");
-		this.bannerService.save(banner);
+	@Test
+	public void driverBorrarBanner() {
+		final Object testingData[][] = {
+			{
+				"admin", 119, null
+			}, {
+				"admin", 130, IllegalArgumentException.class
+			}
+		};
 
-		this.unauthenticate();
+		for (int i = 0; i < testingData.length; i++)
+			this.borrarBanner((String) testingData[i][0], (int) testingData[i][1], (Class<?>) testingData[i][2]);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testEditBannerNegative2() {
-		super.authenticate("admin");
-		final Banner banner = null;
+	protected void borrarBanner(final String user, final int bannerId, final Class<?> expected) {
+		Class<?> caught;
 
-		this.bannerService.save(banner);
+		caught = null;
+		try {
+			this.authenticate(user);
+			final Banner banner = this.bannerService.findOne(bannerId);
 
-		this.unauthenticate();
+			this.bannerService.delete(banner);
+
+			this.bannerService.findAll();
+			this.unauthenticate();
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.checkExceptions(expected, caught);
+
+	}
+
+	//En este driver se comprueba que podemos editar un banner.
+
+	@Test
+	public void driverEditarBanner() {
+		final Object testingData[][] = {
+			{
+				"admin", 118, "https://www.mozilla.org/media/img/firefox/firefox-256.e2c1fc556816.jpg", null
+			}, {
+				"admin", 118, "firefox", ConstraintViolationException.class
+			}
+		};
+
+		for (int i = 0; i < testingData.length; i++)
+			this.borrarBanner((String) testingData[i][0], (int) testingData[i][1], (String) testingData[i][2], (Class<?>) testingData[i][3]);
+	}
+
+	protected void borrarBanner(final String user, final int bannerId, final String picture, final Class<?> expected) {
+		Class<?> caught;
+
+		caught = null;
+		try {
+			this.authenticate(user);
+			final Banner banner = this.bannerService.findOne(bannerId);
+			banner.setPicture(picture);
+
+			this.bannerService.save(banner);
+
+			this.bannerService.findAll();
+			this.unauthenticate();
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.checkExceptions(expected, caught);
+
 	}
 
 }

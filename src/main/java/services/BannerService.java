@@ -49,11 +49,10 @@ public class BannerService {
 		return results;
 	}
 
-	public Banner create(final String picture) {
+	public Banner create() {
 		Banner result;
 
 		result = new Banner();
-		result.setPicture(picture);
 
 		return result;
 	}
@@ -79,7 +78,6 @@ public class BannerService {
 		final List<Banner> banners = (ArrayList<Banner>) this.findAll();
 		final Random randomNumber = new Random();
 		final Integer i = randomNumber.nextInt(banners.size());
-		//System.out.print(banners.get(i));
 		return banners.get(i);
 	}
 }

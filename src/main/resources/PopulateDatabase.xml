@@ -142,7 +142,7 @@
 	</bean>
 	
 	<bean id="banner3" class="domain.Banner">
-		<property name="picture" value="http://oi66.tinypic.com/ci8h3.jpg"/>
+		<property name="picture" value="https://s-media-cache-ak0.pinimg.com/originals/02/f6/21/02f6212576ebafe86058c80e94c12f3c.jpg"/>
 	</bean>
 
 	<!-- Coordinate -->

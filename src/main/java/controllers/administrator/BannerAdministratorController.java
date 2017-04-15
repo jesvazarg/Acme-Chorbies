@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.BannerService;
@@ -50,11 +51,11 @@ public class BannerAdministratorController extends AbstractController {
 	// Creation ---------------------------------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(final String picture) {
+	public ModelAndView create() {
 		ModelAndView result;
 		Banner banner;
 
-		banner = this.bannerService.create(picture);
+		banner = this.bannerService.create();
 
 		result = new ModelAndView("banner/edit");
 		result.addObject("banner", banner);
@@ -67,13 +68,13 @@ public class BannerAdministratorController extends AbstractController {
 	// Edition ----------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit() {
+	public ModelAndView edit(@RequestParam final int bannerId) {
 		ModelAndView result;
-		Collection<Banner> banners;
+		Banner banner;
 
-		banners = this.bannerService.findAll();
+		banner = this.bannerService.findOne(bannerId);
 
-		result = this.createEditModelAndView((Banner) banners.toArray()[0]);
+		result = this.createEditModelAndView(banner);
 
 		return result;
 
