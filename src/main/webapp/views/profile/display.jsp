@@ -96,6 +96,16 @@
 	<acme:column code="profile.surname" property="surname" sortable="true"/>
 	<acme:column code="profile.relationship" property="relationship" sortable="true"/>
 	<acme:column code="profile.birthDate" property="birthDate" format="{0,date,dd-MM-yyyy}" sortable="true"/>
+	<spring:message code="profile.comment" var="commentHeader" />
+	<display:column title="${commentHeader}">
+		<jstl:forEach var="sense" items="${profile.reciveSenses}">
+			<jstl:if test="${sense.sender.id == chorbi.id}">
+				<jstl:if test="${sense.comment != null}">
+					<jstl:out value="${sense.comment}"/>
+				</jstl:if>
+			</jstl:if>
+		</jstl:forEach>
+	</display:column>
 	<spring:message code="profile.profile" var="profileHeader" />
 	<display:column title="${profileHeader}">
 		<a href="profile/display.do?actorId=${chorbi.id}"><spring:message code="profile.display"/></a>

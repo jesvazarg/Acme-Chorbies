@@ -65,7 +65,7 @@ public class ProfileController extends AbstractController {
 
 		if (isAdmin == false) {
 			final Chorbi chorbi = this.chorbiService.findByUserAccount(actor.getUserAccount());
-			likeThem = this.chorbiService.filterNotBanned(this.senseService.findChorbiesSender(chorbi.getReciveSenses()));
+			likeThem = this.chorbiService.filterNotBanned(this.senseService.findChorbiesSender(chorbi.getReciveSenses()), chorbi);
 			result.addObject("description", chorbi.getDescription());
 			result.addObject("likeThem", likeThem);
 		}
@@ -90,7 +90,7 @@ public class ProfileController extends AbstractController {
 		actor = this.actorService.findOne(actorId);
 
 		final Chorbi chorbi = this.chorbiService.findByUserAccount(actor.getUserAccount());
-		likeThem = this.chorbiService.filterNotBanned(this.senseService.findChorbiesSender(chorbi.getReciveSenses()));
+		likeThem = this.chorbiService.filterNotBanned(this.senseService.findChorbiesSender(chorbi.getReciveSenses()), chorbi);
 
 		if (actor.equals(this.actorService.findByPrincipal()))
 			sameActor = true;
