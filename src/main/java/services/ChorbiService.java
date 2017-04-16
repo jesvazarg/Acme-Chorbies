@@ -95,19 +95,8 @@ public class ChorbiService {
 
 		nuevo = Calendar.getInstance().getTime();
 		nuevo.setYear(nuevo.getYear() - 18);
-
 		Assert.isTrue(chorbi.getBirthDate().before(nuevo));
-		//		if (chorbi.getCreditCard() != null) {
-		//			final CreditCard card = chorbi.getCreditCard();
-		//			final Calendar expiryDate = Calendar.getInstance();
-		//			expiryDate.set(card.getExpirationYear(), card.getExpirationMonth() - 1, 1);
-		//			final Calendar today = Calendar.getInstance();
-		//			expiryDate.add(Calendar.DAY_OF_YEAR, -1);
-		//			Assert.isTrue(expiryDate.after(today));
-		//
-		//			final String brandName = card.getBrandName().toUpperCase();
-		//			Assert.isTrue(brandName.equals("VISA") || brandName.equals("MASTERCARD") || brandName.equals("DISCOVER") || brandName.equals("DINNERS") || brandName.equals("AMEX"));
-		//		}
+
 		result = this.chorbiRepository.save(chorbi);
 		return result;
 	}
