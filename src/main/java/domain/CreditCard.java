@@ -17,7 +17,7 @@ import org.hibernate.validator.constraints.Range;
 @Entity
 @Access(AccessType.PROPERTY)
 @Table(indexes = {
-	@Index(columnList = "expirationMonth"), @Index(columnList = "expirationYear")
+	@Index(columnList = "expirationMonth, expirationYear")
 })
 public class CreditCard extends DomainEntity {
 
