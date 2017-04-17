@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Chorbi;
@@ -33,7 +34,6 @@ public class CreditCardTest extends AbstractTest {
 	// Register to the system as a chorbi. As of the time of registering, a chorbi is not re-quired to provide a credit card.
 	// 		No person under 18 is allowed to register to the system.
 	// Login to the system using his or her credentials.
-	// Change his or her profile.
 
 	//Crear una nueva tarjeta de crédito o editar la tarjeta de crédito de un chorbi ya existente
 	@Test
@@ -41,18 +41,29 @@ public class CreditCardTest extends AbstractTest {
 		final Object testingData[][] = {
 			{
 				"Pablo Escobar", "VISA", "4928756507439105", "3", "2020", "745", 127, null
+			}, {
+				"Rick Grimes", "DISCOVER", "6420559532032202", "8", "2021", "156", 128, null
+			}, {
+				"Ragnar Lothbrok", "DANKORT", "5019767397639669", "1", "2019", "688", 127, IllegalArgumentException.class
+			}, {
+				"Phil Dunphy", "MASTERCARD", "5293764977707328", "1", "2015", "688", 128, IllegalArgumentException.class
+			}, {
+				"Sheldon Cooper", "VISA", "44952880865", "1", "2015", "688", 127, IllegalArgumentException.class
 			}
 		};
 		for (int i = 0; i < testingData.length; i++)
-			this.createAndEditChorbi((String) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (String) testingData[i][3], (String) testingData[i][4], (String) testingData[i][5], (Integer) testingData[i][6],
+			this.createAndEditCreditCard((String) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (String) testingData[i][3], (String) testingData[i][4], (String) testingData[i][5], (Integer) testingData[i][6],
 				(Class<?>) testingData[i][7], "create");
 
-		//testingData[2][17] = null;
-		//		for (int i = 0; i < testingData.length; i++)
-		//			this.createAndEditChorbi((String) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (Integer) testingData[i][3], (Integer) testingData[i][4], (Integer) testingData[i][5], (Integer) testingData[i][6],
-		//				(Class<?>) testingData[i][7], "edit");
+		testingData[0][6] = 131;
+		testingData[1][6] = 132;
+		testingData[1][7] = IllegalArgumentException.class;
+		for (int i = 0; i < testingData.length; i++)
+			this.createAndEditCreditCard((String) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (String) testingData[i][3], (String) testingData[i][4], (String) testingData[i][5], (Integer) testingData[i][6],
+				(Class<?>) testingData[i][7], "edit");
 	}
-	protected void createAndEditChorbi(final String holderName, final String brandName, final String number, final String expirationMonth, final String expirationYear, final String cvv, final Integer id, final Class<?> expected, final String createOrEdit) {
+	protected void createAndEditCreditCard(final String holderName, final String brandName, final String number, final String expirationMonth, final String expirationYear, final String cvv, final Integer id, final Class<?> expected,
+		final String createOrEdit) {
 
 		Class<?> caught = null;
 		Chorbi chorbi = null;
@@ -69,6 +80,7 @@ public class CreditCardTest extends AbstractTest {
 			} else if (createOrEdit.equals("edit")) {
 				chorbi = this.chorbiService.findOne(id);
 				creditCard = chorbi.getCreditCard();
+				Assert.notNull(creditCard);
 			}
 
 			creditCard.setHolderName(holderName);
@@ -85,7 +97,6 @@ public class CreditCardTest extends AbstractTest {
 				this.chorbiService.save(chorbi);
 			}
 			this.unauthenticate();
-			//this.creditCardService.findAll();
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
 		}

@@ -69,6 +69,9 @@ public class SenseService {
 		result.setRecipient(chorbi);
 		result.setMoment(today.getTime());
 
+		for (final Sense s : chorbi.getReciveSenses())
+			Assert.isTrue(s.getSender().getId() != principal.getId());
+
 		return result;
 	}
 
