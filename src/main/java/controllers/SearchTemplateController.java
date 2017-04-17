@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ChorbiService;
-import services.CreditCardService;
 import services.SearchTemplateService;
 import domain.Chorbi;
 import domain.SearchTemplate;
@@ -36,9 +35,6 @@ public class SearchTemplateController extends AbstractController {
 
 	@Autowired
 	private ChorbiService			chorbiService;
-
-	@Autowired
-	private CreditCardService		creditCardService;
 
 
 	// Display ----------------------------------------------------------------
@@ -138,16 +134,6 @@ public class SearchTemplateController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final SearchTemplate searchTemplate, final String message) {
 		ModelAndView result;
-		//		final Chorbi chorbi = this.chorbiService.findByPrincipal();
-		//		String creditCardError = "";
-		//
-		//		try {
-		//			final CreditCard card = chorbi.getCreditCard();
-		//			if (!this.creditCardService.checkCreditCardBoolean(card))
-		//				creditCardError = "error";
-		//		} catch (final Throwable oops) {
-		//			creditCardError = "error";
-		//		}
 
 		result = new ModelAndView("searchTemplate/edit");
 		result.addObject("searchTemplate", searchTemplate);
