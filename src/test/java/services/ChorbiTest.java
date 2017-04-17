@@ -33,12 +33,13 @@ public class ChorbiTest extends AbstractTest {
 	// Tests ------------------------------------------------------------------
 	// FUNCTIONAL REQUIREMENTS
 	// Register to the system as a chorbi. As of the time of registering, a chorbi is not re-quired to provide a credit card.
-	// 		No person under 18 is allowed to register to the sys-tem.
+	// 		No person under 18 is allowed to register to the system.
 	// Login to the system using his or her credentials.
 	// Change his or her profile.
 
+	//Registrar un nuevo chorbi o editar el perfil de un chorbi
 	@Test
-	public void driverRegisterChorbi() {
+	public void driverRegisterAndEditChorbi() {
 		final Object testingData[][] = {
 			{
 				"chorbi10", "chorbi10", "chorbi10", "Pepe", "Botella", "pepe@gmail.com", "1234", "http://web.com/imagen.jpg", "soy yo", "Love", "01/01/1990", "Man", "Lepe", "España", "Andalucia", "Huelva", true, null
@@ -53,20 +54,26 @@ public class ChorbiTest extends AbstractTest {
 				"chorbi13", "chorbi13", "chrb", "Stewie", "Grifin", "stewie@gmail.com", "4567", "http://web.com/imagen.jpg", "es ella", "Friendship", "02/03/1992", "Woman", "Santander", "España", null, null, true, IllegalArgumentException.class
 			},
 			{
-				"chorbi15", "chorbi15", "chorbi15", "Paquito", "Chocolatero", "paquito.com", "6789", "http://web.com/imagen.jpg", "sois vosotros", "Friendship", "06/06/1966", "Man", "Dos Hermanas", null, "Andalucia", "Sevilla", true,
-				ConstraintViolationException.class
+				"chorbi15", "chorbi15", "chorbi15", "Paquito", "Chocolatero", "paquito.com", "6789", "http://web.com/imagen.jpg", "sois vosotros", "Friendship", "06/06/2011", "Man", "Dos Hermanas", null, "Andalucia", "Sevilla", true,
+				IllegalArgumentException.class
 			}, {
 				"chorbi14", "chorbi14", "chorbi14", "", "Simpson", "bart@gmail.com", "5678", "http://web.com/imagen.jpg", "somos nosotros", "Love", "14/02/1965", "Man", "San Fernando", null, null, "Cádiz", true, ConstraintViolationException.class
 			}
 		};
+		for (int i = 0; i < testingData.length - 1; i++)
+			this.registerAndEditChorbi((String) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (String) testingData[i][3], (String) testingData[i][4], (String) testingData[i][5], (String) testingData[i][6],
+				(String) testingData[i][7], (String) testingData[i][8], (String) testingData[i][9], (String) testingData[i][10], (String) testingData[i][11], (String) testingData[i][12], (String) testingData[i][13], (String) testingData[i][14],
+				(String) testingData[i][15], (Boolean) testingData[i][16], (Class<?>) testingData[i][17], "register");
+
+		testingData[2][17] = null;
 		for (int i = 0; i < testingData.length; i++)
-			this.registerChorbi((String) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (String) testingData[i][3], (String) testingData[i][4], (String) testingData[i][5], (String) testingData[i][6], (String) testingData[i][7],
-				(String) testingData[i][8], (String) testingData[i][9], (String) testingData[i][10], (String) testingData[i][11], (String) testingData[i][12], (String) testingData[i][13], (String) testingData[i][14], (String) testingData[i][15],
-				(Boolean) testingData[i][16], (Class<?>) testingData[i][17]);
+			this.registerAndEditChorbi((String) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (String) testingData[i][3], (String) testingData[i][4], (String) testingData[i][5], (String) testingData[i][6],
+				(String) testingData[i][7], (String) testingData[i][8], (String) testingData[i][9], (String) testingData[i][10], (String) testingData[i][11], (String) testingData[i][12], (String) testingData[i][13], (String) testingData[i][14],
+				(String) testingData[i][15], (Boolean) testingData[i][16], (Class<?>) testingData[i][17], "edit");
 	}
 
-	protected void registerChorbi(final String username, final String password, final String confirmPassword, final String name, final String surname, final String email, final String phone, final String picture, final String description,
-		final String relationship, final String birthDate, final String genre, final String city, final String country, final String state, final String province, final Boolean isAgree, final Class<?> expected) {
+	protected void registerAndEditChorbi(final String username, final String password, final String confirmPassword, final String name, final String surname, final String email, final String phone, final String picture, final String description,
+		final String relationship, final String birthDate, final String genre, final String city, final String country, final String state, final String province, final Boolean isAgree, final Class<?> expected, final String registerOrEdit) {
 
 		Class<?> caught = null;
 		Md5PasswordEncoder encoder;
@@ -76,8 +83,12 @@ public class ChorbiTest extends AbstractTest {
 		final Coordinate coordinate = new Coordinate();
 
 		try {
-			final Chorbi chorbi = this.chorbiService.create();
-			chorbi.getUserAccount().setUsername(username);
+			Chorbi chorbi = null;
+			if (registerOrEdit.equals("register")) {
+				chorbi = this.chorbiService.create();
+				chorbi.getUserAccount().setUsername(username);
+			} else if (registerOrEdit.equals("edit"))
+				chorbi = this.chorbiService.findOne(127);
 
 			Assert.isTrue(password.equals(confirmPassword));
 			encoder = new Md5PasswordEncoder();
@@ -102,7 +113,8 @@ public class ChorbiTest extends AbstractTest {
 			coordinate.setState(state);
 			coordinate.setProvince(province);
 			chorbi.setCoordinate(coordinate);
-			Assert.isTrue(isAgree);
+			if (registerOrEdit.equals("register"))
+				Assert.isTrue(isAgree);
 
 			this.chorbiService.save(chorbi);
 			this.chorbiService.findAll();
@@ -111,4 +123,5 @@ public class ChorbiTest extends AbstractTest {
 		}
 		this.checkExceptions(expected, caught);
 	}
+
 }
