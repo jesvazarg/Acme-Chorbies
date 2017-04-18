@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import utilities.AbstractTest;
 import domain.Chorbi;
+import domain.Configuration;
 
 @ContextConfiguration(locations = {
 	"classpath:spring/junit.xml"
@@ -26,6 +27,9 @@ public class AdministratorTest extends AbstractTest {
 
 	@Autowired
 	private ChorbiService			chorbiService;
+
+	@Autowired
+	private ConfigurationService	configurationService;
 
 
 	// Tests ------------------------------------------------------------------
@@ -101,6 +105,51 @@ public class AdministratorTest extends AbstractTest {
 
 			final Chorbi chorbi = this.chorbiService.findOne(idChorbi);
 			this.administratorService.desBanChorbi(chorbi);
+
+			this.unauthenticate();
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.checkExceptions(expected, caught);
+
+	}
+
+	// REQUISITOS FUNCIONALES
+	// Change the time that the results of search templates are cached. 
+	// The time must be expressed in hours, minutes, and seconds.
+
+	//En este test comprobaremos el caso de uso en el cual el administrador
+	//cambia la hora que se mantiene una busqueda del SearchTemplate en cache
+
+	@Test
+	public void driverCambiarCache() {
+		final Object testingData[][] = {
+			{
+				"admin", "12:00:00", null
+			}, {
+				"admin", "10:00:00", null
+			}, {
+				"", "", IllegalArgumentException.class
+			}, {
+				"chorbi4", "", IllegalArgumentException.class
+			}
+		};
+
+		for (int i = 0; i < testingData.length; i++)
+			this.cambiarCache((String) testingData[i][0], (String) testingData[i][1], (Class<?>) testingData[i][2]);
+	}
+
+	protected void cambiarCache(final String user, final String hora, final Class<?> expected) {
+		Class<?> caught;
+
+		caught = null;
+		try {
+			this.authenticate(user);
+
+			final Configuration configuration = this.configurationService.findConfiguration();
+			configuration.setTime(hora);
+			this.configurationService.save(configuration);
 
 			this.unauthenticate();
 		} catch (final Throwable oops) {
